@@ -13,14 +13,16 @@ class StudentsDetailsTable extends Migration
     public function up()
     {
         Schema::create('students_details', function (Blueprint $table) {
-            $table->unsignedInteger('id');
-            $table->string('photo_path');
-            $table->string('branch');
-            $table->string('year');
-            $table->string('mobile');
-            $table->string('gender');
+            $table->increments('id');
+            $table->string('photo_path')->nullable();
+            $table->string('branch')->nullable();
+            $table->string('year')->nullable();
+            $table->string('email')->nullable();
+            $table->string('mobile')->nullable();
+            $table->string('gender')->nullable();
+            $table->unsignedInteger('student_id');
             $table->timestamps();
-            $table->foreign('id')->references('id')->on('student');
+            $table->foreign('student_id')->references('id')->on('student');
         });
     }
 

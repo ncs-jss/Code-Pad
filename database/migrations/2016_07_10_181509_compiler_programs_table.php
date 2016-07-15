@@ -20,8 +20,9 @@ class CompilerProgramsTable extends Migration
             $table->text('sample_output')->nullable();
             $table->text('testcases_input');
             $table->text('testcases_output');
-            $table->string('record_id');
+            $table->unsignedInteger('record_id');
             $table->timestamps();
+            $table->foreign('record_id')->references('id')->on('compiler_record');
         });
     }
 

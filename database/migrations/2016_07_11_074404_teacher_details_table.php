@@ -14,13 +14,14 @@ class TeacherDetailsTable extends Migration
     {
         Schema::create('teachers_details', function (Blueprint $table) {
             $table->unsignedInteger('id');
-            $table->string('photo_path');
-            $table->string('department');
-            $table->string('position');
-            $table->string('mobile');
-            $table->string('gender');
+            $table->string('photo_path')->nullable();
+            $table->string('department')->nullable();
+            $table->string('position')->nullable();
+            $table->string('mobile')->nullable();
+            $table->string('gender')->nullable();
+            $table->unsignedInteger('teacher_id');
             $table->timestamps();
-            $table->foreign('id')->references('id')->on('teacher');
+            $table->foreign('teacher_id')->references('id')->on('teacher');
         });
     }
 

@@ -24,15 +24,15 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+                        <div class="form-group{{ $errors->has('admision_no') ? ' has-error' : '' }}">
+                            <label for="admision_no" class="col-md-4 control-label">Admission Number</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}">
+                                <input id="admision_no" type="text" class="form-control" name="admision_no" value="{{ old('admision_no') }}">
 
-                                @if ($errors->has('email'))
+                                @if ($errors->has('admision_no'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
+                                        <strong>{{ $errors->first('admision_no') }}</strong>
                                     </span>
                                 @endif
                             </div>

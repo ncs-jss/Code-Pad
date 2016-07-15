@@ -6,13 +6,15 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+use Redirect;
+
 class SessionController extends Controller
 {
     function login(Request $request)
     {
     	if($request->session()->has('start'))
     	{
-    		return redirect('home')->with('message','You need to log out first!');	
+    		return Redirect::to('home')->with('message','You need to log out first!');	
     	}
 
     	return view('auth.login');
@@ -22,7 +24,7 @@ class SessionController extends Controller
     {
     	if($request->session()->has('start'))
     	{
-    		return redirect('/home')->with('message','You need to log out first!');	
+    		return Redirect::to('/home')->with('message','You need to log out first!');	
     	}
 
     	return view('auth.register');

@@ -13,7 +13,7 @@ class CompilerRecordTable extends Migration
     public function up()
     {
         Schema::create('compiler_record', function (Blueprint $table) {
-            $table->increments('record_id');
+            $table->increments('id');
             $table->string('name');
             $table->string('uploaded_by');
             $table->timestamps();

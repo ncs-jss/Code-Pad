@@ -32,3 +32,5 @@ Route::get('/home',function() {
 Route::get('/logout','StudentController@logout');
 
 Route::post('/student_register','StudentController@register');
+
+Route::get('/student_details/{id}','StudentController@stu_details');
