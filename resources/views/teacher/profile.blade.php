@@ -7,50 +7,37 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Edit Profile</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('student_details/'.Session::get('start')) }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ url('teacher_details/'.Session::get('start')) }}">
                         {{ csrf_field() }}
 
-                        <div class="form-group{{ $errors->has('branch') ? ' has-error' : '' }}">
-                            <label for="branch" class="col-md-4 control-label">Branch</label>
+                        <div class="form-group{{ $errors->has('department') ? ' has-error' : '' }}">
+                            <label for="department" class="col-md-4 control-label">Department</label>
 
                             <div class="col-md-6">
-                                <input id="branch" type="text" class="form-control" name="branch" value="{{ old('branch') }}">
+                                <input id="department" type="text" class="form-control" name="department" value="{{ old('department') }}">
 
-                                @if ($errors->has('branch'))
+                                @if ($errors->has('department'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('branch') }}</strong>
+                                        <strong>{{ $errors->first('department') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('year') ? ' has-error' : '' }}">
-                            <label for="year" class="col-md-4 control-label">Year</label>
+                        <div class="form-group{{ $errors->has('position') ? ' has-error' : '' }}">
+                            <label for="position" class="col-md-4 control-label">Position</label>
 
                             <div class="col-md-6">
-                                <input id="year" type="text" class="form-control" name="year" value="{{ old('year') }}">
+                                <input id="position" type="text" class="form-control" name="position" value="{{ old('position') }}">
 
-                                @if ($errors->has('year'))
+                                @if ($errors->has('position'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('year') }}</strong>
+                                        <strong>{{ $errors->first('position') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">Email Id</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="text" class="form-control" name="email" value="{{ old('email') }}">
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
 
                         <div class="form-group{{ $errors->has('mobile') ? ' has-error' : '' }}">
                             <label for="mobile" class="col-md-4 control-label">Mobile No.</label>

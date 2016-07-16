@@ -76,4 +76,12 @@ class SessionController extends Controller
         return Redirect::to('/home');
     }
 
+    function tea_profile()
+    {
+        if(Session::get('type')=='teacher')
+            return view('teacher.profile');
+
+        return Redirect::to('/home');
+    }
+
 }

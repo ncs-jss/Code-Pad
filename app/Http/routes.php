@@ -39,6 +39,8 @@ Route::post('/teacher_login','TeacherController@login');
 
 Route::post('/teacher_register','TeacherController@register');
 
-Route::get('/teacher_details/{id}','TeacherController@tea_details');
+Route::post('/teacher_details/{id}','TeacherController@tea_details');
 
 Route::get('/std_profile','SessionController@std_profile');
+
+Route::get('/tea_profile','SessionController@tea_profile');

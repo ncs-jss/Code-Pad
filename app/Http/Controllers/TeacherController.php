@@ -89,6 +89,10 @@ class TeacherController extends Controller
 
     function tea_details(Request $request,$id)
     {
+        $tea_details=array('department'=>'','position'=>'','mobile'=>'','gender'=>'');
+
+        
+
         if($request->session()->has('start'))
         {
             $value=$request->session()->get('start');
@@ -99,9 +103,20 @@ class TeacherController extends Controller
                 // return $result;
                 if($result!='[]')
                 {
-                    $result->department="Computer Science";
-                    $result->position=2;
-                    // $result->mobile=;
+
+                    $tea_details['department']=Input::get('department');
+                    $tea_details['position']=Input::get('position');
+                    $tea_details['mobile']=Input::get('mobile');
+                    $tea_details['gender']=Input::get('gender');
+
+                    if($tea_details['department'])
+                        $result->department=$tea_details['department'];
+                    if($tea_details['position'])
+                        $result->position=$tea_details['position'];
+                    if($tea_details['mobile'])
+                        $result->mobile=$tea_details['mobile'];
+                    if($tea_details['gender'])
+                        $result->gender=$tea_details['gender'];
                     $result->save();
 
                     return Redirect::to('home');
@@ -112,7 +127,7 @@ class TeacherController extends Controller
 
         }
 
-        return Redirect::to('/tlogin')->with('message','Login to update profile');
+        return Redirect::to('tlogin')->with('message','Login to update profile');
     }
 
 
