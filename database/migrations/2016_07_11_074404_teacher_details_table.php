@@ -13,7 +13,7 @@ class TeacherDetailsTable extends Migration
     public function up()
     {
         Schema::create('teachers_details', function (Blueprint $table) {
-            $table->unsignedInteger('id');
+            $table->increments('id');
             $table->string('photo_path')->nullable();
             $table->string('department')->nullable();
             $table->string('position')->nullable();

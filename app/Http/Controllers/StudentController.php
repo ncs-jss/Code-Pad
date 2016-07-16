@@ -20,6 +20,13 @@ class StudentController extends Controller
 {
     function login(Request $request)
     {
+
+        $this->validate($request,[
+            'admision_no' => 'required|max:255|',
+            'password' => 'required|',
+        ]);
+
+
         // return student::find(1)->id;
         $slogin=array(
             'admision_no'=>Input::get('admision_no'),
@@ -33,6 +40,7 @@ class StudentController extends Controller
             }
 
     		$request->session()->put('start',$id);
+            $request->session()->put('type','student');
 
     		return Redirect::to('home');
     	}
@@ -43,7 +51,12 @@ class StudentController extends Controller
 
     function register(Request $request)
     {
-        
+
+        $this->validate($request,[
+            'name' => 'required|max:255',
+            'admision_no' => 'required|max:255|unique:student',
+            'password' => 'required|min:6|confirmed',
+        ]);
 
     	$sregister=array('name'=> Input::get('name'), 
             'admision_no'=>Input::get('admision_no'),
@@ -65,6 +78,8 @@ class StudentController extends Controller
             $st_details->save();
 
             $request->session()->put('start',$id);
+            $request->session()->put('type','student');
+
             return Redirect::to('home');
         }
 
@@ -85,15 +100,12 @@ class StudentController extends Controller
     }
 
 
-    function logout(Request $request)
-    {
-    	$request->session()->forget('start');
-    	return Redirect::to('/');
-    }
-
-
     function stu_details(Request $request,$id)
     {
+        $stu_details=array('branch'=>'','year'=>'','email'=>'','mobile'=>'','gender'=>'');
+
+        
+
         if($request->session()->has('start'))
         {
             $value=$request->session()->get('start');
@@ -104,9 +116,23 @@ class StudentController extends Controller
                 // return $result;
                 if($result!='[]')
                 {
-                    $result->branch="Computer Science";
-                    $result->year=2;
-                    // $result->mobile=;
+
+                    $stu_details['branch']=Input::get('branch');
+                    $stu_details['year']=Input::get('year');
+                    $stu_details['email']=Input::get('email');
+                    $stu_details['mobile']=Input::get('mobile');
+                    $stu_details['gender']=Input::get('gender');
+
+                    if($stu_details['branch'])
+                        $result->branch=$stu_details['branch'];
+                    if($stu_details['year'])
+                        $result->year=$stu_details['year'];
+                    if($stu_details['email'])
+                        $result->email=$stu_details['email'];
+                    if($stu_details['mobile'])
+                        $result->mobile=$stu_details['mobile'];
+                    if($stu_details['gender'])
+                        $result->gender=$stu_details['gender'];
                     $result->save();
 
                     return Redirect::to('home');
@@ -120,12 +146,4 @@ class StudentController extends Controller
         return Redirect::to('login')->with('message','Login to update profile');
     }
 
-    function check(Request $request)
-    {
-        $this->validate($request,[
-            'name' => 'required|max:255',
-            'admision_no' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6|confirmed',
-        ]);
-    }
 }

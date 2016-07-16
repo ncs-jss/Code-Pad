@@ -1,3 +1,17 @@
+<?php
+use App\student;
+use App\teacher;
+
+if(Session::get('type')=='student')
+{
+    $result=student::find(Session::get('start'));
+}
+elseif (Session::get('type')=='teacher') {
+    $result=teacher::find(Session::get('start'));
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -54,18 +68,41 @@
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
                     @if (!Session::get('start'))
-                        <li><a href="{{ url('/login') }}">Login</a></li>
-                        <li><a href="{{ url('/register') }}">Register</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                Login<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="{{ url('/login') }}">Student Login</a></li>
+                            <li><a href="{{ url('/tlogin') }}">Teacher Login</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                Register<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="{{ url('/register') }}">Student Register</a></li>
+                            <li><a href="{{ url('/tregister') }}">Teacher Register</a></li>
+                        </ul>
+                    </li>
                     @else
+                        @if (Session::get('type')=='student')
+                            <li><a href="{{ url('/std_profile') }}">Edit Profile</a>
+                        @else
+                            <li><a href="{{ url('/tea_profile') }}">Edit Profile</a>
+                        @endif
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                {{ Session::get('start') }} <span class="caret"></span>
+                                {{ $result->name }} <span class="caret"></span>
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
                             </ul>
                         </li>
+
                     @endif
                 </ul>
             </div>

@@ -1,0 +1,119 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+use App\Http\Requests;
+
+use App\teacher;
+
+use App\teacher_details;
+
+use Validator;
+use DB;
+use Redirect;
+
+use Illuminate\Support\Facades\Input;
+
+
+class TeacherController extends Controller
+{
+    function login(Request $request)
+    {
+
+        $this->validate($request,[
+            'email' => 'required|email|max:255|',
+            'password' => 'required|',
+        ]);
+
+
+        $tlogin=array(
+            'email'=>Input::get('email'),
+            'password'=>md5(Input::get('password')));
+
+        $result=teacher::where('email',$tlogin["email"])->where('password',$tlogin['password'])->get();
+    	if($result!='[]')
+    	{
+            foreach ($result as $row) {
+                $id=$row->id;
+            }
+
+    		$request->session()->put('start',$id);
+    		$request->session()->put('type','teacher');
+
+    		return Redirect::to('home');
+    	}
+
+    	return Redirect::to('tlogin')->with('message','Invalid Credentials!');	
+
+    }
+
+    function register(Request $request)
+    {
+
+        $this->validate($request,[
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:teacher',
+            'password' => 'required|min:6|confirmed',
+        ]);
+
+    	$tregister=array('name'=> Input::get('name'), 
+            'email'=>Input::get('email'),
+    		'password'=> md5(Input::get('password')));
+
+        $tea=new teacher;
+        $tea->name = $tregister['name'];
+        $tea->email = $tregister['email'];
+        $tea->password = $tregister['password'];
+        if($tea->save())
+        {
+            $result=teacher::where('email',$tregister['email'])->get();
+            foreach ($result as $row) {
+                $id=$row->id;
+            }
+
+            $tea_details= new teacher_details;
+            $tea_details->teacher_id = $id;
+            $tea_details->save();
+
+            $request->session()->put('start',$id);
+            $request->session()->put('type','teacher');
+            
+            return Redirect::to('home');
+        }
+
+    	return Redirect::to('tregister')->with('message','Invalid Credentials!');	
+    }
+
+
+    function tea_details(Request $request,$id)
+    {
+        if($request->session()->has('start'))
+        {
+            $value=$request->session()->get('start');
+            if($value==$id)
+            {
+                $result=teacher_details::where('teacher_id',$id)->first();
+                // $result=student_details::find(1);
+                // return $result;
+                if($result!='[]')
+                {
+                    $result->department="Computer Science";
+                    $result->position=2;
+                    // $result->mobile=;
+                    $result->save();
+
+                    return Redirect::to('home');
+                }
+            }
+
+            return Redirect::to('home')->with('message','Invalid User');
+
+        }
+
+        return Redirect::to('/tlogin')->with('message','Login to update profile');
+    }
+
+
+}

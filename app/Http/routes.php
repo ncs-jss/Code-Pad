@@ -15,22 +15,30 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::auth();
-
 Route::get('/reset', 'HomeController@index');
 
 Route::get('/login','SessionController@login');
 
-Route::get('/register','SessionController@signup');
+Route::get('/register','SessionController@register');
 
 Route::post('/student_login','StudentController@login');
 
-Route::get('/home',function() {
-	return view('home');
-});
+Route::get('/home','SessionController@home');
 
-Route::get('/logout','StudentController@logout');
+Route::get('/logout','SessionController@logout');
 
 Route::post('/student_register','StudentController@register');
 
-Route::get('/student_details/{id}','StudentController@stu_details');
+Route::post('/student_details/{id}','StudentController@stu_details');
+
+Route::get('/tlogin','SessionController@tlogin');
+
+Route::get('/tregister','SessionController@tregister');
+
+Route::post('/teacher_login','TeacherController@login');
+
+Route::post('/teacher_register','TeacherController@register');
+
+Route::get('/teacher_details/{id}','TeacherController@tea_details');
+
+Route::get('/std_profile','SessionController@std_profile');
