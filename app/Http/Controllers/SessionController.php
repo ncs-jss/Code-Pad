@@ -16,7 +16,7 @@ class SessionController extends Controller
     {
     	if($request->session()->has('start'))
     	{
-    		return Redirect::to('home')->with('message','You need to log out first!');	
+    		return Redirect::back()->with('message','You need to log out first!');	
     	}
 
     	return view('student.login');
@@ -26,7 +26,7 @@ class SessionController extends Controller
     {
     	if($request->session()->has('start'))
     	{
-    		return Redirect::to('/home')->with('message','You need to log out first!');	
+    		return Redirect::back()->with('message','You need to log out first!');	
     	}
 
     	return view('student.register');
@@ -45,7 +45,7 @@ class SessionController extends Controller
     {
         if($request->session()->has('start'))
         {
-            return Redirect::to('/home')->with('message','You need to log out first!');  
+            return Redirect::back()->with('message','You need to log out first!');  
         }
 
         return view('teacher.login');
@@ -55,7 +55,7 @@ class SessionController extends Controller
     {
         if($request->session()->has('start'))
         {
-            return Redirect::to('/home')->with('message','You need to log out first!'); 
+            return Redirect::back()->with('message','You need to log out first!'); 
         }
 
         return view('teacher.register');

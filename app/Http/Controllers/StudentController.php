@@ -14,12 +14,14 @@ use Redirect;
 
 use App\student;
 use App\student_details;
-
+use Illuminate\Support\MessageBag;
 
 class StudentController extends Controller
 {
     function login(Request $request)
     {
+
+        // $errors = new MessageBag;
 
         $this->validate($request,[
             'admision_no' => 'required|max:255|',
@@ -32,20 +34,25 @@ class StudentController extends Controller
             'admision_no'=>Input::get('admision_no'),
             'password'=>md5(Input::get('password')));
 
-        $result=student::where('admision_no',$slogin["admision_no"])->where('password',$slogin['password'])->get();
-    	if($result!='[]')
+        $result=student::where('admision_no',$slogin["admision_no"])->first();
+        // return $result;
+    	if($result)
     	{
-            foreach ($result as $row) {
-                $id=$row->id;
+            if($result->password==$slogin['password'])
+            {
+
+        		$request->session()->put('start',$result->id);
+                $request->session()->put('type','student');
+
+    		    return Redirect::to('home');
             }
 
-    		$request->session()->put('start',$id);
-            $request->session()->put('type','student');
-
-    		return Redirect::to('home');
+            $errors=new MessageBag(['password' => ['Invalid Password']]);
+            return Redirect::back()->withErrors($errors);   
     	}
 
-    	return Redirect::to('login')->with('message','Invalid Credentials!');	
+        $errors = new MessageBag(['admision_no' => ['Admission Number invalid.']]); 
+    	return Redirect::back()->withErrors($errors);	
 
     }
 
