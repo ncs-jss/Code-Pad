@@ -116,6 +116,7 @@ class StudentController extends Controller
             'mobile' => '|max:10|min:10',
         ]);
 
+        $request->flash();
 
         if($request->session()->has('start'))
         {
@@ -146,7 +147,7 @@ class StudentController extends Controller
                         $result->gender=$stu_details['gender'];
                     $result->save();
 
-                    return Redirect::back()->with('message','Profile is updated!!');
+                    return Redirect::back()->withInput()->with('message','Profile is updated!!');
                 }
             }
 

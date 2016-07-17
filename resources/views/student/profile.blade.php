@@ -75,8 +75,8 @@
                             <label for="gender" class="col-md-4 control-label">Gender</label>
                             <div class="col-md-6">
 
-                                <label class="radio-inline"><input type="radio" name="gender" value="Male">Male</label>
-                                <label class="radio-inline"><input type="radio" name="gender" value="Female">Female</label>
+                                <label class="radio-inline"><input type="radio" name="gender" value="Male" {{ (old('gender')=='Male') ? 'checked' :''}} >Male</label>
+                                <label class="radio-inline"><input type="radio" name="gender" value="Female" {{ (old('gender')=='Female') ? 'checked' :''}} >Female</label>
                                 @if ($errors->has('gender'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('gender') }}</strong>

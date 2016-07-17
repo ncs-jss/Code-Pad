@@ -106,6 +106,8 @@ class TeacherController extends Controller
 
         if($request->session()->has('start'))
         {
+            $request->flash();
+
             $value=$request->session()->get('start');
             if($value==$id)
             {
@@ -130,7 +132,8 @@ class TeacherController extends Controller
                         $result->gender=$tea_details['gender'];
                     $result->save();
 
-                    return Redirect::back()->with('message','Profile is updated!!');
+
+                    return Redirect::back()->withInput()->with('message','Profile is updated!!');
                 }
             }
 
