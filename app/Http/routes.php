@@ -48,3 +48,7 @@ Route::get('/tea_profile','SessionController@tea_profile');
 Route::get('/program', 'SessionController@program');
 
 Route::post('/record','ProgramController@record');
+
+Route::get('/program_input','SessionController@program_input');
+
+Route::post('/program_details','ProgramController@program_details');
