@@ -44,3 +44,7 @@ Route::post('/teacher_details/{id}','TeacherController@tea_details');
 Route::get('/std_profile','SessionController@std_profile');
 
 Route::get('/tea_profile','SessionController@tea_profile');
+
+Route::get('/program', 'SessionController@program');
+
+Route::post('/record','ProgramController@record');

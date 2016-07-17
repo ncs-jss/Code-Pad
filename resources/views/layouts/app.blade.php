@@ -89,9 +89,10 @@ elseif (Session::get('type')=='teacher') {
                     </li>
                     @else
                         @if (Session::get('type')=='student')
-                            <li><a href="{{ url('/std_profile') }}">Edit Profile</a>
+                            <li><a href="{{ url('/std_profile') }}">Edit Profile</a></li>
                         @else
-                            <li><a href="{{ url('/tea_profile') }}">Edit Profile</a>
+                            <li><a href="{{ url('/program') }}">Upload Programs</a></li>
+                            <li><a href="{{ url('/tea_profile') }}">Edit Profile</a></li>
                         @endif
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">

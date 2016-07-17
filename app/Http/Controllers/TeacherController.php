@@ -91,7 +91,7 @@ class TeacherController extends Controller
             return Redirect::to('home');
         }
 
-    	return Redirect::to('tregister')->with('message','Invalid Credentials!');	
+    	return Redirect::back();	
     }
 
 
@@ -99,6 +99,9 @@ class TeacherController extends Controller
     {
         $tea_details=array('department'=>'','position'=>'','mobile'=>'','gender'=>'');
 
+        $this->validate($request,[
+            'mobile' => '|max:10|min:10',
+        ]);
         
 
         if($request->session()->has('start'))
@@ -127,7 +130,7 @@ class TeacherController extends Controller
                         $result->gender=$tea_details['gender'];
                     $result->save();
 
-                    return Redirect::to('home');
+                    return Redirect::back()->with('message','Profile is updated!!');
                 }
             }
 

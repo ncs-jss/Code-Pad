@@ -10,6 +10,11 @@
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('student_details/'.Session::get('start')) }}">
                         {{ csrf_field() }}
 
+                        <div class="row">
+                            <div class="col-md-6 col-md-offset-5" style="color:#429842;">{{Session::get('message')}}</div>
+                        </div>
+                        <br>
+
                         <div class="form-group{{ $errors->has('branch') ? ' has-error' : '' }}">
                             <label for="branch" class="col-md-4 control-label">Branch</label>
 

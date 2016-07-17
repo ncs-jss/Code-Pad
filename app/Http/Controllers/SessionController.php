@@ -84,4 +84,14 @@ class SessionController extends Controller
         return Redirect::to('/home');
     }
 
+    function program()
+    {
+        if(Session::get('type')=='teacher')
+        {
+            return view('program.record');
+        }
+
+        return Redirect::back();
+    }
+
 }
