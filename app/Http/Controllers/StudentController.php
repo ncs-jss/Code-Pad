@@ -103,7 +103,7 @@ class StudentController extends Controller
      //        $request->session()->put('start',$result);
     	// 	return Redirect::to('home');
     	// }
-    	return Redirect::back();	
+    	return Redirect::to('register')->with('message','Invalid Credentials!');	
     }
 
 
@@ -111,12 +111,7 @@ class StudentController extends Controller
     {
         $stu_details=array('branch'=>'','year'=>'','email'=>'','mobile'=>'','gender'=>'');
 
-        $this->validate($request,[
-            'email' => 'email|max:255',
-            'mobile' => '|max:10|min:10',
-        ]);
-
-        $request->flash();
+        
 
         if($request->session()->has('start'))
         {
@@ -147,7 +142,7 @@ class StudentController extends Controller
                         $result->gender=$stu_details['gender'];
                     $result->save();
 
-                    return Redirect::back()->withInput()->with('message','Profile is updated!!');
+                    return Redirect::to('home');
                 }
             }
 

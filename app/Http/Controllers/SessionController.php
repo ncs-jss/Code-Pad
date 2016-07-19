@@ -65,7 +65,6 @@ class SessionController extends Controller
     {
         $request->session()->forget('start');
         $request->session()->forget('type');
-        $request->session()->forget('record_id');
         return Redirect::to('/');
     }
 
@@ -83,26 +82,6 @@ class SessionController extends Controller
             return view('teacher.profile');
 
         return Redirect::to('/home');
-    }
-
-    function program()
-    {
-        if(Session::get('type')=='teacher')
-        {
-            return view('program.record');
-        }
-
-        return Redirect::back();
-    }
-
-    function program_input()
-    {
-        if(Session::get('type')=='teacher' and Session::get('record_id'))
-        {
-            return view('program.input');
-        }
-
-        return Redirect::back();
     }
 
 }

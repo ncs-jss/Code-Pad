@@ -10,11 +10,6 @@
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('teacher_details/'.Session::get('start')) }}">
                         {{ csrf_field() }}
 
-                        <div class="row">
-                            <div class="col-md-6 col-md-offset-5" style="color:#429842;">{{Session::get('message')}}</div>
-                        </div>
-                        <br>
-
                         <div class="form-group{{ $errors->has('department') ? ' has-error' : '' }}">
                             <label for="department" class="col-md-4 control-label">Department</label>
 
@@ -29,8 +24,7 @@
                             </div>
                         </div>
 
-
-                        <div class="form-group{{ $errors->has('position') ? 'has-error' : '' }}">
+                        <div class="form-group{{ $errors->has('position') ? ' has-error' : '' }}">
                             <label for="position" class="col-md-4 control-label">Position</label>
 
                             <div class="col-md-6">
@@ -63,8 +57,8 @@
                             <label for="gender" class="col-md-4 control-label">Gender</label>
                             <div class="col-md-6">
 
-                                <label class="radio-inline"><input type="radio" name="gender" value="Male" {{ (old('gender')=='Male') ? 'checked' :''}} >Male</label>
-                                <label class="radio-inline"><input type="radio" name="gender" value="Female" {{ (old('gender')=='Female') ? 'checked' :''}} >Female</label>
+                                <label class="radio-inline"><input type="radio" name="gender" value="Male">Male</label>
+                                <label class="radio-inline"><input type="radio" name="gender" value="Female">Female</label>
                                 @if ($errors->has('gender'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('gender') }}</strong>
@@ -86,5 +80,4 @@
             </div>
         </div>
     </div>
-</div>
 @endsection

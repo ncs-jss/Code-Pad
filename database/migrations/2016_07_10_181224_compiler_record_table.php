@@ -15,7 +15,6 @@ class CompilerRecordTable extends Migration
         Schema::create('compiler_record', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('code');
             $table->string('uploaded_by');
             $table->timestamps();
         });
