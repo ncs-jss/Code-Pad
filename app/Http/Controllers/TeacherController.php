@@ -15,6 +15,7 @@ use DB;
 use Redirect;
 
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\MessageBag;
 
 
 class TeacherController extends Controller
@@ -32,22 +33,29 @@ class TeacherController extends Controller
             'email'=>Input::get('email'),
             'password'=>md5(Input::get('password')));
 
-        $result=teacher::where('email',$tlogin["email"])->where('password',$tlogin['password'])->get();
-    	if($result!='[]')
+        $result=teacher::where('email',$tlogin["email"])->first();
+    	if($result)
     	{
-            foreach ($result as $row) {
-                $id=$row->id;
+            if($result->password==$tlogin['password'])
+            {
+                $request->session()->put('start',$result->id);
+                $request->session()->put('type','teacher');
+
+                return Redirect::to('home');
             }
 
-    		$request->session()->put('start',$id);
-    		$request->session()->put('type','teacher');
+            $errors = new MessageBag(['password'=>['Invalid Password']]);
 
-    		return Redirect::to('home');
+            return Redirect::back()->withErrors($errors);  
+    		
     	}
 
-    	return Redirect::to('tlogin')->with('message','Invalid Credentials!');	
+    	$errors = new MessageBag(['email'=>['Invalid Email Id']]);
 
+        return Redirect::back()->withErrors($errors); 	
     }
+
+
 
     function register(Request $request)
     {
@@ -83,7 +91,7 @@ class TeacherController extends Controller
             return Redirect::to('home');
         }
 
-    	return Redirect::to('tregister')->with('message','Invalid Credentials!');	
+    	return Redirect::back();	
     }
 
 
@@ -91,10 +99,15 @@ class TeacherController extends Controller
     {
         $tea_details=array('department'=>'','position'=>'','mobile'=>'','gender'=>'');
 
+        $this->validate($request,[
+            'mobile' => '|max:10|min:10',
+        ]);
         
 
         if($request->session()->has('start'))
         {
+            $request->flash();
+
             $value=$request->session()->get('start');
             if($value==$id)
             {
@@ -119,7 +132,8 @@ class TeacherController extends Controller
                         $result->gender=$tea_details['gender'];
                     $result->save();
 
-                    return Redirect::to('home');
+
+                    return Redirect::back()->withInput()->with('message','Profile is updated!!');
                 }
             }
 

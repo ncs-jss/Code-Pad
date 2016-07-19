@@ -10,6 +10,11 @@
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('student_details/'.Session::get('start')) }}">
                         {{ csrf_field() }}
 
+                        <div class="row">
+                            <div class="col-md-6 col-md-offset-5" style="color:#429842;">{{Session::get('message')}}</div>
+                        </div>
+                        <br>
+
                         <div class="form-group{{ $errors->has('branch') ? ' has-error' : '' }}">
                             <label for="branch" class="col-md-4 control-label">Branch</label>
 
@@ -42,7 +47,7 @@
                             <label for="email" class="col-md-4 control-label">Email Id</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="text" class="form-control" name="email" value="{{ old('email') }}">
+                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}">
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">
@@ -70,8 +75,8 @@
                             <label for="gender" class="col-md-4 control-label">Gender</label>
                             <div class="col-md-6">
 
-                                <label class="radio-inline"><input type="radio" name="gender" value="Male">Male</label>
-                                <label class="radio-inline"><input type="radio" name="gender" value="Female">Female</label>
+                                <label class="radio-inline"><input type="radio" name="gender" value="Male" {{ (old('gender')=='Male') ? 'checked' :''}} >Male</label>
+                                <label class="radio-inline"><input type="radio" name="gender" value="Female" {{ (old('gender')=='Female') ? 'checked' :''}} >Female</label>
                                 @if ($errors->has('gender'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('gender') }}</strong>
@@ -93,4 +98,5 @@
             </div>
         </div>
     </div>
+</div>
 @endsection
