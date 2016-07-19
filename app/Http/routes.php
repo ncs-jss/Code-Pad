@@ -52,3 +52,7 @@ Route::post('/record','ProgramController@record');
 Route::get('/program_input','SessionController@program_input');
 
 Route::post('/program_details','ProgramController@program_details');
+
+Route::get('/error',function(){ 
+	return view('errors.503');
+});

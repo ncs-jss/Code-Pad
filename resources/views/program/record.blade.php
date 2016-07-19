@@ -89,4 +89,5 @@ elseif (Session::get('type')=='teacher') {
             </div>
         </div>
     </div>
+</div>
 @endsection
