@@ -10,6 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+use Illuminate\Support\Facades\Input;
 
 Route::get('/', function () {
     return view('welcome');
@@ -56,3 +57,10 @@ Route::post('/program_details','ProgramController@program_details');
 Route::get('/error',function(){ 
 	return view('errors.503');
 });
+
+Route::get('/check', function() {
+	return view('program.program');
+});
+
+
+Route::post('/check','ProgramController@snippet');

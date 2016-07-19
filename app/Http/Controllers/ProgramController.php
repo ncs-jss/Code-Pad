@@ -75,4 +75,11 @@ class ProgramController extends Controller
 
         return Redirect::back()->with('message','Program failed to upload');
     }
+
+    function snippet()
+    {
+        $snippet=Input::get('program');
+        Session::put('snippet',$snippet);
+        return View('program.program');
+    }
 }
