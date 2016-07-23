@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Input;
 class ProgramController extends Controller
 {
     
-    function record(Request $request)
+    public function record(Request $request)
     {
     	$this->validate($request,[
             'name' => 'required|max:255|',
@@ -43,7 +43,7 @@ class ProgramController extends Controller
         return Redirect::back()->with('message','Record is failed');
     }
 
-    function program_details(Request $request)
+    public function program_details(Request $request)
     {
         $this->validate($request,[
             'program_name' => 'required|max:255|',
@@ -76,7 +76,7 @@ class ProgramController extends Controller
         return Redirect::back()->with('message','Program failed to upload');
     }
 
-    function snippet()
+    public function snippet()
     {
         $snippet=Input::get('program');
         Session::put('snippet',$snippet);
