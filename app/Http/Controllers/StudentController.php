@@ -18,7 +18,7 @@ use Illuminate\Support\MessageBag;
 
 class StudentController extends Controller
 {
-    function login(Request $request)
+    public function login(Request $request)
     {
 
         // $errors = new MessageBag;
@@ -56,7 +56,7 @@ class StudentController extends Controller
 
     }
 
-    function register(Request $request)
+    public function register(Request $request)
     {
 
         $this->validate($request,[
@@ -107,7 +107,7 @@ class StudentController extends Controller
     }
 
 
-    function stu_details(Request $request,$id)
+    public function stu_details(Request $request,$id)
     {
         $stu_details=array('branch'=>'','year'=>'','email'=>'','mobile'=>'','gender'=>'');
 
