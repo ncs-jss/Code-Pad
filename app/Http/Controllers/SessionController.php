@@ -12,7 +12,7 @@ use Session;
 
 class SessionController extends Controller
 {
-    function login(Request $request)
+    public function login(Request $request)
     {
     	if($request->session()->has('start'))
     	{
@@ -22,7 +22,7 @@ class SessionController extends Controller
     	return view('student.login');
     }
 
-    function register(Request $request)
+    public function register(Request $request)
     {
     	if($request->session()->has('start'))
     	{
@@ -32,7 +32,7 @@ class SessionController extends Controller
     	return view('student.register');
     }
 
-    function home(Request $request)
+    public function home(Request $request)
     {
         if($request->session()->has('start'))
         {
@@ -41,7 +41,7 @@ class SessionController extends Controller
         return Redirect::to('/login')->with('message','You need to login first');
     }
 
-    function tlogin(Request $request)
+    public function tlogin(Request $request)
     {
         if($request->session()->has('start'))
         {
@@ -51,7 +51,7 @@ class SessionController extends Controller
         return view('teacher.login');
     }
 
-    function tregister(Request $request)
+    public function tregister(Request $request)
     {
         if($request->session()->has('start'))
         {
@@ -61,7 +61,7 @@ class SessionController extends Controller
         return view('teacher.register');
     }
 
-    function logout(Request $request)
+    public function logout(Request $request)
     {
         $request->session()->forget('start');
         $request->session()->forget('type');
@@ -69,7 +69,7 @@ class SessionController extends Controller
         return Redirect::to('/');
     }
 
-    function std_profile()
+    public function std_profile()
     {
         if(Session::get('type')=='student')
             return view('student.profile');
@@ -77,7 +77,7 @@ class SessionController extends Controller
         return Redirect::to('/home');
     }
 
-    function tea_profile()
+    public function tea_profile()
     {
         if(Session::get('type')=='teacher')
             return view('teacher.profile');
@@ -85,7 +85,7 @@ class SessionController extends Controller
         return Redirect::to('/home');
     }
 
-    function program()
+    public function program()
     {
         if(Session::get('type')=='teacher')
         {
@@ -95,7 +95,7 @@ class SessionController extends Controller
         return Redirect::back();
     }
 
-    function program_input()
+    public function program_input()
     {
         if(Session::get('type')=='teacher' and Session::get('record_id'))
         {
