@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App/teacher;
+use App/student;
 
 class DatabaseSeeder extends Seeder
 {
@@ -11,6 +13,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+    	$student = new student;
+    	$student->name = "Student";
+    	$student->email = "student@jssaten.com";
+    	$student->password = Hash::make('helloworld');
+    	$student->save;
+
+    	$teacher = new teacher;
+    	$teacher->name = "Teacher";
+    	$teacher->email = "teacher@jssaten.com";
+    	$teacher->password = Hash::make('helloworld');
+    	$teacher->save;
+
         // $this->call(UsersTableSeeder::class);
     }
 }
