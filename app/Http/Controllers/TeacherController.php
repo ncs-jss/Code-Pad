@@ -20,7 +20,7 @@ use Illuminate\Support\MessageBag;
 
 class TeacherController extends Controller
 {
-    function login(Request $request)
+    public function login(Request $request)
     {
 
         $this->validate($request,[
@@ -57,7 +57,7 @@ class TeacherController extends Controller
 
 
 
-    function register(Request $request)
+    public function register(Request $request)
     {
 
         $this->validate($request,[
@@ -95,7 +95,7 @@ class TeacherController extends Controller
     }
 
 
-    function tea_details(Request $request,$id)
+    public function tea_details(Request $request,$id)
     {
         $tea_details=array('department'=>'','position'=>'','mobile'=>'','gender'=>'');
 
