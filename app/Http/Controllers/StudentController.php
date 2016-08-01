@@ -12,8 +12,8 @@ use Illuminate\Support\Facades\Input;
 
 use Redirect;
 
-use App\student;
-use App\student_details;
+use App\Student;
+use App\Student_Details;
 use Illuminate\Support\MessageBag;
 
 class StudentController extends Controller
@@ -34,7 +34,7 @@ class StudentController extends Controller
             'admision_no'=>Input::get('admision_no'),
             'password'=>md5(Input::get('password')));
 
-        $result=student::where('admision_no',$slogin["admision_no"])->first();
+        $result=Student::where('admision_no',$slogin["admision_no"])->first();
         // return $result;
     	if($result)
     	{
@@ -69,20 +69,20 @@ class StudentController extends Controller
             'admision_no'=>Input::get('admision_no'),
     		'password'=> md5(Input::get('password')));
 
-        $stu=new student;
-        $stu->name = $sregister['name'];
-        $stu->admision_no = $sregister['admision_no'];
-        $stu->password = $sregister['password'];
-        if($stu->save())
+        $student = new Student;
+        $student->name = $sregister['name'];
+        $student->admision_no = $sregister['admision_no'];
+        $student->password = $sregister['password'];
+        if($student->save())
         {
-            $result=student::where('admision_no',$sregister['admision_no'])->get();
+            $result=Student::where('admision_no',$sregister['admision_no'])->get();
             foreach ($result as $row) {
                 $id=$row->id;
             }
 
-            $st_details= new student_details;
-            $st_details->student_id = $id;
-            $st_details->save();
+            $student_details= new Student_details;
+            $student_details->student_id = $id;
+            $student_details->save();
 
             $request->session()->put('start',$id);
             $request->session()->put('type','student');
@@ -109,7 +109,7 @@ class StudentController extends Controller
 
     public function stu_details(Request $request,$id)
     {
-        $stu_details=array('branch'=>'','year'=>'','email'=>'','mobile'=>'','gender'=>'');
+        $student_details=array('branch'=>'','year'=>'','email'=>'','mobile'=>'','gender'=>'');
 
         $this->validate($request,[
             'email' => 'email|max:255',
@@ -123,28 +123,28 @@ class StudentController extends Controller
             $value=$request->session()->get('start');
             if($value==$id)
             {
-                $result=student_details::where('student_id',$id)->first();
+                $result=Student_Details::where('student_id',$id)->first();
                 // $result=student_details::find(1);
                 // return $result;
                 if($result!='[]')
                 {
 
-                    $stu_details['branch']=Input::get('branch');
-                    $stu_details['year']=Input::get('year');
-                    $stu_details['email']=Input::get('email');
-                    $stu_details['mobile']=Input::get('mobile');
-                    $stu_details['gender']=Input::get('gender');
+                    $student_details['branch']=Input::get('branch');
+                    $student_details['year']=Input::get('year');
+                    $student_details['email']=Input::get('email');
+                    $student_details['mobile']=Input::get('mobile');
+                    $student_details['gender']=Input::get('gender');
 
-                    if($stu_details['branch'])
-                        $result->branch=$stu_details['branch'];
-                    if($stu_details['year'])
-                        $result->year=$stu_details['year'];
-                    if($stu_details['email'])
-                        $result->email=$stu_details['email'];
-                    if($stu_details['mobile'])
-                        $result->mobile=$stu_details['mobile'];
-                    if($stu_details['gender'])
-                        $result->gender=$stu_details['gender'];
+                    if($student_details['branch'])
+                        $result->branch=$student_details['branch'];
+                    if($student_details['year'])
+                        $result->year=$student_details['year'];
+                    if($student_details['email'])
+                        $result->email=$student_details['email'];
+                    if($student_details['mobile'])
+                        $result->mobile=$student_details['mobile'];
+                    if($student_details['gender'])
+                        $result->gender=$student_details['gender'];
                     $result->save();
 
                     return Redirect::back()->withInput()->with('message','Profile is updated!!');
