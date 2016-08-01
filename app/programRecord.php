@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class programRecord extends Model
+class ProgramRecord extends Model
 {
     protected $table='compiler_record';
 }
