@@ -11,6 +11,7 @@
 |
 */
 
+//GET routes added
 
 Route::get('/', function () {
     return view('welcome');
@@ -45,6 +46,8 @@ Route::get('/error',function(){
 Route::get('/check', function() {
 	return view('program.program');
 });
+
+// POST routes added
 
 Route::post('/student_login','StudentController@login');
 
