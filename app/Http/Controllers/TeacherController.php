@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-use App\teacher;
+use App\Teacher;
 
-use App\teacher_details;
+use App\Teacher_Details;
 
 use Validator;
 use DB;
@@ -33,7 +33,7 @@ class TeacherController extends Controller
             'email'=>Input::get('email'),
             'password'=>md5(Input::get('password')));
 
-        $result=teacher::where('email',$tlogin["email"])->first();
+        $result=Teacher::where('email',$tlogin["email"])->first();
     	if($result)
     	{
             if($result->password==$tlogin['password'])
@@ -70,20 +70,20 @@ class TeacherController extends Controller
             'email'=>Input::get('email'),
     		'password'=> md5(Input::get('password')));
 
-        $tea=new teacher;
-        $tea->name = $tregister['name'];
-        $tea->email = $tregister['email'];
-        $tea->password = $tregister['password'];
-        if($tea->save())
+        $teacher = new Teacher;
+        $teacher->name = $tregister['name'];
+        $teacher->email = $tregister['email'];
+        $teacher->password = $tregister['password'];
+        if($teacher->save())
         {
-            $result=teacher::where('email',$tregister['email'])->get();
+            $result=Teacher::where('email',$tregister['email'])->get();
             foreach ($result as $row) {
                 $id=$row->id;
             }
 
-            $tea_details= new teacher_details;
-            $tea_details->teacher_id = $id;
-            $tea_details->save();
+            $teacher_details= new teacher_details;
+            $teacher_details->teacher_id = $id;
+            $teacher_details->save();
 
             $request->session()->put('start',$id);
             $request->session()->put('type','teacher');
@@ -111,25 +111,25 @@ class TeacherController extends Controller
             $value=$request->session()->get('start');
             if($value==$id)
             {
-                $result=teacher_details::where('teacher_id',$id)->first();
+                $result=Teacher_Details::where('teacher_id',$id)->first();
                 // $result=student_details::find(1);
                 // return $result;
                 if($result!='[]')
                 {
 
-                    $tea_details['department']=Input::get('department');
-                    $tea_details['position']=Input::get('position');
-                    $tea_details['mobile']=Input::get('mobile');
-                    $tea_details['gender']=Input::get('gender');
+                    $teacher_details['department']=Input::get('department');
+                    $teacher_details['position']=Input::get('position');
+                    $teacher_details['mobile']=Input::get('mobile');
+                    $teacher_details['gender']=Input::get('gender');
 
-                    if($tea_details['department'])
-                        $result->department=$tea_details['department'];
-                    if($tea_details['position'])
-                        $result->position=$tea_details['position'];
-                    if($tea_details['mobile'])
-                        $result->mobile=$tea_details['mobile'];
-                    if($tea_details['gender'])
-                        $result->gender=$tea_details['gender'];
+                    if($teacher_details['department'])
+                        $result->department=$teacher_details['department'];
+                    if($teacher_details['position'])
+                        $result->position=$teacher_details['position'];
+                    if($teacher_details['mobile'])
+                        $result->mobile=$teacher_details['mobile'];
+                    if($teacher_details['gender'])
+                        $result->gender=$teacher_details['gender'];
                     $result->save();
 
 
