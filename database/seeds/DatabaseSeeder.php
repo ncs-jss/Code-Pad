@@ -13,13 +13,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-    	$student = new student;
+    	$student = new Student;
     	$student->name = "Student";
     	$student->email = "student@jssaten.com";
     	$student->password = Hash::make('helloworld');
     	$student->save;
 
-    	$teacher = new teacher;
+    	$teacher = new Teacher;
     	$teacher->name = "Teacher";
     	$teacher->email = "teacher@jssaten.com";
     	$teacher->password = Hash::make('helloworld');
