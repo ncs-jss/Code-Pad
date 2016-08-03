@@ -1,8 +1,10 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App/teacher;
-use App/student;
+use App\teacher;
+use App\student;
+use App\student_details;
+use App\teacher_details;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,15 +17,35 @@ class DatabaseSeeder extends Seeder
     {
     	$student = new Student;
     	$student->name = "Student";
-    	$student->email = "student@jssaten.com";
+    	$student->admision_no = "15cse075";
     	$student->password = Hash::make('helloworld');
-    	$student->save;
+    	if($student->save())
+        {
+            $result=Student::where('admision_no','15cse075')->get();
+            foreach ($result as $row) {
+                $id=$row->id;
+            }
+
+            $student_details= new Student_details;
+            $student_details->student_id = $id;
+            $student_details->save();
+        }
 
     	$teacher = new Teacher;
     	$teacher->name = "Teacher";
     	$teacher->email = "teacher@jssaten.com";
     	$teacher->password = Hash::make('helloworld');
-    	$teacher->save;
+    	if($teacher->save())
+        {
+            $result=Teacher::where('email','teacher@jssaten.com')->get();
+            foreach ($result as $row) {
+                $id=$row->id;
+            }
+
+            $teacher_details= new Teacher_Details;
+            $teacher_details->teacher_id = $id;
+            $teacher_details->save();
+        }
 
         // $this->call(UsersTableSeeder::class);
     }

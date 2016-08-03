@@ -13,7 +13,7 @@ use App\Teacher_Details;
 use Validator;
 use DB;
 use Redirect;
-
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\MessageBag;
 
@@ -31,12 +31,12 @@ class TeacherController extends Controller
 
         $tlogin=array(
             'email'=>Input::get('email'),
-            'password'=>md5(Input::get('password')));
+            'password'=>Input::get('password'));
 
         $result=Teacher::where('email',$tlogin["email"])->first();
     	if($result)
     	{
-            if($result->password==$tlogin['password'])
+            if(Hash::check($tlogin['password'], $result->password))
             {
                 $request->session()->put('start',$result->id);
                 $request->session()->put('type','teacher');
@@ -68,7 +68,7 @@ class TeacherController extends Controller
 
     	$tregister=array('name'=> Input::get('name'), 
             'email'=>Input::get('email'),
-    		'password'=> md5(Input::get('password')));
+    		'password'=> Hash::make(Input::get('password')));
 
         $teacher = new Teacher;
         $teacher->name = $tregister['name'];
@@ -81,7 +81,7 @@ class TeacherController extends Controller
                 $id=$row->id;
             }
 
-            $teacher_details= new teacher_details;
+            $teacher_details= new Teacher_Details;
             $teacher_details->teacher_id = $id;
             $teacher_details->save();
 

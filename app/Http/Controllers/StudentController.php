@@ -9,6 +9,8 @@ use App\Http\Requests;
 use DB;
 use Validator;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Hash;
+
 
 use Redirect;
 
@@ -32,13 +34,13 @@ class StudentController extends Controller
         // return student::find(1)->id;
         $slogin=array(
             'admision_no'=>Input::get('admision_no'),
-            'password'=>md5(Input::get('password')));
+            'password'=>Input::get('password'));
 
         $result=Student::where('admision_no',$slogin["admision_no"])->first();
         // return $result;
     	if($result)
     	{
-            if($result->password==$slogin['password'])
+            if(Hash::check($slogin['password'], $result->password))
             {
 
         		$request->session()->put('start',$result->id);
@@ -67,7 +69,7 @@ class StudentController extends Controller
 
     	$sregister=array('name'=> Input::get('name'), 
             'admision_no'=>Input::get('admision_no'),
-    		'password'=> md5(Input::get('password')));
+    		'password'=> Hash::make(Input::get('password')));
 
         $student = new Student;
         $student->name = $sregister['name'];
