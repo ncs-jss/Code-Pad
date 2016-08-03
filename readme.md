@@ -6,10 +6,10 @@ Teachers organise events for the students. This improves the skills set of stude
 
 ###Requirements :
 
-..* PHP > 5.6
-..* MySQL
-..* Composer
-..* Laravel > 5.2
+1- PHP > 5.6 
+2- MySQL 
+3- Composer 
+4- Laravel > 5.2 
 
 ###Installation :
 
