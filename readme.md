@@ -30,6 +30,7 @@ Seed the database
 php artisan db:seed
 ```
 
+For Login
 ```
 For Student login:
 Admission No. : 15cse075
