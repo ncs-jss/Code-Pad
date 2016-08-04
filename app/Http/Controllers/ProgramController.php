@@ -29,18 +29,46 @@ class ProgramController extends Controller
 
         // return $record;
 
-        $rec = new programRecord;
+        $rec = new ProgramRecord;
         $rec->name=$record['name'];
         $rec->code=$record['code'];
         $rec->uploaded_by=$record['uploaded_by'];
         if($rec->save())
         {
-        	$result=programRecord::where('code',$record['code'])->first();
+        	$result=ProgramRecord::where('code',$record['code'])->first();
         	Session::put('record_id',$result->id);
         	return Redirect::to('program_input')->with('message','Record is successfully saved');
         }
 
         return Redirect::back()->with('message','Record is failed');
+    }
+
+    public function update_data(Request $request)
+    {
+        $this->validate($request,[
+            'name' => 'required|max:255|',
+            'code' => 'required|max:20|',
+            'uploaded_by'=>'required'
+        ]);
+
+        $update=array('name'=>Input::get('name'),
+            'code'=>Input::get('code'),
+            'uploaded_by'=>Input::get('uploaded_by'));
+
+        // return $record;
+
+        $result=ProgramRecord::where('code',$update['code'])->first();
+        if($result)
+        {
+            if($result['uploaded_by']==$update['uploaded_by'])
+            {
+                Session::put('record_id',$result->id);
+                return view('program.update');
+            }
+            return Redirect::back()->with('error','You are not authorized to update this event');
+        }
+        
+        return Redirect::back()->with('error','Incorrect Program Code');
     }
 
     public function program_details(Request $request)
@@ -60,7 +88,7 @@ class ProgramController extends Controller
             'testcases_output'=>Input::get('testcases_output')
         );
 
-        $prg= new program_details;
+        $prg= new Program_Details;
         $prg->program_name = $pg['program_name'];
         $prg->program_statement = $pg['program_statement'];
         $prg->sample_input = $pg['sample_input'];

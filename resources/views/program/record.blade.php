@@ -22,11 +22,13 @@ elseif (Session::get('type')=='teacher') {
             <div class="panel panel-default">
                 <div class="panel-heading">Program Record</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/record') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="">
                         {{ csrf_field() }}
 
                         <div class="row">
-                            <div class="col-md-6 col-md-offset-5" style="color:#429842;">{{Session::get('message')}}</div>
+                            <div class="col-md-6 col-md-offset-4" style="color:#429842;">{{Session::get('message')}}</div>
+                            <div class="col-md-6 col-md-offset-4" style="color:#d9534f;">{{Session::get('error')}}</div>
+
                         </div>
                         <br>
 
@@ -73,14 +75,16 @@ elseif (Session::get('type')=='teacher') {
                                 @endif
                             </div>
                         </div>
+                        <br>
 
                         
 
                         <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-btn fa-user"></i> Done
-                                </button>
+                            <div class="col-md-6 col-md-offset-5">
+                               <div class="btn-group">
+                                    <button type="button" name="new" onclick="sub()" class="btn btn-primary">New</button>
+                                    <button type="button" name="update" onclick="upd()" class="btn btn-info">Update</button>
+                                </div>
                             </div>
                         </div>
 
@@ -90,4 +94,23 @@ elseif (Session::get('type')=='teacher') {
         </div>
     </div>
 </div>
+@endsection
+
+@section('script')
+
+<script type="text/javascript">
+function sub()
+{
+    document.querySelector("form").action="{{ url('/record') }}";
+    document.querySelector("form").submit();
+}
+
+function upd()
+{
+    document.querySelector("form").action="{{ url('/update') }}";
+    document.querySelector("form").submit();
+}
+
+</script>
+
 @endsection

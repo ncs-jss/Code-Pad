@@ -47,6 +47,8 @@ Route::get('/check', function() {
 	return view('program.program');
 });
 
+
+
 // POST routes added
 
 Route::post('/student_login','StudentController@login');
@@ -66,3 +68,5 @@ Route::post('/record','ProgramController@record');
 Route::post('/program_details','ProgramController@program_details');
 
 Route::post('/check','ProgramController@snippet');
+
+Route::post('/update', 'ProgramController@update_data');
