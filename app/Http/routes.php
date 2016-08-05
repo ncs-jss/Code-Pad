@@ -74,3 +74,11 @@ Route::post('/check','ProgramController@snippet');
 Route::post('/update', 'ProgramController@update_data');
 
 Route::post('/programUpdate','ProgramController@ProgramUpdateDone');
+
+
+
+
+
+Route::get('demo_view', function () {
+    return view('dashboard');
+});
