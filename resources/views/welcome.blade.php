@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
     <!-- Css animations  -->
-    <link href="{{!! assest('frontend/css/animate.css') !!}" rel="stylesheet">
+    <link href="{{!! asset('frontend/css/animate.css') !!}" rel="stylesheet">
 
     <!-- Theme stylesheet, if possible do not edit this stylesheet -->
     <link href="css/style.default.css" rel="stylesheet" id="theme-stylesheet">
@@ -36,7 +36,7 @@
     <!-- Favicon and apple touch icons-->
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
     <link rel="apple-touch-icon" href="img/apple-touch-icon.png" />
-    <link rel="apple-touch-icon" sizes="57x57" href="{{ URL::asset('img/apple-touch-icon-57x57.png') }}" />
+    <link rel="apple-touch-icon" sizes="57x57" href="{{ URL::asset('frontend/img/apple-touch-icon-57x57.png') }}" />
     <link rel="apple-touch-icon" sizes="72x72" href="{{ URL::asset('img/apple-touch-icon-72x72.png') }}" />
     <link rel="apple-touch-icon" sizes="76x76" href="{{ URL::asset('img/apple-touch-icon-76x76.png') }}" />
     <link rel="apple-touch-icon" sizes="114x114" href="{{ URL::asset('img/apple-touch-icon-114x114.png') }}" />
@@ -55,8 +55,7 @@
 
         <header>
 
-            <!-- *** NAVBAR ***
-    _________________________________________________________ -->
+            <!-- *** NAVBAR *** -->
 
             <div class="navbar-affixed-top" data-spy="affix" data-offset-top="200">
 
@@ -66,8 +65,8 @@
                         <div class="navbar-header">
 
                             <a class="navbar-brand home" href="index.html">
-                                <img src="img/logo.png" alt="Universal logo" class="hidden-xs hidden-sm">
-                                <img src="{!! asset('../frontend/img/logo-small.png') !!}" alt="Universal logo" class="visible-xs visible-sm"><span class="sr-only">Universal - go to homepage</span>
+                                <img src="{!! asset('/frontend/img/logo.png') !!}" alt="Universal logo" class="hidden-xs hidden-sm">
+                                <img src="{!! asset('/frontend/img/logo-small.png') !!}" alt="Universal logo" class="visible-xs visible-sm"><span class="sr-only">Universal - go to homepage</span>
                             </a>
                             <div class="navbar-buttons">
                                 <button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse" data-target="#navigation">
