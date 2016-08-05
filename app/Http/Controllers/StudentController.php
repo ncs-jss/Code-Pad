@@ -49,12 +49,12 @@ class StudentController extends Controller
     		    return Redirect::to('home');
             }
 
-            $errors=new MessageBag(['password' => ['Invalid Password']]);
-            return Redirect::back()->withErrors($errors);   
+            $errors=new MessageBag(['password' => ['Password Invalid']]);
+            return Redirect::back()->withErrors($errors)->with('message',"Invalid Credentials");
     	}
 
-        $errors = new MessageBag(['admision_no' => ['Admission Number invalid.']]); 
-    	return Redirect::back()->withErrors($errors);	
+        $errors = new MessageBag(['admision_no' => ['Admission Number Invalid.']]); 
+    	return Redirect::back()->withErrors($errors)->with('message',"Invalid Credentials");
 
     }
 

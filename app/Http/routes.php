@@ -14,7 +14,7 @@
 //GET routes added
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('dashboard');
 });
 
 Route::get('/reset', 'HomeController@index');
@@ -74,11 +74,3 @@ Route::post('/check','ProgramController@snippet');
 Route::post('/update', 'ProgramController@update_data');
 
 Route::post('/programUpdate','ProgramController@ProgramUpdateDone');
-
-
-
-
-
-Route::get('demo_view', function () {
-    return view('dashboard');
-});
