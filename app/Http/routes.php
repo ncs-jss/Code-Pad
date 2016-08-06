@@ -47,6 +47,8 @@ Route::get('/check', function() {
 	return view('program.program');
 });
 
+Route::get('/update/{id}','ProgramController@updateProgram');
+
 
 
 // POST routes added
@@ -70,3 +72,5 @@ Route::post('/program_details','ProgramController@program_details');
 Route::post('/check','ProgramController@snippet');
 
 Route::post('/update', 'ProgramController@update_data');
+
+Route::post('/programUpdate','ProgramController@ProgramUpdateDone');
