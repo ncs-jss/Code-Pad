@@ -115,13 +115,18 @@ class ProgramController extends Controller
     public function updateProgram($id)
     {
         $result=Program_Details::find($id);
+        if(Session::get('type')=='teacher' and Session::get('record_id')==$result['record_id'])
+        {
+
         // echo $result;
         // var_dump(json_decode($result));
         // $result=json_decode($result);
         // var_dump($result);
         // Session::put(old('program_name'),$result->program_name);
         // $result=array_merge($result,['id'=>$id]);
-        return View('program.updateProgram')->with('data',$result);
+            return View('program.updateProgram')->with('data',$result);
+        }
+        return View("errors.503");
     }
 
     public function ProgramUpdateDone()
