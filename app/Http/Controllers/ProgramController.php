@@ -20,11 +20,9 @@ class ProgramController extends Controller
      * Create a session for event(record_id)
      * return to program_input if successfully saved else return back
      */
-
     public function record(Request $request)
     {
         // Validation
-
     	$this->validate($request,[
             'name' => 'required|max:255|',
             'code' => 'required|max:20|unique:compiler_record',
@@ -32,13 +30,11 @@ class ProgramController extends Controller
         ]);
 
         // Get input
-
         $record=array('name'=>Input::get('name'),
         	'code'=>Input::get('code'),
         	'uploaded_by'=>Input::get('uploaded_by'));
 
         // Save to database
-
         $rec = new ProgramRecord;
         $rec->name=$record['name'];
         $rec->code=$record['code'];
@@ -58,25 +54,32 @@ class ProgramController extends Controller
         return Redirect::back()->with('message','Record is failed');
     }
 
+    /**
+     * function update_data for updating the existing event and saving it in database
+     * Create a session for event(record_id)
+     * return to program.update page if authorized else return back
+     */
     public function update_data(Request $request)
     {
+        // Validation
         $this->validate($request,[
             'name' => 'required|max:255|',
             'code' => 'required|max:20|',
             'uploaded_by'=>'required'
         ]);
 
+        // Get input
         $update=array('name'=>Input::get('name'),
             'code'=>Input::get('code'),
             'uploaded_by'=>Input::get('uploaded_by'));
 
-        // return $record;
-
+        // Update in a database
         $result=ProgramRecord::where('code',$update['code'])->first();
         if($result)
         {
             if($result['uploaded_by']==$update['uploaded_by'])
             {
+                //Session create record_id
                 Session::put('record_id',$result->id);
                 return view('program.update');
             }
@@ -86,8 +89,14 @@ class ProgramController extends Controller
         return Redirect::back()->with('error','Incorrect Program Code');
     }
 
+
+    /**
+     * function program_details for creating programs for the event and saving it to database
+     * return back if successfully saved for adding more programs to event else return back for removing errors
+     */
     public function program_details(Request $request)
     {
+        // Validation
         $this->validate($request,[
             'program_name' => 'required|max:255|',
             'program_statement' => 'required|',
@@ -95,6 +104,7 @@ class ProgramController extends Controller
             'testcases_output' => 'required'
         ]);
 
+        // Get Input
         $pg=array('program_name'=>Input::get('program_name'),
             'program_statement'=>Input::get('program_statement'),
             'sample_input'=>Input::get('sample_input'),
@@ -103,6 +113,7 @@ class ProgramController extends Controller
             'testcases_output'=>Input::get('testcases_output')
         );
 
+        // Save to DB
         $prg= new Program_Details;
         $prg->program_name = $pg['program_name'];
         $prg->program_statement = $pg['program_statement'];
@@ -119,6 +130,9 @@ class ProgramController extends Controller
         return Redirect::back()->with('message','Program failed to upload');
     }
 
+    /**
+     * function snippet for 
+     */
     public function snippet()
     {
         $snippet=Input::get('program');
@@ -126,26 +140,30 @@ class ProgramController extends Controller
         return View('program.program');
     }
 
+    /**
+     * function updateProgram for updating programs for the event and saving it to database
+     * return to program.updateProgram else return to error not found page
+     */
     public function updateProgram($id)
     {
         $result=Program_Details::find($id);
         if(Session::get('type')=='teacher' and Session::get('record_id')==$result['record_id'])
         {
-
-        // echo $result;
-        // var_dump(json_decode($result));
-        // $result=json_decode($result);
-        // var_dump($result);
-        // Session::put(old('program_name'),$result->program_name);
-        // $result=array_merge($result,['id'=>$id]);
             return View('program.updateProgram')->with('data',$result);
         }
         return View("errors.503");
     }
 
+    /**
+     * function programUpdateDone for saving programs for the event
+     * return to program.update else return back with error
+     */
     public function ProgramUpdateDone()
     {
+        //Get Input
         $result=Input::all();
+
+        //Update data in DB
         $prg= Program_Details::find($result['id']);
         $prg->program_name = $result['program_name'];
         $prg->program_statement = $result['program_statement'];
