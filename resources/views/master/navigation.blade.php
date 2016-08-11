@@ -8,7 +8,7 @@
                     <div class="container">
                         <div class="navbar-header">
 
-                            <a class="navbar-brand home" href="index.html">
+                            <a class="navbar-brand home" href="">
                                 <img src="{{URL::asset('public/assets/img/logo.png')}}" alt="Universal logo" class="hidden-xs hidden-sm">
                                 <img src="{{URL::asset('public/assets/img/logo-small.png')}}" alt="Universal logo" class="visible-xs visible-sm"><span class="sr-only">Universal - go to homepage</span>
                             </a>
