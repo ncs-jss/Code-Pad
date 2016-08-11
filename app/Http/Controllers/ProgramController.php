@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Storage;
 use App\Http\Requests;
 use Session;
 use Redirect;
@@ -15,20 +15,29 @@ use Illuminate\Support\Facades\Input;
 
 class ProgramController extends Controller
 {
-    
+    /**
+     * function record for creating new event and saving it in database
+     * Create a session for event(record_id)
+     * return to program_input if successfully saved else return back
+     */
+
     public function record(Request $request)
     {
+        // Validation
+
     	$this->validate($request,[
             'name' => 'required|max:255|',
             'code' => 'required|max:20|unique:compiler_record',
             'uploaded_by'=>'required'
         ]);
 
+        // Get input
+
         $record=array('name'=>Input::get('name'),
         	'code'=>Input::get('code'),
         	'uploaded_by'=>Input::get('uploaded_by'));
 
-        // return $record;
+        // Save to database
 
         $rec = new ProgramRecord;
         $rec->name=$record['name'];
@@ -37,7 +46,12 @@ class ProgramController extends Controller
         if($rec->save())
         {
         	$result=ProgramRecord::where('code',$record['code'])->first();
-        	Session::put('record_id',$result->id);
+
+            // Session create
+        	Session::put('record_id',$result->id);              
+
+            // Create a new file for that particular event with its unique code
+            Storage::put('record/'.$record['code'].'.pdf','');
         	return Redirect::to('program_input')->with('message','Record is successfully saved');
         }
 
@@ -151,4 +165,9 @@ class ProgramController extends Controller
         }
 
     }
+
+    // public function writeFile()
+    // {
+    //     Storage::append('record/HELL.pdf',"Ankit1");
+    // }
 }
