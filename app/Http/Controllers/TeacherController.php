@@ -20,19 +20,27 @@ use Illuminate\Support\MessageBag;
 
 class TeacherController extends Controller
 {
+
+    /**
+     * function login for login the teacher
+     Create his active session(start and type)
+     return to home else return back with errors
+     */
     public function login(Request $request)
     {
 
+        //Validation
         $this->validate($request,[
             'email' => 'required|email|max:255|',
             'password' => 'required|',
         ]);
 
-
+        //Get Input
         $tlogin=array(
             'email'=>Input::get('email'),
             'password'=>Input::get('password'));
 
+        //Check in the DB
         $result=Teacher::where('email',$tlogin["email"])->first();
     	if($result)
     	{
@@ -56,20 +64,27 @@ class TeacherController extends Controller
     }
 
 
-
+    /**
+     * function register for register the Teacher
+     Create his active session(start and type)
+     return to home else return back with errors
+     */
     public function register(Request $request)
     {
 
+        //Validation
         $this->validate($request,[
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:teacher',
             'password' => 'required|min:6|confirmed',
         ]);
 
+        //Get Input
     	$tregister=array('name'=> Input::get('name'), 
             'email'=>Input::get('email'),
     		'password'=> Hash::make(Input::get('password')));
 
+        //Save to DB
         $teacher = new Teacher;
         $teacher->name = $tregister['name'];
         $teacher->email = $tregister['email'];
@@ -95,15 +110,19 @@ class TeacherController extends Controller
     }
 
 
+    /**
+     * function tea_details to edit the teacher's profile
+     */
     public function tea_details(Request $request,$id)
     {
         $tea_details=array('department'=>'','position'=>'','mobile'=>'','gender'=>'');
 
+        //Validation
         $this->validate($request,[
             'mobile' => '|max:10|min:10',
         ]);
         
-
+        //Save in the DB
         if($request->session()->has('start'))
         {
             $request->flash();

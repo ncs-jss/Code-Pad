@@ -20,24 +20,28 @@ use Illuminate\Support\MessageBag;
 
 class StudentController extends Controller
 {
+
+    /**
+     * function login for login the Student
+     Create his active session(start and type)
+     return to home else return back with errors
+     */
     public function login(Request $request)
     {
 
-        // $errors = new MessageBag;
-
+        //Validation
         $this->validate($request,[
             'admision_no' => 'required|max:255|',
             'password' => 'required|',
         ]);
 
-
-        // return student::find(1)->id;
+        //Get Input
         $slogin=array(
             'admision_no'=>Input::get('admision_no'),
             'password'=>Input::get('password'));
 
+        //Check in the DB
         $result=Student::where('admision_no',$slogin["admision_no"])->first();
-        // return $result;
     	if($result)
     	{
             if(Hash::check($slogin['password'], $result->password))
@@ -58,19 +62,27 @@ class StudentController extends Controller
 
     }
 
+    /**
+     * function register for register the Student
+     Create his active session(start and type)
+     return to home else return back with errors
+     */
     public function register(Request $request)
     {
 
+        //Validation
         $this->validate($request,[
             'name' => 'required|max:255',
             'admision_no' => 'required|max:255|unique:student',
             'password' => 'required|min:6|confirmed',
         ]);
 
+        //Get Input
     	$sregister=array('name'=> Input::get('name'), 
             'admision_no'=>Input::get('admision_no'),
     		'password'=> Hash::make(Input::get('password')));
 
+        //Save in the DB
         $student = new Student;
         $student->name = $sregister['name'];
         $student->admision_no = $sregister['admision_no'];
@@ -109,10 +121,14 @@ class StudentController extends Controller
     }
 
 
+    /**
+     * function stu_details to edit the Student's profile
+     */
     public function stu_details(Request $request,$id)
     {
         $student_details=array('branch'=>'','year'=>'','email'=>'','mobile'=>'','gender'=>'');
 
+        //Validation
         $this->validate($request,[
             'email' => 'email|max:255',
             'mobile' => '|max:10|min:10',
@@ -120,6 +136,7 @@ class StudentController extends Controller
 
         $request->flash();
 
+        //Save in the DB
         if($request->session()->has('start'))
         {
             $value=$request->session()->get('start');
