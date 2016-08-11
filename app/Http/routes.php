@@ -51,6 +51,16 @@ Route::get('/update/{id}','ProgramController@updateProgram');	// Update the prog
 
 // Route::get('/write','ProgramController@writeFile');
 
+Route::get('/back',function() {
+	return Redirect::to('/');
+});
+
+Route::get('/{id}',function() {
+	return view('errors.503');
+});
+
+
+
 
 
 // POST routes added

@@ -41,6 +41,7 @@
         <div class="container">
             <div class="content">
                 <div class="title">Page Not Found!! Error!!</div>
+                <h2><a style="color:red;text-decoration:none;" href="back">Back to Home Page</a></h2>
             </div>
         </div>
     </body>
