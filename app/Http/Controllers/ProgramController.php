@@ -184,8 +184,8 @@ class ProgramController extends Controller
 
     }
 
-    // public function writeFile()
-    // {
-    //     Storage::append('record/HELL.pdf',"Ankit1");
-    // }
+    public function writeFile()
+    {
+        Storage::append('record/PHPH.txt',"Ankit1");
+    }
 }

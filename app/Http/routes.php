@@ -49,7 +49,7 @@ Route::get('/check', function() {		// For writing programs
 
 Route::get('/update/{id}','ProgramController@updateProgram');	// Update the program
 
-// Route::get('/write','ProgramController@writeFile');
+Route::get('/write','ProgramController@writeFile');
 
 Route::get('/back',function() {
 	return Redirect::to('/');

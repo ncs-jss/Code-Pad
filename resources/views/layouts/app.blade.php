@@ -1,6 +1,7 @@
 <?php
 use App\student;
 use App\teacher;
+use App\programRecord;
 
 if(Session::get('type')=='student')
 {
@@ -8,6 +9,7 @@ if(Session::get('type')=='student')
 }
 elseif (Session::get('type')=='teacher') {
     $result=teacher::find(Session::get('start'));
+    $programList=programRecord::where('uploaded_by',$result->name)->get();
 }
 
 ?>

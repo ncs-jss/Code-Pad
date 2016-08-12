@@ -1,3 +1,11 @@
+<?php
+use App\programRecord;
+use App\teacher;
+if(Session::get('type')=='teacher'):
+    $result=teacher::find(Session::get('start'));
+    $programList=programRecord::where('uploaded_by',$result->name)->get();
+endif
+?>
 @extends('layouts.app')
 
 @section('content')
@@ -8,7 +16,13 @@
                 <div class="panel-heading">Dashboard</div>
 
                 <div class="panel-body">
-                    You are logged in!
+                    You are logged in!<br>
+                    <?php
+                    if(Session::get('type')=='teacher'):
+                        foreach($programList as $flight)
+                            echo '<a href=storage\app\record\PHPH.txt download=PHPH>'.$flight->name.'</a><br>';
+                    endif
+                    ?>
                 </div>
             </div>
         </div>
