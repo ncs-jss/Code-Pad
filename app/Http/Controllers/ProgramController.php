@@ -9,9 +9,11 @@ use Session;
 use Redirect;
 use App\programRecord;
 use App\program_details;
+use App\Teacher;
 use Validator;
 use View;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\MessageBag;
 
 class ProgramController extends Controller
 {
@@ -44,7 +46,7 @@ class ProgramController extends Controller
         	$result=ProgramRecord::where('code',$record['code'])->first();
 
             // Session create
-        	Session::put('record_id',$result->id);              
+        	Session::put('record_id',$result->id);
 
             // Create a new file for that particular event with its unique code
             Storage::put('record/'.$record['code'].'.pdf','');
@@ -59,25 +61,15 @@ class ProgramController extends Controller
      * Create a session for event(record_id)
      * return to program.update page if authorized else return back
      */
-    public function update_data(Request $request)
+    public function update_data($code)
     {
-        // Validation
-        $this->validate($request,[
-            'name' => 'required|max:255|',
-            'code' => 'required|max:20|',
-            'uploaded_by'=>'required'
-        ]);
-
-        // Get input
-        $update=array('name'=>Input::get('name'),
-            'code'=>Input::get('code'),
-            'uploaded_by'=>Input::get('uploaded_by'));
 
         // Update in a database
-        $result=ProgramRecord::where('code',$update['code'])->first();
+        $result=ProgramRecord::where('code',$code)->first();
         if($result)
         {
-            if($result['uploaded_by']==$update['uploaded_by'])
+            $teacher=Teacher::find(Session::get('start'));
+            if($result['uploaded_by']==$teacher->name)
             {
                 //Session create record_id
                 Session::put('record_id',$result->id);
@@ -85,7 +77,7 @@ class ProgramController extends Controller
             }
             return Redirect::back()->with('error','You are not authorized to update this event');
         }
-        
+
         return Redirect::back()->with('error','Incorrect Program Code');
     }
 
@@ -131,7 +123,7 @@ class ProgramController extends Controller
     }
 
     /**
-     * function snippet for 
+     * function snippet for
      */
     public function snippet()
     {
@@ -144,7 +136,7 @@ class ProgramController extends Controller
      * function updateProgram for updating programs for the event and saving it to database
      * return to program.updateProgram else return to error not found page
      */
-    public function updateProgram($id)
+    public function updateProgram($code,$id)
     {
         $result=Program_Details::find($id);
         if(Session::get('type')=='teacher' and Session::get('record_id')==$result['record_id'])
@@ -187,5 +179,20 @@ class ProgramController extends Controller
     public function writeFile()
     {
         Storage::append('record/PHPH.txt',"Ankit1");
+    }
+
+    public function checkCode(Request $request,$code)
+    {
+        // echo $code;
+        if(ProgramRecord::where('code',$code)->first())
+        {
+            $errors=new MessageBag(['code' => ['Password Invalid']]);
+            echo $errors;
+        }
+        else
+        {
+            echo "false";
+        }
+
     }
 }

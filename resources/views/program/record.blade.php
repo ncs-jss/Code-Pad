@@ -9,7 +9,6 @@ if(Session::get('type')=='student')
 elseif (Session::get('type')=='teacher') {
     $result=teacher::find(Session::get('start'));
 }
-
 ?>
 
 @extends('layouts.app')
@@ -22,7 +21,7 @@ elseif (Session::get('type')=='teacher') {
             <div class="panel panel-default">
                 <div class="panel-heading">Program Record</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/record') }}">
                         {{ csrf_field() }}
 
                         <div class="row">
@@ -46,21 +45,21 @@ elseif (Session::get('type')=='teacher') {
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('code') ? ' has-error' : '' }}">
+                        <div class="form-group{{ $errors->has('code') ? ' has-error' : '' }}" id="codecheck">
                             <label for="code" class="col-md-4 control-label">Code of the Event</label>
 
-                            <div class="col-md-6">
+                            <div class="col-md-6" id="code_check">
                                 <input id="code" type="text" class="form-control" name="code" value="{{ old('code') }}" placeholder="Must be Unique">
 
                                 @if ($errors->has('code'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('code') }}</strong>
+                                        <strong >{{ $errors->first('code') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
 
-                       
+
 
                         <div class="form-group{{ $errors->has('uploaded_by') ? ' has-error' : '' }}">
                             <label for="uploaded_by" class="col-md-4 control-label">Uploaded By</label>
@@ -77,14 +76,13 @@ elseif (Session::get('type')=='teacher') {
                         </div>
                         <br>
 
-                        
+
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-5">
-                               <div class="btn-group">
-                                    <button type="button" name="new" onclick="sub()" class="btn btn-primary">New</button>
-                                    <button type="button" name="update" onclick="upd()" class="btn btn-info">Update</button>
-                                </div>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fa fa-btn fa-user"></i>Create New Event
+                                </button>
                             </div>
                         </div>
 
@@ -97,20 +95,6 @@ elseif (Session::get('type')=='teacher') {
 @endsection
 
 @section('script')
-
-<script type="text/javascript">
-function sub()
-{
-    document.querySelector("form").action="{{ url('/record') }}";
-    document.querySelector("form").submit();
-}
-
-function upd()
-{
-    document.querySelector("form").action="{{ url('/update') }}";
-    document.querySelector("form").submit();
-}
-
-</script>
+<script type="text/javascript" src="{{ URL::asset('public/assets/js/codeCheck.js') }}"></script>
 
 @endsection

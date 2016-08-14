@@ -17,17 +17,17 @@ Route::get('/', function () {		//Home page
     return view('dashboard');
 });
 
-Route::get('/reset', 'HomeController@index');	
+Route::get('/reset', 'HomeController@index');
 
 Route::get('/login','SessionController@login');		// Student login
 
 Route::get('/register','SessionController@register');	// Student register
 
 Route::get('/home','SessionController@home');	// after login/register
-	
-Route::get('/logout','SessionController@logout');	// for logout 
 
-Route::get('/tlogin','SessionController@tlogin');	// Teacher login 
+Route::get('/logout','SessionController@logout');	// for logout
+
+Route::get('/tlogin','SessionController@tlogin');	// Teacher login
 
 Route::get('/tregister','SessionController@tregister');		// Teacher Register
 
@@ -47,7 +47,11 @@ Route::get('/check', function() {		// For writing programs
 	return view('program.program');
 });
 
-Route::get('/update/{id}','ProgramController@updateProgram');	// Update the program
+Route::get('/update/{id}', 'ProgramController@update_data');    // Update program record
+
+Route::get('/update/{code}/{id}','ProgramController@updateProgram');	// Update the program
+
+Route::get('/check/{id}','ProgramController@checkCode');
 
 Route::get('/write','ProgramController@writeFile');
 
@@ -81,8 +85,7 @@ Route::post('/record','ProgramController@record');	// Save program record
 
 Route::post('/program_details','ProgramController@program_details');	// Save program details
 
-Route::post('/check','ProgramController@snippet');	// 
-	
-Route::post('/update', 'ProgramController@update_data');	// Update program record
+Route::post('/check','ProgramController@snippet');	//
+
 
 Route::post('/programUpdate','ProgramController@ProgramUpdateDone');	// Program update done

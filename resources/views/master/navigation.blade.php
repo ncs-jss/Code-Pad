@@ -24,15 +24,9 @@
                         <div class="navbar-collapse collapse" id="navigation">
 
                             <ul class="nav navbar-nav navbar-right">
-                                <li class="">
-                                    <a href="#"> Home </a>
-                                </li>
-                                <li class="">
-                                    <a href="#"> Dashboard </a>
-                                </li>
-                                <li class="">
+                                <!-- <li class="">
                                     <a href="#"> Services </a>
-                                </li>
+                                </li> -->
                                 <li class="">
                                     <a href="#"> Blog </a>
                                 </li>
@@ -60,10 +54,13 @@
                                 </ul>
                             </li>
                             @else
+                                <li class="">
+                                    <a href="{{ url('/home') }}"> Dashboard </a>
+                                </li>
                                 @if (Session::get('type')=='student')
                                     <li><a href="{{ url('/std_profile') }}">Edit Profile</a></li>
                                 @else
-                                    <li><a href="{{ url('/program') }}">Upload Programs</a></li>
+                                    <li><a href="{{ url('/program') }}">Create Event</a></li>
                                     <li><a href="{{ url('/tea_profile') }}">Edit Profile</a></li>
                                 @endif
                                 <li class="dropdown">

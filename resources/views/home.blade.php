@@ -20,7 +20,7 @@ endif
                     <?php
                     if(Session::get('type')=='teacher'):
                         foreach($programList as $flight)
-                            echo '<a href=storage\app\record\PHPH.txt download=PHPH>'.$flight->name.'</a><br>';
+                            echo '<a href=update/'.$flight->code.'>'.$flight->name.'</a><br>';
                     endif
                     ?>
                 </div>
