@@ -44,7 +44,7 @@
                             </div>
                         </div>
 
-                       
+
 
                         <div class="form-group{{ $errors->has('sample_input') ? ' has-error' : '' }}">
                             <label for="sample_input" class="col-md-2 control-label">Sample Input</label>
@@ -104,12 +104,12 @@
 
                         <input type="hidden" name="id" id="id" value="{{ $data->id }}">
 
-                        
+
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-5">
                                 <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-btn fa-user"></i> Done
+                                    <i class="fa fa-btn fa-user"></i> Update
                                 </button>
                             </div>
                         </div>

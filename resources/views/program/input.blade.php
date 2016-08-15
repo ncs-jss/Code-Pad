@@ -44,7 +44,7 @@
                             </div>
                         </div>
 
-                       
+
 
                         <div class="form-group{{ $errors->has('sample_input') ? ' has-error' : '' }}">
                             <label for="sample_input" class="col-md-2 control-label">Sample Input</label>
@@ -102,12 +102,17 @@
                             </div>
                         </div>
 
-                        
+                        <input type="hidden" name="decide" id="decide" value="">
+
+
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-5">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="button" class="btn btn-primary" onclick="done()">
                                     <i class="fa fa-btn fa-user"></i> Done
+                                </button>
+                                <button type="button" class="btn btn-primary" onclick="add()">
+                                    <i class="fa fa-btn fa-user"></i> Add More
                                 </button>
                             </div>
                         </div>
@@ -118,4 +123,20 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('script')
+<script type="text/javascript">
+    function done()
+    {
+        $("#decide").val('0');
+        $("form").submit();
+    }
+
+    function add() {
+        $("#decide").val('1');
+        $("form").submit();
+    }
+</script>
+
 @endsection

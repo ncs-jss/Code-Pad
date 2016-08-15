@@ -97,13 +97,17 @@ class ProgramController extends Controller
         ]);
 
         // Get Input
-        $pg=array('program_name'=>Input::get('program_name'),
-            'program_statement'=>Input::get('program_statement'),
-            'sample_input'=>Input::get('sample_input'),
-            'sample_output'=>Input::get('sample_output'),
-            'testcases_input'=>Input::get('testcases_input'),
-            'testcases_output'=>Input::get('testcases_output')
-        );
+        // $pg=array('program_name'=>Input::get('program_name'),
+        //     'program_statement'=>Input::get('program_statement'),
+        //     'sample_input'=>Input::get('sample_input'),
+        //     'sample_output'=>Input::get('sample_output'),
+        //     'testcases_input'=>Input::get('testcases_input'),
+        //     'testcases_output'=>Input::get('testcases_output')
+        // );
+
+        $pg=Input::all();
+        // array_pop($pg);
+        // return $pg;
 
         // Save to DB
         $prg= new Program_Details;
@@ -116,7 +120,11 @@ class ProgramController extends Controller
         $prg->record_id=Session::get('record_id');
         if($prg->save())
         {
-            return Redirect::back()->with('message','Program uploaded');
+            if($pg['decide']=='1')
+                return Redirect::back()->with('message','Program uploaded');
+            $code=ProgramRecord::find(Session::get('record_id'));
+            $code=$code->code;
+            return Redirect::to('update/'.$code)->with('message','Program is updated');
         }
 
         return Redirect::back()->with('message','Program failed to upload');
@@ -154,7 +162,6 @@ class ProgramController extends Controller
     {
         //Get Input
         $result=Input::all();
-
         //Update data in DB
         $prg= Program_Details::find($result['id']);
         $prg->program_name = $result['program_name'];
@@ -167,7 +174,10 @@ class ProgramController extends Controller
         if($prg->save())
         {
             // return Redirect::to('program')->with('message','Program is updated!');
-            return view('program.update')->with('message','Program is updated!');
+            // return view('program.update')->with('message','Program is updated!');
+            $code=ProgramRecord::find(Session::get('record_id'));
+            $code=$code->code;
+            return Redirect::to('update/'.$code)->with('message','Program is updated');
         }
         else
         {

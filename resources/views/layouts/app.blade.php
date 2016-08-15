@@ -32,7 +32,7 @@ elseif (Session::get('type')=='teacher') {
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
 
     @yield('head')
-    
+
     <style>
         body {
             font-family: 'Lato';
@@ -95,7 +95,7 @@ elseif (Session::get('type')=='teacher') {
                         @if (Session::get('type')=='student')
                             <li><a href="{{ url('/std_profile') }}">Edit Profile</a></li>
                         @else
-                            <li><a href="{{ url('/program') }}">Upload Programs</a></li>
+                            <li><a href="{{ url('/program') }}">Create Event</a></li>
                             <li><a href="{{ url('/tea_profile') }}">Edit Profile</a></li>
                         @endif
                         <li class="dropdown">

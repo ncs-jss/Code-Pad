@@ -23,6 +23,9 @@ foreach ($result as $key) {
 
 
 ?>
+<br>
+<a href="{{ url('program_input') }}"><h2>Add More Programs</h2></a>
+
 
 
 @endsection
