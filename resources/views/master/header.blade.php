@@ -45,4 +45,5 @@
 
     <link href="{{ URL::asset('public/assets/css/owl.carousel.css')}}" rel="stylesheet">
     <link href="{{ URL::asset('public/assets/css/owl.theme.css')}}" rel="stylesheet">
+    @yield('header')
 </head>

@@ -34,7 +34,7 @@
                                     <a href="#"> Contact </a>
                                 </li>
                                @if (!Session::get('start'))
-                            <li class="dropdown">
+                            <!-- <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                         Login<span class="caret"></span>
                                 </a>
@@ -42,9 +42,12 @@
                                     <li><a href="{{ url('/login') }}">Student Login</a></li>
                                     <li><a href="{{ url('/tlogin') }}">Teacher Login</a></li>
                                 </ul>
+                            </li> -->
+                            <li>
+                                <a href="{{ url('/login') }}">Login</a>
                             </li>
 
-                            <li class="dropdown">
+                            <!-- <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                         Register<span class="caret"></span>
                                 </a>
@@ -52,7 +55,11 @@
                                     <li><a href="{{ url('/register') }}">Student Register</a></li>
                                     <li><a href="{{ url('/tregister') }}">Teacher Register</a></li>
                                 </ul>
+                            </li> -->
+                            <li>
+                                <a href="{{ url('/register') }}">Register</a>
                             </li>
+
                             @else
                                 <li class="">
                                     <a href="{{ url('/home') }}"> Dashboard </a>

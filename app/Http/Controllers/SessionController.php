@@ -20,10 +20,10 @@ class SessionController extends Controller
     {
     	if($request->session()->has('start'))
     	{
-    		return Redirect::back()->with('message','You need to log out first!');	
+    		return Redirect::back()->with('message','You need to log out first!');
     	}
 
-    	return view('student.login');
+    	return view('login');
     }
 
     /**
@@ -33,10 +33,10 @@ class SessionController extends Controller
     {
     	if($request->session()->has('start'))
     	{
-    		return Redirect::back()->with('message','You need to log out first!');	
+    		return Redirect::back()->with('message','You need to log out first!');
     	}
 
-    	return view('student.register');
+    	return view('register');
     }
 
     /**
@@ -51,31 +51,31 @@ class SessionController extends Controller
         return Redirect::to('/login')->with('message','You need to login first');
     }
 
-    /**
-     * function tlogin for checking the active session of the teacher
-     */
-    public function tlogin(Request $request)
-    {
-        if($request->session()->has('start'))
-        {
-            return Redirect::back()->with('message','You need to log out first!');  
-        }
+    // /**
+    //  * function tlogin for checking the active session of the teacher
+    //  */
+    // public function tlogin(Request $request)
+    // {
+    //     if($request->session()->has('start'))
+    //     {
+    //         return Redirect::back()->with('message','You need to log out first!');
+    //     }
 
-        return view('teacher.login');
-    }
+    //     return view('teacher.login');
+    // }
 
-    /**
-     * function tregister for checking the active session of the teacher
-     */
-    public function tregister(Request $request)
-    {
-        if($request->session()->has('start'))
-        {
-            return Redirect::back()->with('message','You need to log out first!'); 
-        }
+    // /**
+    //  * function tregister for checking the active session of the teacher
+    //  */
+    // public function tregister(Request $request)
+    // {
+    //     if($request->session()->has('start'))
+    //     {
+    //         return Redirect::back()->with('message','You need to log out first!');
+    //     }
 
-        return view('teacher.register');
-    }
+    //     return view('teacher.register');
+    // }
 
     /**
      * function logout for deleting of all sessions

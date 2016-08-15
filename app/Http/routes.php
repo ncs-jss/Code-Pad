@@ -27,10 +27,6 @@ Route::get('/home','SessionController@home');	// after login/register
 
 Route::get('/logout','SessionController@logout');	// for logout
 
-Route::get('/tlogin','SessionController@tlogin');	// Teacher login
-
-Route::get('/tregister','SessionController@tregister');		// Teacher Register
-
 Route::get('/std_profile','SessionController@std_profile');		// Student profile
 
 Route::get('/tea_profile','SessionController@tea_profile');		// Teacher Profile
