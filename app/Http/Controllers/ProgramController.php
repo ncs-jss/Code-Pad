@@ -29,19 +29,30 @@ class ProgramController extends Controller
     	$this->validate($request,[
             'name' => 'required|max:255|',
             'code' => 'required|max:20|unique:compiler_record',
-            'uploaded_by'=>'required'
+            'description' => 'required',
+            'starttime' => 'required',
+            'endtime' => 'required',
+            'uploaded_by'=>'required',
+            'upload_id' => 'required'
         ]);
 
         // Get input
-        $record=array('name'=>Input::get('name'),
-        	'code'=>Input::get('code'),
-        	'uploaded_by'=>Input::get('uploaded_by'));
+        // $record=array('name'=>Input::get('name'),
+        // 	'code'=>Input::get('code'),
+        // 	'uploaded_by'=>Input::get('uploaded_by'));
+
+        $record = Input::all();
+        // return $record;
 
         // Save to database
         $rec = new ProgramRecord;
         $rec->name=$record['name'];
         $rec->code=$record['code'];
+        $rec->description=$record['description'];
+        $rec->starttime=$record['starttime'];
+        $rec->endtime=$record['endtime'];
         $rec->uploaded_by=$record['uploaded_by'];
+        $rec->upload_id=$record['upload_id'];
         if($rec->save())
         {
         	$result=ProgramRecord::where('code',$record['code'])->first();
@@ -50,7 +61,7 @@ class ProgramController extends Controller
         	Session::put('record_id',$result->id);
 
             // Create a new file for that particular event with its unique code
-            Storage::put('record/'.$record['code'].'.pdf','');
+            Storage::put('record/'.$record['code'].'.txt','');
         	return Redirect::to('program_input')->with('message','Record is successfully saved');
         }
 

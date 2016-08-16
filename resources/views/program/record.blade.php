@@ -59,6 +59,48 @@ elseif (Session::get('type')=='teacher') {
                             </div>
                         </div>
 
+                        <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
+                            <label for="description" class="col-md-4 control-label">Description of the Event</label>
+
+                            <div class="col-md-6">
+                                <textarea class="form-control" rows="5" name="description" id="description">{{ old('description') }}</textarea>
+
+                                @if ($errors->has('description'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('description') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('starttime') ? ' has-error' : '' }}">
+                            <label for="starttime" class="col-md-4 control-label">Start Time</label>
+
+                            <div class="col-md-6">
+                                <input id="starttime" type="datetime-local" class="form-control" name="starttime" value="{{ old('code') }}">
+
+                                @if ($errors->has('starttime'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('starttime') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('endtime') ? ' has-error' : '' }}">
+                            <label for="endtime" class="col-md-4 control-label">End Time</label>
+
+                            <div class="col-md-6">
+                                <input id="endtime" type="datetime-local" class="form-control" name="endtime" value="{{ old('code') }}">
+
+                                @if ($errors->has('endtime'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('endtime') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
 
 
                         <div class="form-group{{ $errors->has('uploaded_by') ? ' has-error' : '' }}">
@@ -74,6 +116,8 @@ elseif (Session::get('type')=='teacher') {
                                 @endif
                             </div>
                         </div>
+
+                        <input type="hidden" id="upload_id" name="upload_id" value="{{ $result->id }}">
                         <br>
 
 
