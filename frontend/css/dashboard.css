@@ -1,0 +1,63 @@
+.navbar-default .container {
+    border-bottom:none;
+}
+
+.event-item .col-xs-12 {
+    box-shadow: 2px 2px 4px -2px #ccc;
+    margin: 0 0 15px 0;
+}
+
+.event-item:last-child{
+  margin-right: 0;
+}
+
+.event-item .spacer .event-intro {
+  max-height: 100px;
+  overflow: auto;
+}
+
+.sidebar {
+  padding: 0;
+  box-shadow: 3px 0 4px -3px #d8d8d8;
+}
+
+.panel.sidebar-menu .panel-heading {
+  background: rgba(56, 167, 187, 0.28);
+  padding: 10px 0;
+}
+.panel.sidebar-menu .panel-heading .panel-title {
+  border: none;
+}
+
+
+/*Custom Scroll bar style */
+
+.track {
+    width: 10px;
+    background: rgba(0, 0, 0, 0);
+    margin-right: 2px;
+    border-radius: 10px;
+    -webkit-transition: background 250ms linear;
+    transition: background 250ms linear;
+}
+
+.track:hover,
+.track.dragging {
+    background: #d9d9d9; /* Browsers without rgba support */
+    background: rgba(0, 0, 0, 0.15);
+}
+
+.handle {
+    width: 7px;
+    right: 0;
+    background: #999;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 7px;
+    -webkit-transition: width 250ms;
+    transition: width 250ms;
+}
+
+.track:hover .handle,
+.track.dragging .handle {
+    width: 10px;
+}

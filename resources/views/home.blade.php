@@ -16,7 +16,7 @@ endif
                 <div class="panel-heading">Dashboard</div>
 
                 <div class="panel-body">
-                    You are logged in!<br>
+                    You are logged in student!<br>
                     <?php
                     if(Session::get('type')=='teacher'):
                         foreach($programList as $flight)
