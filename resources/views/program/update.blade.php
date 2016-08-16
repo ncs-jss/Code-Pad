@@ -10,22 +10,55 @@ use App\ProgramRecord;
 
 @extends('layouts.app')
 
+@section('head')
+<style type="text/css">
+    ul {
+        list-style-type:none;
+    }
+    ul li a{
+        padding:5px;
+        display:block;
+    }
+</style>
+
+@endsection
+
 @section('content')
-<h2>Click on the links to edit the program</h2>
-<?php
-foreach ($result as $key) {
-	$link=url('/update')."/".$code.'/'.$key->id;
-	?>
-	<a href="{{ $link }}">{{ $key->program_name }}</a><br>
-	<?php
+<div class="container-fluid">
+    <div class="row"><br><br>
+        <div class="col-md-6 col-md-offset-1">
+            <div class="panel panel-default">
+                <div class="panel-heading">Click on the links to edit the program</div>
+                <div class="panel-body">
+                    <ul>
+                        <?php
+                        foreach ($result as $key) {
+                            $link=url('/update')."/".$code.'/'.$key->id;
+                            ?>
+                            <li><a href="{{ $link }}">{{ $key->program_name }}</a></li>
+                            <?php
 
-}
+                        }
+                        ?>
+                    </ul>
+                    <br>
 
-
-?>
-<br>
-<a href="{{ url('program_input') }}"><h2>Add More Programs</h2></a>
-
-
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">Operations</div>
+                <div class="panel-body">
+                    <ul >
+                        <li><a href="{{ url('program_input') }}">Add More Programs</a></li>
+                        <li><a href="{{ url('/delete/'.Session::get('record_id')) }}">Delete this Event</a></li>
+                        <li><a href="">Show Leaderboard</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 @endsection

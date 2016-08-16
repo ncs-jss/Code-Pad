@@ -18,6 +18,7 @@ class CompilerRecordTable extends Migration
             $table->string('code');
             $table->string('uploaded_by');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

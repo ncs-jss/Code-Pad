@@ -14,6 +14,7 @@ use Validator;
 use View;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\MessageBag;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ProgramController extends Controller
 {
@@ -204,5 +205,16 @@ class ProgramController extends Controller
             echo "false";
         }
 
+    }
+
+    public function delete(Request $request,$id)
+    {
+        // $del=ProgramRecord::find($id);
+        if(Session::get('type')=='teacher' and $id==Session::get('record_id'))
+        {
+            ProgramRecord::find($id)->softDeletes();
+            // ProgramRecord::destroy($id);
+            Redirect::to('home')->with('message','Event is deleted');
+        }
     }
 }

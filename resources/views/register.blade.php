@@ -23,7 +23,6 @@
                                 <div class="panel panel-default text-center" id="panel">
                                     <div class="panel-heading text-center">
                                         <h3>CodePad <small>logo</small></h3>
-                                        <p id="typein">Type in your Admission No. and Password</p>
                                     </div>
                                     <div class="panel-body text-center">
                                         <p style="color:#a94442;">{{Session::get('message')}}</p>
@@ -101,7 +100,6 @@
                                 <div class="panel panel-default text-center" id="panel">
                                     <div class="panel-heading text-center">
                                         <h3>CodePad <small>logo</small></h3>
-                                        <p id="typein">Type in your Email Id and Password</p>
                                     </div>
                                     <div class="panel-body text-center">
                                         <p style="color:#a94442;">{{Session::get('message')}}</p>

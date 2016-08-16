@@ -49,6 +49,8 @@ Route::get('/update/{code}/{id}','ProgramController@updateProgram');	// Update t
 
 Route::get('/check/{id}','ProgramController@checkCode');
 
+Route::get('/delete/{id}','ProgramController@delete');
+
 Route::get('/write','ProgramController@writeFile');
 
 Route::get('/back',function() {
