@@ -1,6 +1,7 @@
 <?php
 use App\student;
 use App\teacher;
+use App\programRecord;
 
 if(Session::get('type')=='student')
 {
@@ -8,6 +9,7 @@ if(Session::get('type')=='student')
 }
 elseif (Session::get('type')=='teacher') {
     $result=teacher::find(Session::get('start'));
+    $programList=programRecord::where('uploaded_by',$result->name)->get();
 }
 
 ?>
@@ -30,7 +32,7 @@ elseif (Session::get('type')=='teacher') {
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
 
     @yield('head')
-    
+
     <style>
         body {
             font-family: 'Lato';
@@ -93,7 +95,7 @@ elseif (Session::get('type')=='teacher') {
                         @if (Session::get('type')=='student')
                             <li><a href="{{ url('/std_profile') }}">Edit Profile</a></li>
                         @else
-                            <li><a href="{{ url('/program') }}">Upload Programs</a></li>
+                            <li><a href="{{ url('/program') }}">Create Event</a></li>
                             <li><a href="{{ url('/tea_profile') }}">Edit Profile</a></li>
                         @endif
                         <li class="dropdown">
@@ -117,7 +119,7 @@ elseif (Session::get('type')=='teacher') {
     <!-- JavaScripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="{!! asset('node_modules/place-holder.js/place-holder.min.js') !!}" ></script>
+    <script type="text/javascript" src="{!! asset('public/node_modules/place-holder.js/place-holder.min.js') !!}" ></script>
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
 
     @yield('script')

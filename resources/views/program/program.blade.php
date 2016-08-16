@@ -3,8 +3,8 @@
 
 @section('head')
 
-{{Html::style('code-prettify-master/styles/sons-of-obsidian.css')}}
-{{ Html::script('editarea_0_8_2/edit_area/edit_area_full.js') }}
+{{Html::style('public/code-prettify-master/styles/sons-of-obsidian.css')}}
+{{ Html::script('public/editarea_0_8_2/edit_area/edit_area_full.js') }}
 
 <script type="text/javascript">
 	editAreaLoader.init({
@@ -108,7 +108,7 @@ body {
 
 @section('script')
 
-{{Html::script('code-prettify-master/src/prettify.js')}}
+{{Html::script('public/code-prettify-master/src/prettify.js')}}
 <script type="text/javascript">
 prettyPrint();
 </script>

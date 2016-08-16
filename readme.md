@@ -6,10 +6,10 @@ Teachers organise events for the students. This improves the skills set of stude
 
 ###Requirements :
 
-1- PHP > 5.6
-2- MySQL
-3- Composer
-4- Laravel > 5.2
+1. PHP > 5.6 
+2. MySQL 
+3. Composer 
+4. Laravel > 5.2 
 
 ###Installation :
 
@@ -20,7 +20,14 @@ Open composer and run this given command.
 composer update
 ```
 
-After updating composer, migrate the database.
+After updating composer, Rename the file `.env.example` to `.env` manually.
+
+Generate the Application key
+```
+php artisan key:generate
+``` 
+
+Migrate the database.
 ```
 php artisan migrate
 ```
@@ -30,6 +37,7 @@ Seed the database
 php artisan db:seed
 ```
 
+For Login
 ```
 For Student login:
 Admission No. : 15cse075

@@ -16,8 +16,13 @@ class CompilerRecordTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('code');
+            $table->text('description');
+            $table->string('starttime');
+            $table->string('endtime');
             $table->string('uploaded_by');
+            $table->string('upload_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

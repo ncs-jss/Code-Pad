@@ -13,56 +13,73 @@
 
 //GET routes added
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', function () {		//Home page
+    return view('dashboard');
 });
 
 Route::get('/reset', 'HomeController@index');
 
-Route::get('/login','SessionController@login');
+Route::get('/login','SessionController@login');		// Student login
 
-Route::get('/register','SessionController@register');
+Route::get('/register','SessionController@register');	// Student register
 
-Route::get('/home','SessionController@home');
+Route::get('/home','SessionController@home');	// after login/register
 
-Route::get('/logout','SessionController@logout');
+Route::get('/logout','SessionController@logout');	// for logout
 
-Route::get('/tlogin','SessionController@tlogin');
+Route::get('/std_profile','SessionController@std_profile');		// Student profile
 
-Route::get('/tregister','SessionController@tregister');
+Route::get('/tea_profile','SessionController@tea_profile');		// Teacher Profile
 
-Route::get('/std_profile','SessionController@std_profile');
+Route::get('/program', 'SessionController@program');	// Program record
 
-Route::get('/tea_profile','SessionController@tea_profile');
+Route::get('/program_input','SessionController@program_input');		// Program input
 
-Route::get('/program', 'SessionController@program');
-
-Route::get('/program_input','SessionController@program_input');
-
-Route::get('/error',function(){ 
+Route::get('/error',function(){ 	//Error
 	return view('errors.503');
 });
 
-Route::get('/check', function() {
+Route::get('/check', function() {		// For writing programs
 	return view('program.program');
 });
 
+Route::get('/update/{id}', 'ProgramController@update_data');    // Update program record
+
+Route::get('/update/{code}/{id}','ProgramController@updateProgram');	// Update the program
+
+Route::get('/check/{id}','ProgramController@checkCode');
+
+Route::get('/delete/{id}','ProgramController@delete');
+
+Route::get('/write','ProgramController@writeFile');
+
+Route::get('/{id}',function() {
+	return view('errors.503');
+});
+
+
+
+
+
 // POST routes added
 
-Route::post('/student_login','StudentController@login');
+Route::post('/student_login','StudentController@login');	// Check Student login details
 
-Route::post('/student_register','StudentController@register');
+Route::post('/student_register','StudentController@register');	// Check and save student registration
 
-Route::post('/student_details/{id}','StudentController@stu_details');
+Route::post('/student_details/{id}','StudentController@stu_details');	// Save student profile
 
-Route::post('/teacher_login','TeacherController@login');
+Route::post('/teacher_login','TeacherController@login');	// Check Teacher login details
 
-Route::post('/teacher_register','TeacherController@register');
+Route::post('/teacher_register','TeacherController@register');	// Check and save Teacher registration
 
-Route::post('/teacher_details/{id}','TeacherController@tea_details');
+Route::post('/teacher_details/{id}','TeacherController@tea_details');	// Save teacher profile
 
-Route::post('/record','ProgramController@record');
+Route::post('/record','ProgramController@record');	// Save program record
 
-Route::post('/program_details','ProgramController@program_details');
+Route::post('/program_details','ProgramController@program_details');	// Save program details
 
-Route::post('/check','ProgramController@snippet');
+Route::post('/check','ProgramController@snippet');	//
+
+
+Route::post('/programUpdate','ProgramController@ProgramUpdateDone');	// Program update done
