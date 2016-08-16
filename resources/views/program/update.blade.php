@@ -52,13 +52,27 @@ use App\ProgramRecord;
                 <div class="panel-body">
                     <ul >
                         <li><a href="{{ url('program_input') }}">Add More Programs</a></li>
-                        <li><a href="{{ url('/delete/'.Session::get('record_id')) }}">Delete this Event</a></li>
-                        <li><a href="">Show Leaderboard</a></li>
+                        <li><a href="#delete" onclick="deleted()">Delete this Event</a></li>
+                        <li><a href="#" >Show Leaderboard</a></li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+@endsection
+
+@section('script')
+<script type="text/javascript">
+    function deleted() {
+        var re = confirm("Are you really want to delete this event");
+        if(re)
+        {
+            location.href="{{ url('/delete/'.Session::get('record_id')) }}";
+        }
+    }
+</script>
+
 
 @endsection
