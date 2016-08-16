@@ -53,10 +53,6 @@ Route::get('/delete/{id}','ProgramController@delete');
 
 Route::get('/write','ProgramController@writeFile');
 
-Route::get('/back',function() {
-	return Redirect::to('/');
-});
-
 Route::get('/{id}',function() {
 	return view('errors.503');
 });

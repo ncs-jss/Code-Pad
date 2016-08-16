@@ -212,9 +212,12 @@ class ProgramController extends Controller
         // $del=ProgramRecord::find($id);
         if(Session::get('type')=='teacher' and $id==Session::get('record_id'))
         {
-            ProgramRecord::find($id)->softDeletes();
+            $del=ProgramRecord::find($id);
+            // return $del;
+            $del->delete();
             // ProgramRecord::destroy($id);
-            Redirect::to('home')->with('message','Event is deleted');
+            // if($)
+            return Redirect::to('home')->with('message','Event is deleted');
         }
     }
 }
