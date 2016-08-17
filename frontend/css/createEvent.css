@@ -1,0 +1,33 @@
+
+.create-event {
+  margin-bottom: 20px;
+}
+
+/* Input Styles */
+.create-event label {
+  font-weight: bold;
+  font-size: 16px;
+  transition: all 0.2s ease-in;
+}
+
+.form.row .form-group input, .form.row .form-group textarea {
+  border-radius: 4px;
+  transition: all 0.2s ease-in;
+}
+
+.form.row .form-group input:hover, .form.row .form-group input:focus, .form.row .form-group input:active, .form.row .form-group textarea:hover, .form.row .form-group textarea:focus, .form.row .form-group textarea:active {
+  outline: none;
+  box-shadow: none;
+  border-width: 2px;
+  border-color: #6c9283;
+}
+
+.form.row .form-group input:focus {
+  padding: 20px 15px;
+}
+
+.labelfocus {
+  color: #6c9283 !important;
+  font-weight: bold;
+  font-size: 11px !important;
+}
