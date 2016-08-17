@@ -2,8 +2,9 @@
     border-bottom:none;
 }
 
+/* Dashboard Style */
 .event-item .col-xs-12 {
-    box-shadow: 0px 0px 5px 2px #ccc;
+    box-shadow: 0px 0px 2px 2px #ccc;
     margin: 0 0 15px 0;
 }
 
@@ -27,7 +28,33 @@
 }
 .panel.sidebar-menu .panel-heading .panel-title {
   border: none;
+  padding: 10px;
 }
+
+.panel-primary > .panel-heading {
+    color: #ffffff;
+    background-color: #6c9283;
+}
+.panel-primary > .panel-heading .panel-title {
+  display: block;
+}
+.panel-primary > .panel-heading .panel-title:hover, .panel-primary > .panel-heading .panel-title:focus, .panel-primary > .panel-heading .panel-title:visited {
+  color: #fff;
+  outline:none;
+}
+
+
+/* VIew events Styles  */
+
+.view-event.container {
+  margin-top: 20px ;
+}
+  .event-info .ldr-bd { margin: 20px auto; }
+  .btn-success { background: #87D37C; }
+  .btn-success:hover {
+    background-color: #2ECC71;
+    border-color: #2ecc71;
+  }
 
 
 /*Custom Scroll bar style */

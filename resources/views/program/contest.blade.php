@@ -59,38 +59,6 @@ elseif (Session::get('type')=='teacher') {
 
                     <!-- *** LEFT COLUMN END *** -->
 
-                    <!-- *** RIGHT COLUMN *** -->
-
-                    <div class="col-xs-12 col-sm-3">
-                        <!-- *** Side MENU *** -->
-                        <div class="panel panel-default sidebar-menu">
-
-                            <div class="panel-heading">
-                                <h3 class="panel-title"> Do More: </h3>
-                            </div>
-
-                            <div class="panel-body">
-                                <ul class="nav nav-pills nav-stacked">
-                                    <li>
-                                        <a href="{{ url('program_input') }}"> <span class="fa fa-plus"></span> &nbsp; Add A New Program</a>
-                                    </li>
-                                    <li>
-                                        <a href="#delete"  onclick="deleted()"><span class="fa fa-trash-o"></span> &nbsp; Delete This Event. </a>
-                                    </li>
-
-
-                                </ul>
-
-                            </div>
-                        </div>
-
-                        <!-- *** PAGES MENU END *** -->
-
-                        <!-- /.banner -->
-                    </div>
-                    <!-- /.col-md-3 -->
-
-                    <!-- *** RIGHT COLUMN END *** -->
 
                 </div>
                 <!-- /.row -->
@@ -102,15 +70,6 @@ elseif (Session::get('type')=='teacher') {
 
     </div>
     @include('master.js')
-    <script type="text/javascript">
-    function deleted() {
-        var re = confirm("Are you really want to delete this event");
-        if(re)
-        {
-            location.href="{{ url('/delete/'.Session::get('record_id')) }}";
-        }
-    }
-</script>
 
 </body>
 

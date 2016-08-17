@@ -93,6 +93,20 @@ class ProgramController extends Controller
         return Redirect::back()->with('error','Incorrect Program Code');
     }
 
+    public function contest($code)
+    {
+
+        // Update in a database
+        $result=ProgramRecord::where('code',$code)->first();
+        if($result)
+        {
+            Session::put('record_id',$result->id);
+            return view('program.contest');
+        }
+
+        return Redirect::back()->with('error','Incorrect Event');
+    }
+
 
     /**
      * function program_details for creating programs for the event and saving it to database

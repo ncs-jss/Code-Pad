@@ -45,6 +45,8 @@ Route::get('/check', function() {		// For writing programs
 
 Route::get('/update/{id}', 'ProgramController@update_data');    // Update program record
 
+Route::get('/contest/{id}', 'ProgramController@contest');
+
 Route::get('/update/{code}/{id}','ProgramController@updateProgram');	// Update the program
 
 Route::get('/check/{id}','ProgramController@checkCode');

@@ -111,6 +111,10 @@
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fa fa-btn fa-user"></i> Update
                                 </button>
+
+                                 <button type="button" class="btn btn-primary">
+                                    <i class="fa fa-btn fa-user"></i> Delete
+                                </button>
                             </div>
                         </div>
 

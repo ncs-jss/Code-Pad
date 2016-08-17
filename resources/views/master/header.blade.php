@@ -24,6 +24,8 @@
     <!-- Custom stylesheet - for your changes -->
     <link href="{{ URL::asset('public/assets/css/custom.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{URL::asset('public/assets/css/login.css')}}">
+    <link href="{{ URL::asset('public/assets/css/dashboard.css')}}" rel="stylesheet">
+
 
     <!-- Responsivity for older IE -->
     <!--[if lt IE 9]>
@@ -45,7 +47,6 @@
 
     <link href="{{ URL::asset('public/assets/css/owl.carousel.css')}}" rel="stylesheet">
     <link href="{{ URL::asset('public/assets/css/owl.theme.css')}}" rel="stylesheet">
-    <link href="{{ URL::asset('public/assets/css/dashboard.css')}}" rel="stylesheet">
 
     @yield('header')
 </head>

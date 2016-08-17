@@ -30,9 +30,9 @@ use App\student;
 
             <div class="col-xs-12 col-sm-9 col-md-10">
 
-                @if(Session::get('type')=='teacher'):
+                @if(Session::get('type')=='teacher')
                     @include('master.teacherEvents')
-                @else:
+                @else
                     @include('master.studentEvents')
                 @endif
 
