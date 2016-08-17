@@ -50,7 +50,13 @@
   margin-top: 20px ;
 }
   .event-info .ldr-bd { margin: 20px auto; }
-  .btn-success { background: #87D37C; }
+  .btn {
+    padding: 10px;
+  }
+  .btn-success {
+    background: #87D37C;
+    border: none;
+  }
   .btn-success:hover {
     background-color: #2ECC71;
     border-color: #2ecc71;
