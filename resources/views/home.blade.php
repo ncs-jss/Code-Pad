@@ -61,4 +61,3 @@ use App\student;
 </body>
 
 </html>
-
