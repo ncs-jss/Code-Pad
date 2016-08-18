@@ -26,6 +26,8 @@
     <link href="{{ URL::asset('public/assets/css/custom.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{URL::asset('public/assets/css/login.css')}}">
     <link href="{{ URL::asset('public/assets/css/dashboard.css')}}" rel="stylesheet">
+    <link href="{{ URL::asset('public/assets/css/createEvent.css')}}" rel="stylesheet">
+
 
 
 
