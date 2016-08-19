@@ -112,9 +112,9 @@
                                     <i class="fa fa-btn fa-user"></i> Update
                                 </button>
 
-                                 <button type="button" class="btn btn-primary">
+                                 <a href=""><button type="button" class="btn btn-primary">
                                     <i class="fa fa-btn fa-user"></i> Delete
-                                </button>
+                                </button></a>
                             </div>
                         </div>
 

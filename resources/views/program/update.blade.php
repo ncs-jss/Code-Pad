@@ -77,6 +77,9 @@ elseif (Session::get('type')=='teacher') {
                                     <li>
                                         <a href="#delete"  onclick="deleted()"><span class="fa fa-trash-o"></span> &nbsp; Delete This Event. </a>
                                     </li>
+                                    <li>
+                                        <a href="{{ url('/storage/app/record/'.$code.'.txt') }}" download="{{$code}}"><span class="fa fa-check-square-o"></span> &nbsp; Download this event result </a>
+                                    </li>
 
 
                                 </ul>
