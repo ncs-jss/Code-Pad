@@ -95,7 +95,7 @@ elseif (Session::get('type')=='teacher') {
                                 <div class="col-sm-6">
                                     <div class="form-group{{ $errors->has('starttime') ? ' has-error' : '' }}">
                                         <label for="starttime">Start Time</label>
-                                        <input id="starttime" type="datetime-local" class="form-control" name="starttime" value="{{ old('code') }}">
+                                        <input id="starttime" type="datetime-local" class="form-control" name="starttime" value="{{ old('starttime') }}">
 
                                         @if ($errors->has('starttime'))
                                             <span class="help-block">
@@ -111,7 +111,7 @@ elseif (Session::get('type')=='teacher') {
                                     <div class="form-group{{ $errors->has('endtime') ? ' has-error' : '' }}">
                                         <label for="endtime">End Time</label>
 
-                                        <input id="endtime" type="datetime-local" class="form-control" name="endtime" value="{{ old('code') }}">
+                                        <input id="endtime" type="datetime-local" class="form-control" name="endtime" value="{{ old('endtime') }}">
 
                                         @if ($errors->has('endtime'))
                                             <span class="help-block">
