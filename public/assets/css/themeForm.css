@@ -1,10 +1,10 @@
 
-.create-event {
+.theme-form {
   margin-bottom: 20px;
 }
 
 /* Input Styles */
-.create-event label {
+.theme-form label {
   font-weight: bold;
   font-size: 16px;
   transition: all 0.2s ease-in;

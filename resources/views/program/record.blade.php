@@ -30,7 +30,7 @@ elseif (Session::get('type')=='teacher') {
         <section>
             <div class="container-fluid">
 
-                <div class="create-event row">
+                <div class="theme-form row">
 
                     <div class="col-sm-6 col-sm-offset-3 ">
                         <div>
