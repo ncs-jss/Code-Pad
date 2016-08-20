@@ -4,29 +4,17 @@ use App\teacher;
 
 if(Session::get('type')=='student')
 {
-    $result=student::find(Session::get('start'));
+  $result=student::find(Session::get('start'));
 }
-elseif (Session::get('type')=='teacher') {
-    $result=teacher::find(Session::get('start'));
+elseif (Session::get('type')=='teacher')
+{
+  $result=teacher::find(Session::get('start'));
 }
 ?>
+@extends('layouts.layout')
 
+    @section('content')
 
-
-@section('script')
-
-@endsection
-
-<!DOCTYPE html>
-<html lang="en">
-
-@include('master.header')
-<body>
-
-    <div id="all">
-
-        @include('master.navigation')
-        <!-- Create New  -->
         <section>
             <div class="container-fluid">
 
@@ -167,14 +155,9 @@ elseif (Session::get('type')=='teacher') {
                 <!-- /.row -->
             </div>
         </section>
-    </div>
-    <!-- /#all -->
-
-    @include('master.js')
-    <script type="text/javascript" src="{{ URL::asset('public/assets/js/codeCheck.js') }}"></script>
+    @endsection
 
 
-
-</body>
-
-</html>
+    @section('script')
+        <script type="text/javascript" src="{{ URL::asset('public/assets/js/codeCheck.js') }}"></script>
+    @endsection

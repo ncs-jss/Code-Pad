@@ -1,15 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-@include('master.header')
-
-<body>
-
-    <div id="all">
-
+@extends('layouts.layout')
+    @section('body')
         <div id="background"></div>
-        @include('master.navigation')
+    @endsection
 
-
+    @section('content')
             <div class="container-fluid">
                 <div class="row">
                     <div class="login col-xs-12 col-sm-6 col-sm-push-3 col-md-6 col-md-push-3 ">
@@ -177,8 +171,4 @@
                     </div>
                 </div>
             </div>
-        @include('master.js')
-    </div>
-</body>
-
-</html>
+        @endsection

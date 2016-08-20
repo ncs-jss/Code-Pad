@@ -1,5 +1,5 @@
 
-<head>
+
     <meta charset="utf-8">
     <meta name="robots" content="all,follow">
     <meta name="googlebot" content="index,follow,snippet,archive">
@@ -52,5 +52,4 @@
     <link href="{{ URL::asset('public/assets/css/owl.carousel.css')}}" rel="stylesheet">
     <link href="{{ URL::asset('public/assets/css/owl.theme.css')}}" rel="stylesheet">
 
-    @yield('header')
-</head>
+

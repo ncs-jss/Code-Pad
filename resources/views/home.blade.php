@@ -11,16 +11,8 @@ use App\student;
     endif
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-@include('master.header')
-
-
-<body>
-
-    <div id="all">
-    @include('master.navigation')
-
+@extends('layouts.layout')
+    @section('content')
         <div class='container-fluid '>
 
           <div class="row">
@@ -41,23 +33,15 @@ use App\student;
           </div>
 
         </div>
+    @endsection
 
+    @section('script')
 
-
-    </div>
-    <!-- /#all -->
-
-        @include('master.js')
-
-    <script>
-    $('.event-intro').enscroll({
-      showOnHover: true,
-      verticalTrackClass: 'track',
-      verticalHandleClass: 'handle'
-    });
-    </script>
-
-
-</body>
-
-</html>
+        <script>
+        $('.event-intro').enscroll({
+          showOnHover: true,
+          verticalTrackClass: 'track',
+          verticalHandleClass: 'handle'
+        });
+        </script>
+    @endsection

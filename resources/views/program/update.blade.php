@@ -18,18 +18,9 @@ elseif (Session::get('type')=='teacher') {
     // echo $details;
 ?>
 
+@extends('layouts.layout')
 
-<!DOCTYPE html>
-<html lang="en">
-
-@include('master.header')
-
-<body>
-
-    <div id="all">
-
-        @include('master.navigation')
-
+    @section('content')
         <div class="view-event container">
                 <div class="event-info row">
                     <div class="col-xs-12 col-sm-8">
@@ -100,21 +91,17 @@ elseif (Session::get('type')=='teacher') {
 
             </div>
             <!-- /.container -->
+        </div>
+    @endsection
 
-
-
-    </div>
-    @include('master.js')
-    <script type="text/javascript">
-    function deleted() {
-        var re = confirm("Are you really want to delete this event");
-        if(re)
-        {
-            location.href="{{ url('/delete/'.Session::get('record_id')) }}";
-        }
-    }
-</script>
-
-</body>
-
-</html>
+    @section('script')
+        <script type="text/javascript">
+            function deleted() {
+                var re = confirm("Are you really want to delete this event");
+                if(re)
+                {
+                    location.href="{{ url('/delete/'.Session::get('record_id')) }}";
+                }
+            }
+        </script>
+    @endsection
