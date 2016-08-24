@@ -13,45 +13,46 @@
 
 //GET routes added
 
-Route::get('/', function () {		//Home page
+//Home page
+Route::get('/', function () {
     return view('dashboard');
 });
 
 Route::get('/reset', 'HomeController@index');
-
-Route::get('/login','SessionController@login');		// Student login
-
-Route::get('/register','SessionController@register');	// Student register
-
-Route::get('/home','SessionController@home');	// after login/register
-
-Route::get('/logout','SessionController@logout');	// for logout
-
-Route::get('/std_profile','SessionController@std_profile');		// Student profile
-
-Route::get('/tea_profile','SessionController@tea_profile');		// Teacher Profile
-
-Route::get('/program', 'SessionController@program');	// Program record
-
-Route::get('/program_input','SessionController@program_input');		// Program input
-
-Route::get('/error',function(){ 	//Error
+// User login
+Route::get('/login','SessionController@login');
+// User register
+Route::get('/register','SessionController@register');
+// after login/register
+Route::get('/home','SessionController@home');
+// for logout
+Route::get('/logout','SessionController@logout');
+// Student Profile
+Route::get('/std_profile','SessionController@std_profile')->middleware('student');
+// Teacher Profile
+Route::get('/tea_profile','SessionController@tea_profile')->middleware('teacher');
+// Program record
+Route::get('/program', 'SessionController@program')->middleware('teacher');
+// Program input
+Route::get('/program_input','SessionController@program_input')->middleware(['teacher','program']);
+//Error
+Route::get('/error',function(){
 	return view('errors.503');
 });
-
-Route::get('/check', function() {		// For writing programs
+// For writing programs
+Route::get('/check', function() {
 	return view('program.program');
 });
-
-Route::get('/update/{id}', 'ProgramController@update_data');    // Update program record
+// Update program record
+Route::get('/update/{id}', 'ProgramController@update_data')->middleware('teacher');
 
 Route::get('/contest/{id}', 'ProgramController@contest');
 
-Route::get('/update/{code}/{id}','ProgramController@updateProgram');	// Update the program
+Route::get('/update/{code}/{id}','ProgramController@updateProgram')->middleware('teacher');	// Update the program
 
 Route::get('/check/{id}','ProgramController@checkCode');
 
-Route::get('/delete/{id}','ProgramController@delete');
+Route::get('/delete/{id}','ProgramController@delete')->middleware('teacher');
 
 Route::get('/write','ProgramController@writeFile');
 

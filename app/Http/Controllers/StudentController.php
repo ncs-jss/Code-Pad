@@ -57,7 +57,7 @@ class StudentController extends Controller
             return Redirect::back()->withErrors($errors)->with('message',"Invalid Credentials");
     	}
 
-        $errors = new MessageBag(['admision_no' => ['Admission Number Invalid.']]); 
+        $errors = new MessageBag(['admision_no' => ['Admission Number Invalid.']]);
     	return Redirect::back()->withErrors($errors)->with('message',"Invalid Credentials");
 
     }
@@ -78,7 +78,7 @@ class StudentController extends Controller
         ]);
 
         //Get Input
-    	$sregister=array('name'=> Input::get('name'), 
+    	$sregister=array('name'=> Input::get('name'),
             'admision_no'=>Input::get('admision_no'),
     		'password'=> Hash::make(Input::get('password')));
 
@@ -113,11 +113,11 @@ class StudentController extends Controller
     	// if($result=DB::insert('insert into student values(?,?,?,?,?,?)',[null,$sregister['name'],$sregister['admision_no'],$sregister['password'],null,null]))
     	// {
      //        $result=DB::table('student')->where([['admision_no',$sregister["admision_no"]],['password',$sregister['password']]])->value('id');
-    		
+
      //        $request->session()->put('start',$result);
     	// 	return Redirect::to('home');
     	// }
-    	return Redirect::back();	
+    	return Redirect::back();
     }
 
 
@@ -137,44 +137,36 @@ class StudentController extends Controller
         $request->flash();
 
         //Save in the DB
-        if($request->session()->has('start'))
+        $value=Session::get('start');
+        if($value==$id)
         {
-            $value=$request->session()->get('start');
-            if($value==$id)
+            $result=Student_Details::where('student_id',$id)->first();
+            if($result!='[]')
             {
-                $result=Student_Details::where('student_id',$id)->first();
-                // $result=student_details::find(1);
-                // return $result;
-                if($result!='[]')
-                {
 
-                    $student_details['branch']=Input::get('branch');
-                    $student_details['year']=Input::get('year');
-                    $student_details['email']=Input::get('email');
-                    $student_details['mobile']=Input::get('mobile');
-                    $student_details['gender']=Input::get('gender');
+                $student_details['branch']=Input::get('branch');
+                $student_details['year']=Input::get('year');
+                $student_details['email']=Input::get('email');
+                $student_details['mobile']=Input::get('mobile');
+                $student_details['gender']=Input::get('gender');
 
-                    if($student_details['branch'])
-                        $result->branch=$student_details['branch'];
-                    if($student_details['year'])
-                        $result->year=$student_details['year'];
-                    if($student_details['email'])
-                        $result->email=$student_details['email'];
-                    if($student_details['mobile'])
-                        $result->mobile=$student_details['mobile'];
-                    if($student_details['gender'])
-                        $result->gender=$student_details['gender'];
-                    $result->save();
+                if($student_details['branch'])
+                    $result->branch=$student_details['branch'];
+                if($student_details['year'])
+                    $result->year=$student_details['year'];
+                if($student_details['email'])
+                    $result->email=$student_details['email'];
+                if($student_details['mobile'])
+                    $result->mobile=$student_details['mobile'];
+                if($student_details['gender'])
+                    $result->gender=$student_details['gender'];
+                $result->save();
 
-                    return Redirect::back()->withInput()->with('message','Profile is updated!!');
-                }
+                return Redirect::back()->withInput()->with('message','Profile is updated!!');
             }
-
-            return Redirect::to('home')->with('message','Invalid User');
-
         }
 
-        return Redirect::to('login')->with('message','Login to update profile');
+        return Redirect::to('home')->with('message','Invalid User');
     }
 
 }

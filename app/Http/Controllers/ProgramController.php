@@ -173,7 +173,7 @@ class ProgramController extends Controller
     public function updateProgram($code,$id)
     {
         $result=Program_Details::find($id);
-        if(Session::get('type')=='teacher' and Session::get('record_id')==$result['record_id'])
+        if(Session::get('record_id')==$result['record_id'])
         {
             return View('program.updateProgram')->with('data',$result);
         }
@@ -235,7 +235,7 @@ class ProgramController extends Controller
     public function delete(Request $request,$id)
     {
         // $del=ProgramRecord::find($id);
-        if(Session::get('type')=='teacher' and $id==Session::get('record_id'))
+        if($id==Session::get('record_id'))
         {
             $del=ProgramRecord::find($id);
             // return $del;

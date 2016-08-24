@@ -51,31 +51,6 @@ class SessionController extends Controller
         return Redirect::to('/login')->with('message','You need to login first');
     }
 
-    // /**
-    //  * function tlogin for checking the active session of the teacher
-    //  */
-    // public function tlogin(Request $request)
-    // {
-    //     if($request->session()->has('start'))
-    //     {
-    //         return Redirect::back()->with('message','You need to log out first!');
-    //     }
-
-    //     return view('teacher.login');
-    // }
-
-    // /**
-    //  * function tregister for checking the active session of the teacher
-    //  */
-    // public function tregister(Request $request)
-    // {
-    //     if($request->session()->has('start'))
-    //     {
-    //         return Redirect::back()->with('message','You need to log out first!');
-    //     }
-
-    //     return view('teacher.register');
-    // }
 
     /**
      * function logout for deleting of all sessions
@@ -94,10 +69,7 @@ class SessionController extends Controller
      */
     public function std_profile()
     {
-        if(Session::get('type')=='student')
-            return view('student.profile');
-
-        return Redirect::to('/home');
+        return view('student.profile');
     }
 
     /**
@@ -105,10 +77,7 @@ class SessionController extends Controller
      */
     public function tea_profile()
     {
-        if(Session::get('type')=='teacher')
-            return view('teacher.profile');
-
-        return Redirect::to('/home');
+        return view('teacher.profile');
     }
 
     /**
@@ -116,12 +85,7 @@ class SessionController extends Controller
      */
     public function program()
     {
-        if(Session::get('type')=='teacher')
-        {
-            return view('program.record');
-        }
-
-        return Redirect::back();
+        return view('program.record');
     }
 
     /**
@@ -129,12 +93,7 @@ class SessionController extends Controller
      */
     public function program_input()
     {
-        if(Session::get('type')=='teacher' and Session::get('record_id'))
-        {
-            return view('program.input');
-        }
-
-        return Redirect::back();
+        return view('program.input');
     }
 
 }
