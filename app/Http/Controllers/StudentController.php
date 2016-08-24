@@ -10,7 +10,7 @@ use DB;
 use Validator;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Hash;
-
+use Session;
 
 use Redirect;
 
