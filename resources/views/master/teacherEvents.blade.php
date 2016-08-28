@@ -8,8 +8,8 @@
           <?php
           foreach($programList as $flight)
           {
-              $flight['starttime']=unserialize($flight['starttime']);
-              $flight['endtime']=unserialize($flight['endtime']);
+            $flight['starttime']=unserialize($flight['starttime']);
+            $flight['endtime']=unserialize($flight['endtime']);
             // var_dump($flight->endtime['enddate']);
           ?>
 
