@@ -8,7 +8,9 @@
           <?php
           foreach($programList as $flight)
           {
-              // echo '<a href=update/'.$flight->code.'>'.$flight->name.'</a><br>';
+              $flight['starttime']=unserialize($flight['starttime']);
+              $flight['endtime']=unserialize($flight['endtime']);
+            // var_dump($flight->endtime['enddate']);
           ?>
 
         <div class="event-item col-xs-6 col-md-3">
@@ -19,7 +21,7 @@
                 <p class="read-more text-center "><a href="#" class="btn btn-template-main">Participate </a></p>
                 <div class="clearfix">
                     <p class="pull-left">By <a href="#">{{ $flight->uploaded_by }}</a></p>
-                    <p class="pull-right"><i class="fa fa-calendar-o"></i>{{ $flight->starttime }}</p>
+                    <p class="pull-right"><i class="fa fa-calendar-o"></i>{{ $flight->starttime['startdate'] }}</p>
                 </div>
             </div>
         </div>

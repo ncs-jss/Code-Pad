@@ -8,7 +8,7 @@ use App\student;
     else:
         $result=student::find(Session::get('start'));
         $programList=programRecord::all();
-    endif
+    endif;
 ?>
 
 @extends('layouts.layout')

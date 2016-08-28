@@ -3,7 +3,7 @@
 
 <head>
     @include('master.header')
-    @yield('header')
+    @yield('head')
 </head>
 
 <body>

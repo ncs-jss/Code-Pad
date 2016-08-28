@@ -31,6 +31,8 @@ class ProgramController extends Controller
             'code' => 'required|max:20|unique:compiler_record',
             'description' => 'required',
             'starttime' => 'required',
+            'startdate' => 'required',
+            'enddate' => 'required',
             'endtime' => 'required',
             'uploaded_by'=>'required',
             'upload_id' => 'required'
@@ -43,14 +45,15 @@ class ProgramController extends Controller
 
         $record = Input::all();
         // return $record;
-
+        $eventStart = array('startdate' => $record['startdate'] , 'starttime' => $record['starttime'] );
+        $eventEnd = array('enddate' => $record['enddate'] , 'endtime' => $record['endtime'] );
         // Save to database
         $rec = new ProgramRecord;
         $rec->name=$record['name'];
         $rec->code=$record['code'];
         $rec->description=$record['description'];
-        $rec->starttime=$record['starttime'];
-        $rec->endtime=$record['endtime'];
+        $rec->starttime=serialize($eventStart);
+        $rec->endtime=serialize($eventEnd);
         $rec->uploaded_by=$record['uploaded_by'];
         $rec->upload_id=$record['upload_id'];
         if($rec->save())

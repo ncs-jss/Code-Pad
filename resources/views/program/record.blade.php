@@ -13,6 +13,15 @@ elseif (Session::get('type')=='teacher')
 ?>
 @extends('layouts.layout')
 
+    @section('head')
+    <style type="text/css">
+        .custom_date_cell_table .ui-state-default {
+            width: 2em;
+        }
+    </style>
+       
+    @endsection
+
     @section('content')
 
         <section>
@@ -81,13 +90,24 @@ elseif (Session::get('type')=='teacher')
 
 
                                 <div class="col-sm-6">
-                                    <div class="form-group{{ $errors->has('starttime') ? ' has-error' : '' }}">
-                                        <label for="starttime">Start Time</label>
-                                        <input id="starttime" type="datetime-local" class="form-control" name="starttime" value="{{ old('starttime') }}">
-
-                                        @if ($errors->has('starttime'))
+                                    <div class="form-group{{ ($errors->has('starttime')||$errors->has('startdate')) ? ' has-error' : '' }}">
+                                        <label>Event Start</label>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="row">
+                                                    <div class="col-sm-7">
+                                                        <input id="startdate" type="text" class="form-control" name="startdate" value="{{ old('startdate') }}" placeholder="Start Date">
+                                                    </div>
+                                                    <div class="col-sm-5">
+                                                        <input id="starttime" type="text" class="form-control time" name="starttime" value="{{ old('starttime') }}" placeholder="Start Time">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        @if ($errors->has('starttime') || $errors->has('startdate'))
                                             <span class="help-block">
-                                                <strong>{{ $errors->first('starttime') }}</strong>
+                                                <strong>Event Start fields are required</strong>
                                             </span>
                                         @endif
                                     </div>
@@ -96,14 +116,25 @@ elseif (Session::get('type')=='teacher')
 
 
                                 <div class="col-sm-6">
-                                    <div class="form-group{{ $errors->has('endtime') ? ' has-error' : '' }}">
-                                        <label for="endtime">End Time</label>
+                                    <div class="form-group{{ ($errors->has('endtime')||$errors->has('enddate')) ? ' has-error' : '' }}">
+                                        <label>Event End</label>
 
-                                        <input id="endtime" type="datetime-local" class="form-control" name="endtime" value="{{ old('endtime') }}">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="row">
+                                                    <div class="col-sm-7">
+                                                        <input id="enddate" type="text" class="form-control" name="enddate" value="{{ old('enddate') }}" placeholder="End Date">
+                                                    </div>
+                                                    <div class="col-sm-5">
+                                                        <input id="endtime" type="text" class="form-control time" name="endtime" value="{{ old('endtime') }}" placeholder="End Time">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
 
-                                        @if ($errors->has('endtime'))
+                                        @if ($errors->has('endtime')||$errors->has('enddate'))
                                             <span class="help-block">
-                                                <strong>{{ $errors->first('endtime') }}</strong>
+                                                <strong>End Time fields are required</strong>
                                             </span>
                                         @endif
                                     </div>
@@ -160,4 +191,29 @@ elseif (Session::get('type')=='teacher')
 
     @section('script')
         <script type="text/javascript" src="{{ URL::asset('public/assets/js/codeCheck.js') }}"></script>
+        <link rel="stylesheet" href="{{ URL::asset('public/jquery-ui-1.12.0.custom/jquery-ui.min.css')}}">
+        <link rel="stylesheet" href="{{ URL::asset('public/jquery-ui-timepicker/jquery.ui.timepicker.css')}}">
+        <script src="{{ URL::asset('public/jquery-ui-1.12.0.custom/jquery-ui.min.js')}}"></script>
+        <script src="{{ URL::asset('public/jquery-ui-timepicker/jquery.ui.timepicker.js') }}"></script>
+        <script type="text/javascript">
+            $( function() {
+                $( "#startdate" ).datepicker();
+                $( "#enddate" ).datepicker();
+                $('#starttime').timepicker({
+                    showPeriod: true,
+                    showLeadingZero: true
+                });
+
+                $('#endtime').timepicker({
+                    showPeriod: true,
+                    showLeadingZero: true
+                });
+                $(".time").on('focus keyup',function() {
+                    $(".ui-timepicker-table").addClass('custom_date_cell_table');
+                });
+                
+
+            });
+        </script>
+   
     @endsection
