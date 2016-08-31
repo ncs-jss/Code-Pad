@@ -17,6 +17,15 @@
   overflow: auto;
 }
 
+.event-item .text-muted {
+  font-size: 10px;
+  text-align: center;
+}
+
+.event-item .text-muted b {
+  font-size: 14px
+}
+
 .sidebar {
   padding: 0;
   box-shadow: 3px 0 4px -3px #d8d8d8;
