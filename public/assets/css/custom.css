@@ -33,18 +33,22 @@
 
     /* FLash Message Styles */
     .custom-flash {
-      background: rgba(108, 146, 131, 0.9);
+      background: rgb(108, 146, 131);
       position: absolute;
       padding: 10px 20px;
-      left: 20%; right: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      display: block;
+      top: 15%;
       text-align: center;
       color: #fff;
       font-size: 16px;
       z-index: 99;
       transition: display 0.5s ease;
+      box-shadow: 1px 1px 5px rgba(103, 103, 103, 0.63)
     }
 
-    
+
     /* Carasoul Styles*/
     .home-carousel {
         /*background: url('../img/home-bg.jpg');
