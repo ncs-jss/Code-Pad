@@ -34,12 +34,12 @@
     /* FLash Message Styles */
     .custom-flash {
       background: rgb(108, 146, 131);
-      position: absolute;
+      position: fixed;
       padding: 10px 20px;
       left: 50%;
       transform: translateX(-50%);
-      display: block;
-      top: 15%;
+      display: none;
+      top: 0px;
       text-align: center;
       color: #fff;
       font-size: 16px;

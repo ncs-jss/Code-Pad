@@ -1,6 +1,7 @@
 
 @extends('layouts.layout')
     @section('body')
+        <div class="custom-flash">{{Session::get('message')}}</div>
         <div id="background"></div>
     @endsection
     @section('content')
@@ -20,7 +21,7 @@
                                     <p id="typein">Type in your Admission No. and Password</p>
                                 </div>
                                 <div class="panel-body text-center">
-                                    <p style="color:#a94442;">{{Session::get('message')}}</p>
+
                                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/student_login') }}">
                                             {{ csrf_field() }}
 

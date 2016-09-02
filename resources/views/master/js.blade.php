@@ -15,7 +15,7 @@
     <script src = "{{ URL::asset('public/assets/js/front.js')}}"></script>
     <script src = "{{ URL::asset('public/assets/js/login.js')}}"></script>
     <script src="{{ URL::asset('public/assets/js/focus.js')}}"></script>
-
+    <script src="{{ URL::asset('public/assets/js/flashmessage.js')}}"></script>
 
 
     <!-- owl carousel -->
