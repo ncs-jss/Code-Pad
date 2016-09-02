@@ -1,20 +1,12 @@
 <?php
 use App\program_details;
 use App\ProgramRecord;
-use App\student;
-use App\teacher;
 
-if(Session::get('type')=='student')
-{
-    $result=student::find(Session::get('start'));
-}
-elseif (Session::get('type')=='teacher') {
-    $result=teacher::find(Session::get('start'));
-}
 
-    $event=ProgramRecord::find(Session::get('record_id'));
-    $code=$event->code;
-    $details=Program_Details::where('record_id',Session::get('record_id'))->get();
+$result = Auth::guard('teacher')->user();
+$event=ProgramRecord::find(Session::get('record_id'));
+$code=$event->code;
+$details=Program_Details::where('record_id',Session::get('record_id'))->get();
     // echo $details;
 ?>
 
@@ -63,7 +55,7 @@ elseif (Session::get('type')=='teacher') {
                             <div class="panel-body">
                                 <ul class="nav nav-pills nav-stacked">
                                     <li>
-                                        <a href="{{ url('program_input') }}"> <span class="fa fa-plus"></span> &nbsp; Add A New Program</a>
+                                        <a href="{{ url('create') }}"> <span class="fa fa-plus"></span> &nbsp; Add A New Program</a>
                                     </li>
                                     <li>
                                         <a href="#delete"  onclick="deleted()"><span class="fa fa-trash-o"></span> &nbsp; Delete This Event. </a>

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Middleware;
-
+use Auth;
 use Closure;
 use Session;
 use Redirect;
@@ -15,12 +15,17 @@ class Teacher
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next, $guard='teacher')
     {
-        if(Session::has('start') and Session::get('type')=='teacher')
-        {
+        // if(Session::has('start') and Session::get('type')=='student')
+        // {
+        //     return $next($request);
+        // }
+        // return Redirect::to('/login');
+
+        if(Auth::guard($guard)->check())
             return $next($request);
-        }
         return Redirect::to('/login');
+
     }
 }

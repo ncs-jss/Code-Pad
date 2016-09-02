@@ -1,14 +1,10 @@
 <?php
-use App\student;
-use App\teacher;
 
-if(Session::get('type')=='student')
-{
-    $result=student::find(Session::get('start'));
-}
-elseif (Session::get('type')=='teacher') {
-    $result=teacher::find(Session::get('start'));
-}
+if(Auth::guard('student')->check()):
+    $result = Auth::guard('student')->user();
+else:
+    $result = Auth::guard('teacher')->user();
+endif;
 
 ?>
 @extends('layouts.layout')

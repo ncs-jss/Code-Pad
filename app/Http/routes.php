@@ -20,21 +20,21 @@ Route::get('/', function () {
 
 Route::get('/reset', 'HomeController@index');
 // User login
-Route::get('/login','SessionController@login');
+Route::get('/login','UserController@login');
 // User register
-Route::get('/register','SessionController@register');
+Route::get('/register','UserController@register');
 // after login/register
-Route::get('/home','SessionController@home');
+Route::get('/home','UserController@home');
 // for logout
-Route::get('/logout','SessionController@logout');
+Route::get('/logout','UserController@logout');
 // Student Profile
-Route::get('/std_profile','SessionController@std_profile')->middleware('student');
+Route::get('/student/profile','Student\StudentController@profile');
 // Teacher Profile
-Route::get('/tea_profile','SessionController@tea_profile')->middleware('teacher');
-// Program record
-Route::get('/program', 'SessionController@program')->middleware('teacher');
+Route::get('/teacher/profile','Teacher\TeacherController@profile');
+// Event create
+Route::get('/new', 'Teacher\TeacherController@createEvent');
 // Program input
-Route::get('/program_input','SessionController@program_input')->middleware(['teacher','program']);
+Route::get('/create','Teacher\TeacherController@program_input');
 //Error
 Route::get('/error',function(){
 	return view('errors.503');
@@ -44,15 +44,15 @@ Route::get('/check', function() {
 	return view('program.program');
 });
 // Update program record
-Route::get('/update/{id}', 'ProgramController@update_data')->middleware('teacher');
+Route::get('/update/{id}', 'Teacher\TeacherController@openEvent');
 
 Route::get('/contest/{id}', 'ProgramController@contest');
 
-Route::get('/update/{code}/{id}','ProgramController@updateProgram')->middleware('teacher');	// Update the program
+Route::get('/update/{code}/{id}','Teacher\TeacherController@updateProgram');	// Update the program
 
-Route::get('/check/{id}','ProgramController@checkCode');
+Route::get('/check/{id}','Teacher\TeacherController@checkCode');
 
-Route::get('/delete/{id}','ProgramController@delete')->middleware('teacher');
+Route::get('/delete/{id}','Teacher\TeacherController@delete');
 
 Route::get('/write','ProgramController@writeFile');
 
@@ -66,23 +66,23 @@ Route::get('/{id}',function() {
 
 // POST routes added
 
-Route::post('/student_login','StudentController@login');	// Check Student login details
+Route::post('/student_login','UserController@studentLogin');	// Check Student login details
 
-Route::post('/student_register','StudentController@register');	// Check and save student registration
+Route::post('/student_register','UserController@studentRegister');	// Check and save student registration
 
-Route::post('/student_details/{id}','StudentController@stu_details');	// Save student profile
+Route::post('/student_details/{id}','Student\StudentController@stu_details');	// Save student profile
 
-Route::post('/teacher_login','TeacherController@login');	// Check Teacher login details
+Route::post('/teacher_login','UserController@teacherLogin');	// Check Teacher login details
 
-Route::post('/teacher_register','TeacherController@register');	// Check and save Teacher registration
+Route::post('/teacher_register','UserController@teacherRegister');	// Check and save Teacher registration
 
-Route::post('/teacher_details/{id}','TeacherController@tea_details');	// Save teacher profile
+Route::post('/teacher_details/{id}','Teacher\TeacherController@tea_details');	// Save teacher profile
 
-Route::post('/record','ProgramController@record');	// Save program record
+Route::post('/record','Teacher\TeacherController@record');	// Save program record
 
-Route::post('/program_details','ProgramController@program_details');	// Save program details
+Route::post('/program','Teacher\TeacherController@programDetails');	// Save program details
 
 Route::post('/check','ProgramController@snippet');	//
 
 
-Route::post('/programUpdate','ProgramController@ProgramUpdateDone');	// Program update done
+Route::post('/programUpdate','Teacher\TeacherController@ProgramUpdateDone');	// Program update done

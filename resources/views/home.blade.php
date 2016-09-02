@@ -1,14 +1,21 @@
 <?php
 use App\programRecord;
-use App\teacher;
-use App\student;
-    if(Session::get('type')=='teacher'):
-        $result=teacher::find(Session::get('start'));
-        $programList=programRecord::where('uploaded_by',$result->name)->get();
-    else:
-        $result=student::find(Session::get('start'));
-        $programList=programRecord::all();
-    endif;
+// use App\teacher;
+// use App\student;
+//     if(Session::get('type')=='teacher'):
+//         $result=teacher::find(Session::get('start'));
+//         $programList=programRecord::where('uploaded_by',$result->name)->get();
+//     else:
+//         $result=student::find(Session::get('start'));
+//     endif;
+if(Auth::guard('student')->check()):
+    $result = Auth::guard('student')->user();
+    $programList=programRecord::all();
+else:
+    $result = Auth::guard('teacher')->user();
+    $programList=programRecord::where('upload_id',$result->id)->get();
+endif;
+
 ?>
 
 @extends('layouts.layout')
@@ -22,7 +29,7 @@ use App\student;
 
             <div class="col-xs-12 col-sm-9 col-md-10">
 
-                @if(Session::get('type')=='teacher')
+                @if(Auth::guard('teacher')->check())
                     @include('master.teacherEvents')
                 @else
                     @include('master.studentEvents')

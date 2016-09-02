@@ -33,7 +33,7 @@
                                 <li class="">
                                     <a href="#"> Contact </a>
                                 </li>
-                               @if (!Session::get('start'))
+                               @if (!(Auth::guard('student')->check() || Auth::guard('teacher')->check()))
                             <!-- <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                         Login<span class="caret"></span>
@@ -64,11 +64,11 @@
                                 <li class="">
                                     <a href="{{ url('/home') }}"> Dashboard </a>
                                 </li>
-                                @if (Session::get('type')=='student')
-                                    <li><a href="{{ url('/std_profile') }}">Edit Profile</a></li>
+                                @if(Auth::guard("student")->check())
+                                    <li><a href="{{ url('/student/profile') }}">Edit Profile</a></li>
                                 @else
-                                    <li><a href="{{ url('/program') }}">Create Event</a></li>
-                                    <li><a href="{{ url('/tea_profile') }}">Edit Profile</a></li>
+                                    <li><a href="{{ url('/new') }}">Create Event</a></li>
+                                    <li><a href="{{ url('/teacher/profile') }}">Edit Profile</a></li>
                                 @endif
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">

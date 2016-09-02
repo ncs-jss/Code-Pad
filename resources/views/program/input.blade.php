@@ -1,16 +1,8 @@
 <?php
-use App\student;
-use App\teacher;
 use App\programRecord;
 
-if(Session::get('type')=='student')
-{
-    $result=student::find(Session::get('start'));
-}
-elseif (Session::get('type')=='teacher') {
-    $result=teacher::find(Session::get('start'));
-    $programList=programRecord::where('uploaded_by',$result->name)->get();
-}
+$result = Auth::guard('teacher')->user();
+$programList=programRecord::where('upload_id',$result->id)->get();
 
 ?>
 @extends('layouts.layout')
@@ -32,7 +24,7 @@ elseif (Session::get('type')=='teacher') {
                     </div>
 
                     <div class="col-sm-6 col-sm-offset-3">
-                        <form class="form-horizontal" role="form" method="POST" action="{{ url('/program_details') }}">
+                        <form class="form-horizontal" role="form" method="POST" action="{{ url('/program') }}">
                                 {{ csrf_field() }}
                             <div class="form row">
                                 <div class="col-sm-12">

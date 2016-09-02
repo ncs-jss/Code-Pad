@@ -1,15 +1,8 @@
 <?php
-use App\student;
-use App\teacher;
 
-if(Session::get('type')=='student')
-{
-  $result=student::find(Session::get('start'));
-}
-elseif (Session::get('type')=='teacher')
-{
-  $result=teacher::find(Session::get('start'));
-}
+$result = Auth::guard('teacher')->user();
+
+
 ?>
 @extends('layouts.layout')
 
@@ -19,7 +12,7 @@ elseif (Session::get('type')=='teacher')
             width: 2em;
         }
     </style>
-       
+
     @endsection
 
     @section('content')
@@ -104,7 +97,7 @@ elseif (Session::get('type')=='teacher')
                                                 </div>
                                             </div>
                                         </div>
-                                        
+
                                         @if ($errors->has('starttime') || $errors->has('startdate'))
                                             <span class="help-block">
                                                 <strong>Event Start fields are required</strong>
@@ -211,9 +204,9 @@ elseif (Session::get('type')=='teacher')
                 $(".time").on('focus keyup',function() {
                     $(".ui-timepicker-table").addClass('custom_date_cell_table');
                 });
-                
+
 
             });
         </script>
-   
+
     @endsection
