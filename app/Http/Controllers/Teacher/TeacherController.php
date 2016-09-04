@@ -110,35 +110,46 @@ class TeacherController extends Controller
 
         $record = Input::all();
         // return $record;
+        $eventStart = array('startdate' => $record['startdate'] , 'starttime' => $record['starttime'] );
+        $eventEnd = array('enddate' => $record['enddate'] , 'endtime' => $record['endtime'] );
+        // return substr($record['starttime'],-2);
+        $start = $this->dateConversion($record['startdate']).$this->timeConversion($record['starttime']);
+        $end = $this->dateConversion($record['enddate']).$this->timeConversion($record['endtime']);
 
-        if($record['uploaded_by']==Auth::guard('teacher')->user()->name)
+        if($end-$start >= 100 )
         {
-            $eventStart = array('startdate' => $record['startdate'] , 'starttime' => $record['starttime'] );
-            $eventEnd = array('enddate' => $record['enddate'] , 'endtime' => $record['endtime'] );
-            // Save to database
-            $rec = new ProgramRecord;
-            $rec->name=$record['name'];
-            $rec->code=$record['code'];
-            $rec->description=$record['description'];
-            $rec->starttime=serialize($eventStart);
-            $rec->endtime=serialize($eventEnd);
-            $rec->uploaded_by=$record['uploaded_by'];
-            $rec->upload_id=$record['upload_id'];
-            if($rec->save())
+            if($record['uploaded_by']==Auth::guard('teacher')->user()->name)
             {
-                $result=ProgramRecord::where('code',$record['code'])->first();
+                // Save to database
+                $rec = new ProgramRecord;
+                $rec->name=$record['name'];
+                $rec->code=$record['code'];
+                $rec->description=$record['description'];
+                $rec->starttime=serialize($eventStart);
+                $rec->endtime=serialize($eventEnd);
+                $rec->uploaded_by=$record['uploaded_by'];
+                $rec->upload_id=$record['upload_id'];
+                if($rec->save())
+                {
+                    $result=ProgramRecord::where('code',$record['code'])->first();
 
-                // Session create
-                Session::put('record_id',$result->id);
+                    // Session create
+                    Session::put('record_id',$result->id);
 
-                // Create a new file for that particular event with its unique code
-                Storage::put('record/'.$record['code'].'.txt','');
-                return Redirect::to('create')->with(['message' => 'Record is successfully saved' , 'class' => 'Success']);
+                    // Create a new file for that particular event with its unique code
+                    Storage::put('record/'.$record['code'].'.txt','');
+                    return Redirect::to('create')->with(['message' => 'Record is successfully saved' , 'class' => 'Success']);
+                }
+                return Redirect::back()->with(['message' => 'Record is failed' , 'class' => 'Danger'])->withInput();
             }
-            return Redirect::back()->with(['message' => 'Record is failed' , 'class' => 'Danger'])->withInput();
+            $errors=new MessageBag(['uploaded_by' => ['This field must be your name']]);
+            return Redirect::back()->withErrors($errors)->withInput()->with(['message' => 'Event must be created by you' , 'class' => 'Warning']);
         }
-        $errors=new MessageBag(['uploaded_by' => ['This field must be your name']]);
-        return Redirect::back()->withErrors($errors)->withInput()->with(['message' => 'Event must be created by you' , 'class' => 'Warning']);
+        else
+        {
+            $errors=new MessageBag(['startdate' => ['Event must be start before the end time'], 'enddate' => ['Event must be end after the start time']]);
+            return Redirect::back()->withErrors($errors)->withInput()->with(['message' => 'Enter correct time' , 'class' => 'Warning']);
+        }
     }
 
     /**
@@ -283,6 +294,42 @@ class TeacherController extends Controller
     public function program_input()
     {
         return view('program.input');
+    }
+
+    public function dateConversion($value)
+    {
+        $value = explode('/', $value);
+        $value = array_reverse($value);
+        $value = implode('', $value);
+        return $value;
+    }
+    public function timeConversion($value)
+    {
+        $time="";
+        if(substr($value, -2)=="AM")
+        {
+            if(substr($value,0,2) == "12")
+            {
+                $time="00".substr($value,3,2);
+            }
+            else
+            {
+                $time=substr($value,0,2).substr($value,3,2);
+            }
+        }
+        else
+        {
+            if(substr($value,0,2) != "12")
+            {
+                $time = substr($value,0,2)+12;
+                $time=$time.substr($value,3,2);
+            }
+            else
+            {
+                $time=substr($value,0,2).substr($value,3,2);
+            }
+        }
+        return $time;
     }
 
 }
