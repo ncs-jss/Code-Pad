@@ -72,10 +72,10 @@ class StudentController extends Controller
                 $result->gender=$student_details['gender'];
             $result->save();
 
-            return Redirect::back()->withInput()->with('message','Profile is updated!!');
+            return Redirect::back()->with(['message' => 'Profile is updated!!' , 'class' => 'Success']);
         }
 
-        return Redirect::to('home')->with('message','Invalid User');
+        return Redirect::to('home')->with(['message' => 'Invalid User' , 'class' => 'Warning']);
     }
 
 }

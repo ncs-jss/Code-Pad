@@ -27,9 +27,8 @@ class UserController extends Controller
     {
     	if(Auth::guard('student')->check() || Auth::guard('teacher')->check())
     	{
-    		return Redirect::back()->with('message','You need to log out first!');
+    		return Redirect::to('home')->with(['message' => 'You need to logout first' , 'class' => 'Warning']);
     	}
-
     	return view('login');
     }
 
@@ -40,7 +39,7 @@ class UserController extends Controller
     {
     	if(Auth::guard('student')->check() || Auth::guard('teacher')->check())
     	{
-    		return Redirect::back()->with('message','You need to log out first!');
+    		return Redirect::to('home')->with(['message' => 'You need to logout first' , 'class' => 'Warning']);
     	}
 
     	return view('register');
@@ -53,9 +52,9 @@ class UserController extends Controller
     {
         if(Auth::guard('student')->check() || Auth::guard('teacher')->check())
         {
-            return view('home');
+            return view('home')->with('message',['You are logged in','Success']);
         }
-        return Redirect::to('/login')->with('message','You need to login first');
+        return Redirect::to('login')->with(['message' => 'You need to login first' , 'class' => 'Warning']);
     }
 
 
@@ -64,39 +63,10 @@ class UserController extends Controller
      */
     public function logout(Request $request)
     {
-        $request->session()->forget('start');
-        $request->session()->forget('type');
         $request->session()->forget('record_id');
         $request->session()->flush();
         Auth::logout();
         return Redirect::to('/');
-    }
-
-
-
-
-    /**
-     * function tea_profile for checking the active session of the Teacher to make him edit his profile
-     */
-    public function tea_profile()
-    {
-        return view('teacher.profile');
-    }
-
-    /**
-     * function program for checking the active session of the Teacher to make him create the events
-     */
-    public function program()
-    {
-        return view('program.record');
-    }
-
-    /**
-     * function program_input for checking the active session of the Teacher and record_id to make him input the details of the programs
-     */
-    public function program_input()
-    {
-        return view('program.input');
     }
 
     public function studentLogin(Request $request)
@@ -113,11 +83,11 @@ class UserController extends Controller
         {
             // $user = Auth::guard('student')->user();
             // return $user;
-            return Redirect::to('/home');
+            return Redirect::to('/home')->with(['message' => 'You are logged in' , 'class' => 'Success']);
         }
 
         $errors=new MessageBag(['password' => ['Password Invalid']]);
-        return Redirect::back()->withErrors($errors)->with('message',"Invalid Credentials");
+        return Redirect::back()->withErrors($errors)->with(['message' => 'Invalid Credentials' , 'class' => 'Danger']);
     }
 
     public function studentRegister(Request $request)
@@ -146,9 +116,9 @@ class UserController extends Controller
             $student_details->save();
 
             Auth::guard('student')->loginUsingId($id);
-            return Redirect::to('/home');
+            return Redirect::to('/home')->with(['message' => 'You are successfully registered' , 'class' => 'Success']);
         }
-        return Redirect::back();
+        return Redirect::back()->withInput()->with(['message' => 'Error in registration, Please Try Again' , 'class' => 'Danger']);
     }
 
     /**
@@ -169,10 +139,10 @@ class UserController extends Controller
 
         if(Auth::guard('teacher')->attempt(['email' => $tlogin['email'], 'password' => $tlogin['password']]))
         {
-            return Redirect::to('/home');
+            return Redirect::to('/home')->with(['message' => 'You are logged in' , 'class' => 'Success']);
         }
         $errors=new MessageBag(['password' => ['Password Invalid']]);
-        return Redirect::back()->withErrors($errors)->with('message',"Invalid Credentials");
+        return Redirect::back()->withErrors($errors)->with(['message' => 'Invalid Credentials' , 'class' => 'Danger']);
     }
 
     /**
@@ -208,9 +178,9 @@ class UserController extends Controller
             $teacher_details->save();
 
             Auth::guard('teacher')->loginUsingId($id);
-            return Redirect::to('/home');
+            return Redirect::to('/home')->with(['message' => 'You are successfully registered' , 'class' => 'Success']);
         }
-        return Redirect::back();
+        return Redirect::back()->withInput()->with(['message' => 'Error in registration, Please Try Again' , 'class' => 'Danger']);
     }
 
 }

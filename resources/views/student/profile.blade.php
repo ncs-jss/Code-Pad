@@ -2,7 +2,9 @@
 $result = Auth::guard('student')->user();
 ?>
 @extends('layouts.layout')
-
+    @section('body')
+        <div class="custom-flash {{ Session::get('class') }} ">{{ Session::get('message') }}</div>
+    @endsection
     @section('content')
         <section>
             <div class="container-fluid">
@@ -15,11 +17,6 @@ $result = Auth::guard('student')->user();
                     </div>
 
                     <div class="col-sm-6 col-sm-offset-3">
-                        <div class="row">
-                            <div class="col-md-6 col-md-offset-5" style="color:#429842;">{{Session::get('message')}}
-                            </div>
-                        </div>
-
                         <form role="form" method="POST" action="{{ url('student_details/'.Auth::guard('student')->user()->id) }}">
                                 {{ csrf_field() }}
                             <div class="form row">

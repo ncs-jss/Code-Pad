@@ -1,5 +1,6 @@
 @extends('layouts.layout')
     @section('body')
+        <div class="custom-flash {{ Session::get('class') }} ">{{ Session::get('message') }}</div>
         <div id="background"></div>
     @endsection
 
@@ -19,7 +20,6 @@
                                         <h3>CodePad <small>logo</small></h3>
                                     </div>
                                     <div class="panel-body text-center">
-                                        <p style="color:#a94442;">{{Session::get('message')}}</p>
                                         <form class="form-horizontal" role="form" method="POST" action="{{ url('/student_register') }}">
                                             {{ csrf_field() }}
 
@@ -96,7 +96,6 @@
                                         <h3>CodePad <small>logo</small></h3>
                                     </div>
                                     <div class="panel-body text-center">
-                                        <p style="color:#a94442;">{{Session::get('message')}}</p>
                                         <form class="form-horizontal" role="form" method="POST" action="{{ url('/teacher_register') }}">
                                             {{ csrf_field() }}
 

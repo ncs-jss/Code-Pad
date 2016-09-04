@@ -21,7 +21,9 @@ use Storage;
 
 class TeacherController extends Controller
 {
-
+    /**
+     * Contructor for middleware
+     */
     public function __construct()
     {
         $this->middleware('teacher');
@@ -33,7 +35,8 @@ class TeacherController extends Controller
      */
     public function profile()
     {
-        return view('teacher.profile');
+        $result=Teacher_Details::where('teacher_id',Auth::guard('teacher')->user()->id)->first();
+        return view('teacher.profile')->with('data',$result);
     }
 
     /**
@@ -50,7 +53,7 @@ class TeacherController extends Controller
 
         //Save in the DB
         $request->flash();
-        // return Auth::guard('teacher')->user()['id'];
+
         if(Auth::guard('teacher')->user()['id']==$id)
         {
 
@@ -67,10 +70,10 @@ class TeacherController extends Controller
                 $result->gender=$teacher_details['gender'];
             $result->save();
 
-            return Redirect::back()->withInput()->with('message','Profile is updated!!');
+            return Redirect::back()->with(['message' => 'Profile is updated!!' , 'class' => 'Success']);
         }
 
-        return Redirect::to('tlogin')->with('message','Login to update profile');
+        return Redirect::to('home')->with(['message' => 'Invalid Authentication' , 'class' => 'Warning']);
     }
 
 
@@ -79,6 +82,7 @@ class TeacherController extends Controller
      */
     public function createEvent()
     {
+        // Session::flash('message','Create an Event');
         return view('program.record');
     }
 
@@ -100,36 +104,41 @@ class TeacherController extends Controller
             'enddate' => 'required',
             'endtime' => 'required',
             'uploaded_by'=>'required',
-            'upload_id' => 'required'
+            'upload_id' => 'required',
         ]);
 
 
         $record = Input::all();
         // return $record;
-        $eventStart = array('startdate' => $record['startdate'] , 'starttime' => $record['starttime'] );
-        $eventEnd = array('enddate' => $record['enddate'] , 'endtime' => $record['endtime'] );
-        // Save to database
-        $rec = new ProgramRecord;
-        $rec->name=$record['name'];
-        $rec->code=$record['code'];
-        $rec->description=$record['description'];
-        $rec->starttime=serialize($eventStart);
-        $rec->endtime=serialize($eventEnd);
-        $rec->uploaded_by=$record['uploaded_by'];
-        $rec->upload_id=$record['upload_id'];
-        if($rec->save())
+
+        if($record['uploaded_by']==Auth::guard('teacher')->user()->name)
         {
-            $result=ProgramRecord::where('code',$record['code'])->first();
+            $eventStart = array('startdate' => $record['startdate'] , 'starttime' => $record['starttime'] );
+            $eventEnd = array('enddate' => $record['enddate'] , 'endtime' => $record['endtime'] );
+            // Save to database
+            $rec = new ProgramRecord;
+            $rec->name=$record['name'];
+            $rec->code=$record['code'];
+            $rec->description=$record['description'];
+            $rec->starttime=serialize($eventStart);
+            $rec->endtime=serialize($eventEnd);
+            $rec->uploaded_by=$record['uploaded_by'];
+            $rec->upload_id=$record['upload_id'];
+            if($rec->save())
+            {
+                $result=ProgramRecord::where('code',$record['code'])->first();
 
-            // Session create
-            Session::put('record_id',$result->id);
+                // Session create
+                Session::put('record_id',$result->id);
 
-            // Create a new file for that particular event with its unique code
-            Storage::put('record/'.$record['code'].'.txt','');
-            return Redirect::to('program_input')->with('message','Record is successfully saved');
+                // Create a new file for that particular event with its unique code
+                Storage::put('record/'.$record['code'].'.txt','');
+                return Redirect::to('create')->with(['message' => 'Record is successfully saved' , 'class' => 'Success']);
+            }
+            return Redirect::back()->with(['message' => 'Record is failed' , 'class' => 'Danger'])->withInput();
         }
-
-        return Redirect::back()->with('message','Record is failed');
+        $errors=new MessageBag(['uploaded_by' => ['This field must be your name']]);
+        return Redirect::back()->withErrors($errors)->withInput()->with(['message' => 'Event must be created by you' , 'class' => 'Warning']);
     }
 
     /**
@@ -147,12 +156,12 @@ class TeacherController extends Controller
             {
                 //Session create record_id
                 Session::put('record_id',$result->id);
-                return view('program.update');
+                return view('program.update')->with('message',['Update the event','Info']);
             }
-            return Redirect::back()->with('error','You are not authorized to update this event');
+            return Redirect::back()->with(['message' => 'Invalid Authentication' , 'class' => 'Warning']);
         }
 
-        return Redirect::back()->with('error','Incorrect Program Code');
+        return Redirect::back()->with(['message' => 'Incorrect program code' , 'class' => 'Danger']);
     }
 
     /**
@@ -184,13 +193,13 @@ class TeacherController extends Controller
         if($prg->save())
         {
             if($pg['decide']=='1')
-                return Redirect::back()->with('message','Program uploaded');
+                return Redirect::back()->with(['message' => 'Program is uploaded!!' , 'class' => 'Success']);
             $code=ProgramRecord::find(Session::get('record_id'));
             $code=$code->code;
-            return Redirect::to('update/'.$code)->with('message','Program is updated');
+            return Redirect::to('update/'.$code)->with(['message' => 'Program is uploaded!!' , 'class' => 'Success']);
         }
 
-        return Redirect::back()->with('message','Program failed to upload');
+        return Redirect::back()->with(['message' => 'Program failed to upload' , 'class' => 'Danger']);
     }
 
         /**
@@ -230,11 +239,11 @@ class TeacherController extends Controller
             // return view('program.update')->with('message','Program is updated!');
             $code=ProgramRecord::find(Session::get('record_id'));
             $code=$code->code;
-            return Redirect::to('update/'.$code)->with('message','Program is updated');
+            return Redirect::to('update/'.$code)->with(['message' => 'Program is updated!!' , 'class' => 'Success']);
         }
         else
         {
-            return Redirect::back()->with('message','Error in updating program, Try Again');
+            return Redirect::back()->with(['message' => 'Error in updating program, Try Again' , 'class' => 'Danger']);
         }
 
     }
@@ -249,7 +258,7 @@ class TeacherController extends Controller
             $del->delete();
             // ProgramRecord::destroy($id);
             // if($)
-            return Redirect::to('home')->with('message','Event is deleted');
+            return Redirect::to('home')->with(['message' => 'Event is successfully deleted' , 'class' => 'Success']);
         }
     }
 

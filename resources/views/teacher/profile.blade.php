@@ -1,8 +1,11 @@
 <?php
 $result = Auth::guard('teacher')->user();
+// var_dump(Session::get('class'));
 ?>
 @extends('layouts.layout')
-
+    @section('body')
+        <div class="custom-flash {{ Session::get('class') }}">{{ Session::get('message') }}</div>
+    @endsection
     @section('content')
         <section>
             <div class="container-fluid">
@@ -15,10 +18,6 @@ $result = Auth::guard('teacher')->user();
                     </div>
 
                     <div class="col-sm-6 col-sm-offset-3">
-                        <div class="row">
-                            <div class="col-md-6 col-md-offset-5" style="color:#429842;">{{Session::get('message')}}
-                            </div>
-                        </div>
 
                         <form role="form" method="POST" action="{{ url('teacher_details/'.Auth::guard('teacher')->user()->id) }}">
                         {{ csrf_field() }}
@@ -27,7 +26,7 @@ $result = Auth::guard('teacher')->user();
                                     <div class="form-group{{ $errors->has('department') ? ' has-error' : '' }}">
                                         <label for="department" class="control-label">Department</label>
 
-                                        <input id="department" type="text" class="form-control" name="department" value="{{ old('department') }}">
+                                        <input id="department" type="text" class="form-control" name="department" value="{{ $data['department'] }}">
 
                                         @if ($errors->has('department'))
                                             <span class="help-block">
@@ -41,7 +40,7 @@ $result = Auth::guard('teacher')->user();
                                 <div class="form-group{{ $errors->has('position') ? 'has-error' : '' }}">
                                     <label for="position" class="control-label">Position</label>
 
-                                    <input id="position" type="text" class="form-control" name="position" value="{{ old('position') }}">
+                                    <input id="position" type="text" class="form-control" name="position" value="{{ $data['position'] }}">
 
                                     @if ($errors->has('position'))
                                         <span class="help-block">
@@ -55,7 +54,7 @@ $result = Auth::guard('teacher')->user();
                                 <div class="form-group{{ $errors->has('mobile') ? ' has-error' : '' }}">
                                     <label for="mobile" class="control-label">Mobile No.</label>
 
-                                    <input id="mobile" type="text" class="form-control" name="mobile" value="{{ old('mobile') }}">
+                                    <input id="mobile" type="text" class="form-control" name="mobile" value="{{ $data['mobile'] }}">
 
                                     @if ($errors->has('mobile'))
                                         <span class="help-block">
@@ -70,8 +69,8 @@ $result = Auth::guard('teacher')->user();
                                         <label for="gender" class="control-label">Gender</label>
 
                                         <div class="col-sm-offset-4">
-                                            <label class="radio-inline"><input type="radio" name="gender" value="Male" {{ (old('gender')=='Male') ? 'checked' :''}} >Male</label>
-                                            <label class="radio-inline"><input type="radio" name="gender" value="Female" {{ (old('gender')=='Female') ? 'checked' :''}} >Female</label>
+                                            <label class="radio-inline"><input type="radio" name="gender" value="Male" {{ ($data['gender']=='Male') ? 'checked' :''}} >Male</label>
+                                            <label class="radio-inline"><input type="radio" name="gender" value="Female" {{ ($data['gender']=='Female') ? 'checked' :''}} >Female</label>
                                             @if ($errors->has('gender'))
                                                 <span class="help-block">
                                                     <strong>{{ $errors->first('gender') }}</strong>

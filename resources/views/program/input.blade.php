@@ -6,9 +6,10 @@ $programList=programRecord::where('upload_id',$result->id)->get();
 
 ?>
 @extends('layouts.layout')
-
+    @section('body')
+        <div class="custom-flash {{ Session::get('class') }} ">{{ Session::get('message') }}</div>
+    @endsection
     @section('content')
-
         <section>
             <div class="container-fluid">
 

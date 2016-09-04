@@ -1,8 +1,5 @@
 <?php
-
 $result = Auth::guard('teacher')->user();
-
-
 ?>
 @extends('layouts.layout')
 
@@ -12,9 +9,10 @@ $result = Auth::guard('teacher')->user();
             width: 2em;
         }
     </style>
-
     @endsection
-
+    @section('body')
+        <div class="custom-flash {{ Session::get('class') }}">{{ Session::get('message') }}</div>
+    @endsection
     @section('content')
 
         <section>

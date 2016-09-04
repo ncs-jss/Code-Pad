@@ -1,13 +1,5 @@
 <?php
 use App\programRecord;
-// use App\teacher;
-// use App\student;
-//     if(Session::get('type')=='teacher'):
-//         $result=teacher::find(Session::get('start'));
-//         $programList=programRecord::where('uploaded_by',$result->name)->get();
-//     else:
-//         $result=student::find(Session::get('start'));
-//     endif;
 if(Auth::guard('student')->check()):
     $result = Auth::guard('student')->user();
     $programList=programRecord::all();
@@ -19,6 +11,9 @@ endif;
 ?>
 
 @extends('layouts.layout')
+    @section('body')
+        <div class="custom-flash {{ Session::get('class') }} ">{{ Session::get('message') }}</div>
+    @endsection
     @section('content')
         <div class='container-fluid '>
 

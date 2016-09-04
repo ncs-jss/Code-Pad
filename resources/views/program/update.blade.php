@@ -11,7 +11,9 @@ $details=Program_Details::where('record_id',Session::get('record_id'))->get();
 ?>
 
 @extends('layouts.layout')
-
+    @section('body')
+        <div class="custom-flash {{ Session::get('class') }} ">{{ Session::get('message') }}</div>
+    @endsection
     @section('content')
         <div class="view-event container">
                 <div class="event-info row">

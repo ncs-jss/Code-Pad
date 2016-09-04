@@ -4,7 +4,9 @@ $result = Auth::guard('teacher')->user();
 $programList=programRecord::where('uploaded_by',$result->name)->get();
 ?>
 @extends('layouts.layout')
-
+    @section('body')
+        <div class="custom-flash {{ Session::get('class') }} ">{{ Session::get('message') }}</div>
+    @endsection
     @section('content')
 
         <section>

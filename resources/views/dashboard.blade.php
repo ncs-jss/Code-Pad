@@ -5,9 +5,12 @@ if(Auth::guard('student')->check()):
 else:
     $result = Auth::guard('teacher')->user();
 endif;
-
+// echo $message;
 ?>
 @extends('layouts.layout')
+  @section('body')
+    <div class="custom-flash {{ Session::get('class') }} ">{{ Session::get('message') }}</div>
+  @endsection
   @section('content')
     <section class="no-mb">
       <!-- *** HOMEPAGE CAROUSEL *** -->
