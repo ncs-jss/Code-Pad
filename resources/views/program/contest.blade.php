@@ -6,7 +6,6 @@ $result = Auth::guard('student')->user();
 $event=ProgramRecord::find(Session::get('record_id'));
 $code=$event->code;
 $details=Program_Details::where('record_id',Session::get('record_id'))->get();
-    // echo $details;
 ?>
 @extends('layouts.layout')
     @section('body')

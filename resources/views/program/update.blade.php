@@ -12,7 +12,7 @@ $details=Program_Details::where('record_id',Session::get('record_id'))->get();
 
 @extends('layouts.layout')
     @section('body')
-        <div class="custom-flash {{ Session::get('class') }} ">{{ Session::get('message') }}</div>
+        <div class="custom-flash {{ $message[1] }} ">{{ $message[0] }}</div>
     @endsection
     @section('content')
         <div class="view-event container">
@@ -30,15 +30,15 @@ $details=Program_Details::where('record_id',Session::get('record_id'))->get();
                     <!-- *** LEFT COLUMN *** -->
 
                     <div class="col-sm-9 clearfix">
-                        <?php
-                        foreach($details as $key)
-                        {
-                            ?>
-                            @include('master.programdetails')
-                            <?php
-                        }
-                        ?>
-
+                        @if($message[2]=="1")
+                            @foreach($details as $key)
+                                @include('master.programdetails')
+                            @endforeach
+                        @elseif($message[2]=="0") 
+                            Event will be started
+                        @else
+                            Event is end
+                        @endif
                     </div>
                     <!-- /.col-md-9 -->
 

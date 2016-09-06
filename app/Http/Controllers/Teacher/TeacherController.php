@@ -169,7 +169,30 @@ class TeacherController extends Controller
             {
                 //Session create record_id
                 Session::put('record_id',$result->id);
-                return view('program.update')->with('message',['Update the event','Info']);
+                $start=unserialize($result['starttime']);
+                $end = unserialize($result['endtime']);
+                $start = $this->dateConversion($start['startdate']).$this->timeConversion($start['starttime']);
+                $end = $this->dateConversion($end['enddate']).$this->timeConversion($end['endtime']);
+                date_default_timezone_set('Asia/Kolkata');
+                $time = date("YmdHi",time());
+                if($start>$time)
+                {
+                    $timing="0";
+                    $class="Info";
+                    $mess="Update the event";
+                }
+                elseif ($time>=$start && $time<=$end) {
+                    $timing="1";
+                    $class="Warning";
+                    $mess="Event is started, You cant update the event";
+                }
+                else
+                {
+                    $timing="-1";
+                    $class="Danger";
+                    $mess="Event is ended, Thank You";
+                }
+                return view('program.update')->with('message',[$mess,$class,$timing]);
             }
             return Redirect::back()->with(['message' => 'Invalid Authentication' , 'class' => 'Warning']);
         }
