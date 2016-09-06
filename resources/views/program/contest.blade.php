@@ -25,15 +25,15 @@ $details=Program_Details::where('record_id',Session::get('record_id'))->get();
             <div class="view-event row">
                 <!-- *** LEFT COLUMN *** -->
                 <div class="col-sm-9 clearfix">
-                    <?php
-                        foreach($details as $key)
-                        {
-                    ?>
+                    @if($message[2]=="1")
+                        @foreach($details as $key)
                             @include('master.programdetails')
-                    <?php
-                        }
-                    ?>
-
+                        @endforeach
+                    @elseif($message[2]=="0") 
+                        Event will be started
+                    @else
+                        Event is end
+                    @endif
                 </div>
                 <!-- /.col-md-9 -->
 
@@ -43,4 +43,5 @@ $details=Program_Details::where('record_id',Session::get('record_id'))->get();
             </div>
             <!-- /.row -->
         </div>
+        @unset($message)
     @endsection
