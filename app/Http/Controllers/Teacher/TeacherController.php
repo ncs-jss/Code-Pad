@@ -115,8 +115,10 @@ class TeacherController extends Controller
         // return substr($record['starttime'],-2);
         $start = $this->dateConversion($record['startdate']).$this->timeConversion($record['starttime']);
         $end = $this->dateConversion($record['enddate']).$this->timeConversion($record['endtime']);
-
-        if($end-$start >= 100 )
+        date_default_timezone_set('Asia/Kolkata');
+        $time = date("YmdHi",time());
+        // return $start-$time;
+        if($end-$start >= 100 && $start-$time >=10000 )
         {
             if($record['uploaded_by']==Auth::guard('teacher')->user()->name)
             {
@@ -148,7 +150,7 @@ class TeacherController extends Controller
         else
         {
             $errors=new MessageBag(['startdate' => ['Event must be start before the end time'], 'enddate' => ['Event must be end after the start time']]);
-            return Redirect::back()->withErrors($errors)->withInput()->with(['message' => 'Enter correct time' , 'class' => 'Warning']);
+            return Redirect::back()->withErrors($errors)->withInput()->with(['message' => 'Enter correct time, Event must be started after 24 hours from now' , 'class' => 'Warning']);
         }
     }
 
@@ -300,7 +302,7 @@ class TeacherController extends Controller
     {
         $value = explode('/', $value);
         $value = array_reverse($value);
-        $value = implode('', $value);
+        $value = $value[0]."".$value[2]."".$value[1];
         return $value;
     }
     public function timeConversion($value)
