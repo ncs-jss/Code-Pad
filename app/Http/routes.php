@@ -56,6 +56,8 @@ Route::get('/delete/{id}','Teacher\TeacherController@delete');
 
 Route::get('/write','ProgramController@writeFile');
 
+Route::get('/event-details', 'Teacher\TeacherController@eventdetails');
+
 Route::get('/{id}',function() {
 	return view('errors.503');
 });
@@ -86,3 +88,5 @@ Route::post('/check','ProgramController@snippet');	//
 
 
 Route::post('/programUpdate','Teacher\TeacherController@ProgramUpdateDone');	// Program update done
+
+Route::post('{id}/event-details','Teacher\TeacherController@eventsave');

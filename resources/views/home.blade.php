@@ -5,7 +5,7 @@ if(Auth::guard('student')->check()):
     $programList=programRecord::all();
 else:
     $result = Auth::guard('teacher')->user();
-    $programList=programRecord::where('upload_id',$result->id)->get();
+    $programList=programRecord::where('upload_id',$result->id)->orderBy('start','asc')->get();
 endif;
 
 ?>

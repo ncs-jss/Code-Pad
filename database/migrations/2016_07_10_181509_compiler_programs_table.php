@@ -16,8 +16,12 @@ class CompilerProgramsTable extends Migration
             $table->increments('id');
             $table->string('program_name');
             $table->text('program_statement');
+            $table->string('difficulty');
             $table->text('sample_input')->nullable();
             $table->text('sample_output')->nullable();
+            $table->text('sample_explanation')->nullable();
+            $table->string('time');
+            $table->string('marks');
             $table->text('testcases_input');
             $table->text('testcases_output');
             $table->unsignedInteger('record_id');

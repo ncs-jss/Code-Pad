@@ -28,7 +28,8 @@
     <link href="{{ URL::asset('public/assets/css/dashboard.css')}}" rel="stylesheet">
     <link href="{{ URL::asset('public/assets/css/themeForm.css')}}" rel="stylesheet">
     <link href="{{ URL::asset('public/assets/css/contact.css')}}" rel="stylesheet">
-
+    <!-- Bootstrap Markdown -->
+    <link href="{{ URL::asset('public/Bootstrap-markdown/css/bootstrap-markdown.min.css')}}" rel="stylesheet">
 
 
 

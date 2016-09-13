@@ -8,6 +8,8 @@ $event=ProgramRecord::find(Session::get('record_id'));
 $code=$event->code;
 $details=Program_Details::where('record_id',Session::get('record_id'))->get();
     // echo $details;
+$des = $event->description;
+// var_dump($des);
 ?>
 
 @extends('layouts.layout')
@@ -19,7 +21,9 @@ $details=Program_Details::where('record_id',Session::get('record_id'))->get();
                 <div class="event-info row">
                     <div class="col-xs-12 col-sm-8">
                         <h1>{{ $event->name }}</h1>
-                        <p> Description: {{ $event->description }}</p>
+                        <p>Description: {{ $des }}</p>
+                        <p id="des" >
+                        </p>
                     </div>
                     <div class="col-xs-12 col-sm-4">
                       <a class="btn btn-success ldr-bd"> <span class="fa fa-users "></span> Show Leaderboard </a>
@@ -30,15 +34,9 @@ $details=Program_Details::where('record_id',Session::get('record_id'))->get();
                     <!-- *** LEFT COLUMN *** -->
 
                     <div class="col-sm-9 clearfix">
-                        @if($message[2]=="1")
                             @foreach($details as $key)
                                 @include('master.programdetails')
                             @endforeach
-                        @elseif($message[2]=="0") 
-                            Event will be started
-                        @else
-                            Event is end
-                        @endif
                     </div>
                     <!-- /.col-md-9 -->
 
@@ -56,6 +54,9 @@ $details=Program_Details::where('record_id',Session::get('record_id'))->get();
 
                             <div class="panel-body">
                                 <ul class="nav nav-pills nav-stacked">
+                                    <li>
+                                        <a href="{{ url('event-details') }}"> <span class="fa fa-plus"></span> &nbsp; Insert Details</a>
+                                    </li>
                                     <li>
                                         <a href="{{ url('create') }}"> <span class="fa fa-plus"></span> &nbsp; Add A New Program</a>
                                     </li>
@@ -97,5 +98,11 @@ $details=Program_Details::where('record_id',Session::get('record_id'))->get();
                     location.href="{{ url('/delete/'.Session::get('record_id')) }}";
                 }
             }
+                    var converter = new showdown.Converter(),
+        txt = "{{ $event->description }}",
+        html      = converter.makeHtml(txt);
+        $("#des").text(html);
+
+
         </script>
     @endsection
