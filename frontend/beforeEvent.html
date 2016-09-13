@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="css/jquery.classycountdown.min.css" />
+</head>
+<body>
+    <section>
+        <div class="container">
+            <div class="row">
+                  <div class="col-xs-12 col-sm-6 col-sm-offset-3 text-center">
+                      <h1>Event Name </h1>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore quae accusantium quis minus voluptatem libero, quidem rem ratione repudiandae quibusdam quos, nobis consectetur accusamus numquam rerum cum aperiam natus fugit!</p>
+                      <div class="countdown"></div>
+
+                  </div>
+            </div>
+                <!-- /.row  -->
+        </div>
+            <!-- /.event timer container -->
+    </section>
+
+
+    <script src="js/jquery.classycountdown.min.js"></script>
+    <script src="js/jquery.knob.js"></script>
+    <script src="js/jquery.throttle.js"></script>
+
+    <script>
+    $('.countdown').ClassyCountdown({
+      theme: "flat-colors",
+      end: $.now() + 20,
+      // custom style for the countdown
+      style: {
+        days:    { gauge: { thickness: 0.08 } },
+        hours:   { gauge: { thickness: 0.08 } },
+        minutes: { gauge: { thickness: 0.08 } },
+        seconds: { gauge: { thickness: 0.08 } }
+      },
+      });
+    </script>
+
+</body>
+
+</html>
