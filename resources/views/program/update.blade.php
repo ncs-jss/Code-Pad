@@ -9,7 +9,7 @@ $code=$event->code;
 $details=Program_Details::where('record_id',Session::get('record_id'))->get();
     // echo $details;
 $des = $event->description;
-// var_dump($des);
+var_dump($des);
 ?>
 
 @extends('layouts.layout')
@@ -21,7 +21,7 @@ $des = $event->description;
                 <div class="event-info row">
                     <div class="col-xs-12 col-sm-8">
                         <h1>{{ $event->name }}</h1>
-                        <p>Description: {{ $des }}</p>
+                        <p>Description: {{ html_entity_decode($des) }}</p>
                         <p id="des" >
                         </p>
                     </div>
@@ -98,10 +98,10 @@ $des = $event->description;
                     location.href="{{ url('/delete/'.Session::get('record_id')) }}";
                 }
             }
-                    var converter = new showdown.Converter(),
-        txt = "{{ $event->description }}",
-        html      = converter.makeHtml(txt);
-        $("#des").text(html);
+
+        var txt = {{ $des }};
+        $("#des").append(txt);
+        console.log(txt);
 
 
         </script>

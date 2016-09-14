@@ -68,7 +68,7 @@ $result = Auth::guard('teacher')->user();
                                 <div class="col-sm-12">
                                     <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
                                         <label for="description" >Description of the Event</label>
-                                        <textarea class="form-control" rows="5" name="description" data-provide="markdown" id="description">{{ old('description') }}</textarea>
+                                        <textarea class="form-control" rows="5" name="description" id="description">{{ old('description') }}</textarea>
 
                                         @if ($errors->has('description'))
                                             <span class="help-block">
@@ -152,7 +152,7 @@ $result = Auth::guard('teacher')->user();
 
 
                                 <input type="hidden" id="upload_id" name="upload_id" value="{{ $result->id }}">
-                                <input type="hidden" id="description2" name="description2" value="{{ $result->description2 }}">
+                                <!-- <input type="hidden" id="description2" name="description2" value="{{ $result->description2 }}"> -->
                                 <br>
 
 
@@ -208,14 +208,15 @@ $result = Auth::guard('teacher')->user();
             });
 
            // new Editor($("description"), $("preview"));
-           $("#description").blur(function() {
-                var converter = new showdown.Converter(),
-                text = $("#description").val(),
-                html      = converter.makeHtml(text);
-                $("#description2").val(html);
-                console.log(html);
+           // $("#description").blur(function() {
+           //      var converter = new showdown.Converter(),
+           //      text = $("#description").val(),
+           //      html      = converter.makeHtml(text);
+           //      $("#description2").val(html);
+           //      console.log(html);
 
-           });
+           // });
+           CKEDITOR.replace('description');
 
         </script>
 
