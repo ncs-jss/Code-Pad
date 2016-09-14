@@ -17,7 +17,7 @@
             <div class="spacer col-xs-12">
                 <h2 class="event-heading"><a href="contest/{{ $flight->code }}">{{ $flight->name }} </a></h2>
 
-                <p class="event-intro"> <strong> Description: </strong>{{ $flight->description }}</p>
+                <p class="event-intro"> <strong> Description: </strong>{!!$flight->description!!}</p>
                 <p class="read-more text-center "><a href="contest/{{ $flight->code }}" class="btn btn-template-main">Participate </a></p>
                 <div class="clearfix">
                     <p class="pull-left">By <a href="#">{{ $flight->uploaded_by }}</a></p>

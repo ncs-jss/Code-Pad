@@ -9,7 +9,6 @@ $code=$event->code;
 $details=Program_Details::where('record_id',Session::get('record_id'))->get();
     // echo $details;
 $des = $event->description;
-var_dump($des);
 ?>
 
 @extends('layouts.layout')
@@ -21,9 +20,7 @@ var_dump($des);
                 <div class="event-info row">
                     <div class="col-xs-12 col-sm-8">
                         <h1>{{ $event->name }}</h1>
-                        <p>Description: {{ html_entity_decode($des) }}</p>
-                        <p id="des" >
-                        </p>
+                        <p><div>Description: {!!$des!!}</div></p>
                     </div>
                     <div class="col-xs-12 col-sm-4">
                       <a class="btn btn-success ldr-bd"> <span class="fa fa-users "></span> Show Leaderboard </a>
@@ -98,11 +95,5 @@ var_dump($des);
                     location.href="{{ url('/delete/'.Session::get('record_id')) }}";
                 }
             }
-
-        var txt = {{ $des }};
-        $("#des").append(txt);
-        console.log(txt);
-
-
         </script>
     @endsection

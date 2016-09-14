@@ -126,7 +126,7 @@ class TeacherController extends Controller
                 $rec = new ProgramRecord;
                 $rec->name=$record['name'];
                 $rec->code=$record['code'];
-                $rec->description=htmlentities($record['description']);
+                $rec->description=$record['description'];
                 $rec->starttime=serialize($eventStart);
                 $rec->endtime=serialize($eventEnd);
                 $rec->start=$start;
