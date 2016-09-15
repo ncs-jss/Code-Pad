@@ -17,6 +17,10 @@
       <div id="{{ $key->id }}" class="panel-collapse collapse">
         <div class="panel-body">
           <p>
+            <span>
+              <p class="pull-left"><strong>Difficulty:</strong> {{$key->difficulty}}</p>
+              <p class="pull-right"><strong>Marks:</strong> {{$key->marks}} </p>
+            </span><br style="clear:both;">
             <strong>Question: </strong> {{ $key->program_statement }} <br><br>
             <strong> Sample Input : </strong> {{ $key->sample_input }}<br><br>
             <strong> Sample Output : </strong> {{ $key->sample_output }} <br><br>

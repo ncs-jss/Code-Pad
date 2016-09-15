@@ -16,7 +16,8 @@ $details=Program_Details::where('record_id',Session::get('record_id'))->get();
             <div class="event-info row">
                 <div class="col-xs-12 col-sm-8">
                     <h1>{{ $event->name }}</h1>
-                    <p> Description: {!!$event->description!!}</p>
+                    <p><div><strong>Description:</strong>{!!$event->description!!}</div></p>
+                    <p><div><strong>Instructions:</strong>{!!$event->instructions!!}</div></p>
                 </div>
                 <div class="col-xs-12 col-sm-4">
                     <a class="btn btn-success ldr-bd"> <span class="fa fa-users "></span> Show Leaderboard </a>

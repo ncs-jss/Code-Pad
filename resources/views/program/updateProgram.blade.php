@@ -61,6 +61,25 @@ $programList=programRecord::where('uploaded_by',$result->name)->get();
                                 </div>
 
                                 <div class="col-sm-12">
+                                    <div class="form-group{{ $errors->has('difficulty') ? ' has-error' : '' }}">
+                                        <label for="difficulty" class="control-label">Difficulty</label>
+
+                                        <select class="form-control" id="difficulty" name="difficulty">
+                                            <option value="Easy">Easy</option>
+                                            <option value="Medium">Medium</option>
+                                            <option value="Hard">Hard</option>
+                                            <option value="Excellent">Excellent</option>
+                                        </select>
+
+                                        @if ($errors->has('difficulty'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('difficulty') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12">
                                     <div class="form-group{{ $errors->has('sample_input') ? ' has-error' : '' }}">
                                         <label for="sample_input" class="control-label">Sample Input</label>
 
@@ -89,6 +108,50 @@ $programList=programRecord::where('uploaded_by',$result->name)->get();
                                         @endif
                                     </div>
                                 </div>
+
+                                <div class="col-sm-12">
+                                    <div class="form-group{{ $errors->has('sample_explanation') ? ' has-error' : '' }}">
+                                        <label for="sample_explanation" class=" control-label">Sample Explanation (optional)</label>
+
+                                        <textarea class="form-control" rows="3" name="sample_explanation" id="sample_explanation">{{ $data->sample_explanation }}</textarea>
+
+                                        @if ($errors->has('sample_explanation'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('sample_explanation') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-5">
+                                    <div class="form-group{{ $errors->has('time') ? ' has-error' : '' }}">
+                                        <label for="time">Time Limit (in Sec)</label>
+                                        <input id="time" type="text" class="form-control" name="time" value="{{ $data->time }}" placeholder="5.0">
+
+                                        @if ($errors->has('time'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('time') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+
+                                <div class="col-sm-5 col-sm-offset-2">
+
+                                    <div class="form-group{{ $errors->has('marks') ? ' has-error' : '' }}" id="markscheck">
+                                        <label for="marks">Maximum Marks</label>
+
+                                         <input id="marks" type="text" class="form-control" name="marks" value="{{ $data->marks }}" placeholder="100">
+
+                                        @if ($errors->has('marks'))
+                                            <span class="help-block">
+                                                <strong >{{ $errors->first('marks') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+
 
                                 <div class="col-sm-12">
 
@@ -136,4 +199,9 @@ $programList=programRecord::where('uploaded_by',$result->name)->get();
                 </div>
             </div>
         </section>
+        @section('script')
+            <script type="text/javascript">
+                CKEDITOR.replaceAll();
+            </script>
+        @endsection
     @endsection

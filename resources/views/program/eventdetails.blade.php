@@ -172,9 +172,10 @@ $result = Auth::guard('teacher')->user();
                 $(".time").on('focus keyup',function() {
                     $(".ui-timepicker-table").addClass('custom_date_cell_table');
                 });
-
-
             });
+            CKEDITOR.replace('description');
+            CKEDITOR.replace('instructions');
+
         </script>
 
     @endsection
