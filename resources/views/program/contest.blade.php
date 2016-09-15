@@ -16,7 +16,7 @@ $details=Program_Details::where('record_id',Session::get('record_id'))->get();
             <div class="event-info row">
                 <div class="col-xs-12 col-sm-8">
                     <h1>{{ $event->name }}</h1>
-                    <p> Description: {{ $event->description }}</p>
+                    <p> Description: {!!$event->description!!}</p>
                 </div>
                 <div class="col-xs-12 col-sm-4">
                     <a class="btn btn-success ldr-bd"> <span class="fa fa-users "></span> Show Leaderboard </a>
@@ -25,15 +25,9 @@ $details=Program_Details::where('record_id',Session::get('record_id'))->get();
             <div class="view-event row">
                 <!-- *** LEFT COLUMN *** -->
                 <div class="col-sm-9 clearfix">
-                    @if($message[2]=="1")
                         @foreach($details as $key)
                             @include('master.programdetails')
                         @endforeach
-                    @elseif($message[2]=="0") 
-                        Event will be started
-                    @else
-                        Event is end
-                    @endif
                 </div>
                 <!-- /.col-md-9 -->
 

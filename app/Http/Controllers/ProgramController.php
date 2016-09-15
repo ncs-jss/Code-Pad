@@ -33,7 +33,7 @@ class ProgramController extends Controller
             return view('program.contest');
         }
 
-        return Redirect::back()->with('error','Incorrect Event');
+        return Redirect::back()->with('message','Incorrect Event');
     }
 
 

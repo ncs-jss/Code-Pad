@@ -20,29 +20,15 @@ $des = $event->description;
                 <div class="event-info row">
                     <div class="col-xs-12 col-sm-8">
                         <h1>{{ $event->name }}</h1>
-                        <p><div>Description: {!!$des!!}</div></p>
                     </div>
                     <div class="col-xs-12 col-sm-4">
                       <a class="btn btn-success ldr-bd"> <span class="fa fa-users "></span> Show Leaderboard </a>
                     </div>
-
-                </div>
-                <div class="view-event row">
-                    <!-- *** LEFT COLUMN *** -->
-
-                    <div class="col-sm-9 clearfix">
-                            @foreach($details as $key)
-                                @include('master.programdetails')
-                            @endforeach
+                    <div class="col-xs-12 col-sm-8">
+                        <p><div>Description: {!!$des!!}</div></p>
                     </div>
-                    <!-- /.col-md-9 -->
 
-                    <!-- *** LEFT COLUMN END *** -->
-
-                    <!-- *** RIGHT COLUMN *** -->
-
-                    <div class="col-xs-12 col-sm-3">
-                        <!-- *** Side MENU *** -->
+                    <div class="col-xs-12 col-sm-4">
                         <div class="panel panel-default sidebar-menu">
 
                             <div class="panel-heading">
@@ -69,14 +55,21 @@ $des = $event->description;
 
                             </div>
                         </div>
-
-                        <!-- *** PAGES MENU END *** -->
-
-                        <!-- /.banner -->
                     </div>
-                    <!-- /.col-md-3 -->
 
-                    <!-- *** RIGHT COLUMN END *** -->
+
+                </div>
+                <div class="view-event row">
+                    <!-- *** LEFT COLUMN *** -->
+
+                    <div class="col-sm-9 clearfix">
+                            @foreach($details as $key)
+                                @include('master.programdetails')
+                            @endforeach
+                    </div>
+                    <!-- /.col-md-9 -->
+
+                    <!-- *** LEFT COLUMN END *** -->
 
                 </div>
                 <!-- /.row -->
