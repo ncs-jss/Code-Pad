@@ -1,0 +1,15 @@
+
+/* Styles for code editor Page */
+.editor.row .title.segment h1 {
+  font-family: "Raleway";
+}
+
+.editor.row .segment {
+  font-family: "Raleway";
+  padding: 20px 15px;
+  border-bottom:  2px solid rgba(204, 204, 204, 0.32);
+}
+
+.editor.row .segment strong {
+    color: rgba(108, 146, 131, 0.75);
+}
