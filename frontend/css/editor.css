@@ -1,6 +1,7 @@
 
 /* Styles for code editor Page */
 .editor.row .title.segment h1 {
+  display: inline;
   font-family: "Raleway";
 }
 
