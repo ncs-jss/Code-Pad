@@ -25,7 +25,9 @@ $des = $event->description;
                       <a class="btn btn-success ldr-bd"> <span class="fa fa-users "></span> Show Leaderboard </a>
                     </div>
                     <div class="col-xs-12 col-sm-8">
-                        <p><div>Description: {!!$des!!}</div></p>
+                        <p><div><strong>Description:</strong>{!!$des!!}</div></p>
+                        <p><div><strong>Instructions:</strong>{!!$event->instructions!!}</div></p>
+
                     </div>
 
                     <div class="col-xs-12 col-sm-4">
@@ -37,6 +39,7 @@ $des = $event->description;
 
                             <div class="panel-body">
                                 <ul class="nav nav-pills nav-stacked">
+                                    @if($message[2]!=1)
                                     <li>
                                         <a href="{{ url('event-details') }}"> <span class="fa fa-plus"></span> &nbsp; Insert Details</a>
                                     </li>
@@ -46,9 +49,11 @@ $des = $event->description;
                                     <li>
                                         <a href="#delete"  onclick="deleted()"><span class="fa fa-trash-o"></span> &nbsp; Delete This Event. </a>
                                     </li>
+                                    @elseif($message[2]==-1)
                                     <li>
                                         <a href="{{ url('/storage/app/record/'.$code.'.txt') }}" download="{{$code}}"><span class="fa fa-check-square-o"></span> &nbsp; Download this event result </a>
                                     </li>
+                                    @endif
 
 
                                 </ul>
