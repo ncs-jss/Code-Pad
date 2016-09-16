@@ -11,6 +11,8 @@
             $flight['starttime']=unserialize($flight['starttime']);
             $flight['endtime']=unserialize($flight['endtime']);
               // echo '<a href=update/'.$flight->code.'>'.$flight->name.'</a><br>';
+            date_default_timezone_set('Asia/Kolkata');
+            $time = date("YmdHi",time());
           ?>
 
         <div class="event-item col-xs-6 col-md-3">

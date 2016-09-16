@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class TeacherLoginTable extends Migration
+class TotalResult extends Migration
 {
     /**
      * Run the migrations.
@@ -12,13 +12,15 @@ class TeacherLoginTable extends Migration
      */
     public function up()
     {
-        Schema::create('teacher', function (Blueprint $table) {
+        Schema::create('TotalResult', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password');
-            // $table->rememberToken();
+            $table->string('student_id');
+            $table->string('time');
+            $table->string('score');
+            $table->string('attempt');
+            $table->unsignedInteger('record_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -29,6 +31,6 @@ class TeacherLoginTable extends Migration
      */
     public function down()
     {
-        Schema::drop('teacher');
+        //
     }
 }
