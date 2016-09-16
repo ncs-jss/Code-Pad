@@ -17,7 +17,7 @@ class StudentLoginTable extends Migration
             $table->string('name');
             $table->string('admision_no')->unique();
             $table->string('password');
-            // $table->rememberToken();
+            $table->rememberToken();
             $table->timestamps();
         });
     }

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CompilerProgramsResultTable extends Migration
+class Result extends Migration
 {
     /**
      * Run the migrations.
@@ -15,9 +15,12 @@ class CompilerProgramsResultTable extends Migration
         Schema::create('result', function (Blueprint $table) {
             $table->increments('id');
             $table->string('student_id');
+            $table->string('time');
             $table->string('score');
-            $table->string('record_id');
+            $table->string('attempt');
+            $table->unsignedInteger('record_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -28,6 +31,6 @@ class CompilerProgramsResultTable extends Migration
      */
     public function down()
     {
-        Schema::drop('result');
+        //
     }
 }

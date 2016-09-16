@@ -49,7 +49,8 @@ $des = $event->description;
                                     <li>
                                         <a href="#delete"  onclick="deleted()"><span class="fa fa-trash-o"></span> &nbsp; Delete This Event. </a>
                                     </li>
-                                    @elseif($message[2]==-1)
+                                    @endif
+                                    @if($message[2]==-1)
                                     <li>
                                         <a href="{{ url('/storage/app/record/'.$code.'.txt') }}" download="{{$code}}"><span class="fa fa-check-square-o"></span> &nbsp; Download this event result </a>
                                     </li>
