@@ -8,7 +8,7 @@
 
         <div class="container-fluid">
             <div class="row">
-                <div class="login col-xs-12 col-sm-6 col-sm-push-3 col-md-6 col-md-push-3 ">
+                <div class="login col-xs-12 col-sm-6 col-sm-push-3 col-md-4 col-md-push-4 ">
                     <ul class="nav nav-tabs" role="tablist">
                         <li role="presentation" class="active" ><a href="#student" aria-controls="student" role="tab" data-toggle="tab">Student</a></li>
                         <li role="presentation"><a href="#teacher" aria-controls="teacher" role="tab" data-toggle="tab">Teacher</a></li>
@@ -26,10 +26,9 @@
                                             {{ csrf_field() }}
 
                                         <div class="form-group{{ $errors->has('admision_no') ? ' has-error' : '' }}">
-                                            <label for="admision_no" class="col-md-4 control-label">Admission Number</label>
 
-                                            <div class="col-md-6">
-                                                <input id="admision_no" type="admision_no" class="form-control" name="admision_no" value="{{ old('admision_no') }}">
+                                            <div class="col-sm-8 col-sm-push-2">
+                                                <input id="admision_no" type="admision_no" class="form-control" name="admision_no" value="{{ old('admision_no') }}" placeholder="Admission Number" >
 
                                                 @if ($errors->has('admision_no'))
                                                     <span class="help-block">
@@ -40,10 +39,9 @@
                                         </div>
 
                                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                                            <label for="password" class="col-md-4 control-label">Password</label>
 
-                                            <div class="col-md-6">
-                                                <input id="password" type="password" class="form-control" name="password">
+                                            <div class="col-sm-8 col-sm-push-2">
+                                                <input id="password" type="password" class="form-control" name="password" placeholder="Password">
 
                                                 @if ($errors->has('password'))
                                                     <span class="help-block">
@@ -64,12 +62,12 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <div class="col-md-8 col-md-offset-3">
+                                            <div class="col-md-8 col-md-offset-2">
                                                 <button type="submit" class="btn btn-primary">
                                                     <i class="fa fa-btn fa-sign-in"></i> Login
                                                 </button>
 
-                                                <a class="btn btn-link" href="{{ url('/password/reset') }}">Forgot Your Password?</a>
+                                                <a class="btn btn-link" href="{{ url('/password/reset') }}">Forgot Password?</a>
                                             </div>
                                         </div>
                                     </form>
@@ -86,9 +84,9 @@
                                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/teacher_login') }}">
                                         {{ csrf_field() }}
                                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                                            <label for="email" class="col-md-4 control-label">Email ID</label>
-                                            <div class="col-md-6">
-                                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}">
+
+                                            <div class="col-sm-8 col-sm-push-2">
+                                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Email ID">
 
                                                 @if ($errors->has('email'))
                                                     <span class="help-block">
@@ -99,9 +97,9 @@
                                         </div>
 
                                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                                            <label for="password" class="col-md-4 control-label">Password</label>
-                                            <div class="col-md-6">
-                                                <input id="password" type="password" class="form-control" name="password">
+
+                                            <div class="col-sm-8 col-sm-push-2">
+                                                <input id="password" type="password" class="form-control" name="password" placeholder="Password">
                                                 @if ($errors->has('password'))
                                                     <span class="help-block">
                                                         <strong>{{ $errors->first('password') }}</strong>
@@ -110,7 +108,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <div class="col-md-6 col-md-offset-4">
+                                            <div class="col-md-6 col-md-offset-3">
                                                 <div class="checkbox">
                                                     <label>
                                                         <input type="checkbox" name="remember"> Remember Me
@@ -120,12 +118,12 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <div class="col-md-8 col-md-offset-3">
+                                            <div class="col-md-8 col-md-offset-2">
                                                 <button type="submit" class="btn btn-primary">
                                                     <i class="fa fa-btn fa-sign-in"></i> Login
                                                 </button>
 
-                                                <a class="btn btn-link" href="{{ url('/password/reset') }}">Forgot Your Password?</a>
+                                                <a class="btn btn-link" href="{{ url('/password/reset') }}">Forgot Password?</a>
                                             </div>
                                         </div>
                                     </form>

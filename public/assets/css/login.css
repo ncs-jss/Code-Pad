@@ -91,20 +91,18 @@ input:focus{
   background-color: red;
 }*/
 
-.nav-tabs > li.active a,
-.nav-tabs > li.active > a:hover,
- .nav-tabs > li.active > a:focus
- {
+.nav-tabs > li.active a,.nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
   background-color: #6C9283;
   color: white;
   margin:0;
   letter-spacing: 1px;
-
 }
+
 .nav-tabs > li {
   width: 50%;
   text-align: center;
-
+  font-weight: bold;
+  background: #fff;
 }
 .nav-tabs {
   width: 100%;
@@ -118,4 +116,27 @@ input:focus{
 }
 .login {
   margin-bottom: 80px;
+}
+
+.login .form-control {
+  border: none;
+  border-bottom: 2px solid #ccc;
+  transition: all 0.2s ease-in;
+}
+
+.login .form-control:focus, .login .form-control:active {
+  outline:none;
+  box-shadow: none;
+  border-color: #6c9283;
+}
+
+.login .btn-primary {
+  background-color: #6c9283;
+  border-color: #6e9485;
+}
+
+.login .btn-primary:active, .login .btn-primary:focus, .login .btn-primary:hover {
+    color: #fff;
+    background-color: #286090;
+    border-color: #204d74;
 }
