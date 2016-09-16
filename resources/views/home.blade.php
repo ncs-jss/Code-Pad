@@ -3,6 +3,9 @@ use App\programRecord;
 if(Auth::guard('student')->check()):
     $result = Auth::guard('student')->user();
     $programList=programRecord::all();
+elseif (Auth::guard('admin')->check()):
+    $result = Auth::guard('admin')->user();
+    $programList=programRecord::all();
 else:
     $result = Auth::guard('teacher')->user();
     $programList=programRecord::where('upload_id',$result->id)->orderBy('start','asc')->get();

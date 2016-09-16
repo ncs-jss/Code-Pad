@@ -74,6 +74,49 @@ Route::group(['namespace' => 'Teacher'], function() {
 
 });
 
+Route::group(['namespace' => 'Admin'], function() {
+    Route::get('admin/update/{id}', [
+        'uses' => 'AdminController@openEvent'
+    ]);
+    Route::get('admin/update/{code}/{id}', [
+        'uses' => 'AdminController@updateProgram'
+    ]);
+    Route::get('admin/check/{id}', [
+        'uses' => 'AdminController@checkCode'
+    ]);
+    Route::get('admin/delete/{id}', [
+        'uses' => 'AdminController@delete'
+    ]);
+    Route::get('admin/event-details', [
+        'uses' => 'AdminController@eventdetails'
+    ]);
+    Route::get('admin/teacher/profile', [
+        'uses' => 'AdminController@profile'
+    ]);
+    Route::get('admin/new', [
+        'uses' => 'AdminController@createEvent'
+    ]);
+    Route::get('admin/create', [
+        'uses' => 'AdminController@program_input'
+    ]);
+    Route::post('admin/teacher_details/{id}', [
+        'uses' => 'AdminController@tea_details'
+    ]);
+    Route::post('admin/record', [
+        'uses' => 'AdminController@record'
+    ]);
+    Route::post('admin/program', [
+        'uses' => 'AdminController@programDetails'
+    ]);
+    Route::post('admin/programUpdate', [
+        'uses' => 'AdminController@ProgramUpdateDone'
+    ]);
+    Route::post('admin{id}/event-details', [
+        'uses' => 'AdminController@eventsave'
+    ]);
+
+});
+
 Route::group(['namespace' => 'Student'], function() {
     Route::get('/student/profile', [
         'uses' => 'StudentController@profile'
@@ -83,7 +126,16 @@ Route::group(['namespace' => 'Student'], function() {
     ]);
 });
 
-// Route::get('/admin', 'ProgramController@contest');
+Route::group(['namespace' => 'Admin'], function() {
+    Route::get('/admin', [
+        'uses' => 'AdminController@login'
+    ]);
+    Route::post('/student_details/{id}', [
+        'uses' => 'StudentController@stu_details'
+    ]);
+});
+
+
 
 // For writing programs
 Route::get('/check', function() {
@@ -105,7 +157,7 @@ Route::get('/{id}',function() {
 
 
 // POST routes added
-
+Route::post('/admin_login','UserController@adminLogin');
 Route::post('/student_login','UserController@studentLogin');	// Check Student login details
 
 Route::post('/student_register','UserController@studentRegister');	// Check and save student registration

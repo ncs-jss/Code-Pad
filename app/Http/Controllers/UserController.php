@@ -16,7 +16,7 @@ use App\Student_Details;
 use App\Student;
 use App\Teacher;
 use App\Teacher_Details;
-
+use App\Admin;
 class UserController extends Controller
 {
 
@@ -50,7 +50,7 @@ class UserController extends Controller
      */
     public function home(Request $request)
     {
-        if(Auth::guard('student')->check() || Auth::guard('teacher')->check())
+        if(Auth::guard('student')->check() || Auth::guard('teacher')->check() || Auth::guard('admin')->check())
         {
             return view('home')->with('message',['You are logged in','Success']);
         }
@@ -181,6 +181,26 @@ class UserController extends Controller
             return Redirect::to('/home')->with(['message' => 'You are successfully registered' , 'class' => 'Success']);
         }
         return Redirect::back()->withInput()->with(['message' => 'Error in registration, Please Try Again' , 'class' => 'Danger']);
+    }
+
+    public function adminLogin(Request $request)
+    {
+        //Validation
+        $this->validate($request,[
+            'email' => 'required|email|max:255|',
+            'password' => 'required|',
+        ]);
+
+         //Get Input
+        $login=Input::all();
+        // return $login;
+        if(Auth::guard('admin')->attempt(['email' => $login['email'], 'password' => $login['password']]))
+        {
+            // return $login;
+            return Redirect::to('/admin')->with(['message' => 'You are logged in' , 'class' => 'Success']);
+        }
+        $errors=new MessageBag(['password' => ['Password Invalid']]);
+        return Redirect::back()->withErrors($errors)->with(['message' => 'Invalid Credentials' , 'class' => 'Danger']);
     }
 
 }

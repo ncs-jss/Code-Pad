@@ -1,5 +1,9 @@
 <?php
-$result = Auth::guard('teacher')->user();
+if(Auth::guard('admin')->check())
+    $result = Auth::guard('admin')->user();
+
+else
+    $result = Auth::guard('teacher')->user();
 ?>
 @extends('layouts.layout')
 
@@ -28,7 +32,11 @@ $result = Auth::guard('teacher')->user();
                     </div>
 
                     <div class="col-sm-6 col-sm-offset-3">
-                        <form  role="form" method="POST" action="{{ url('/record') }}">
+                        @if(Auth::guard('admin')->check())
+                            <form  role="form" method="POST" action="{{ url('admin/record') }}">
+                        @else
+                            <form  role="form" method="POST" action="{{ url('/record') }}">
+                        @endif
                             {{ csrf_field() }}
 
                             <div class="form row">
