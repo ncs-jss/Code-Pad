@@ -91,17 +91,11 @@ Route::group(['namespace' => 'Admin'], function() {
     Route::get('admin/event-details', [
         'uses' => 'AdminController@eventdetails'
     ]);
-    Route::get('admin/teacher/profile', [
-        'uses' => 'AdminController@profile'
-    ]);
     Route::get('admin/new', [
         'uses' => 'AdminController@createEvent'
     ]);
     Route::get('admin/create', [
         'uses' => 'AdminController@program_input'
-    ]);
-    Route::post('admin/teacher_details/{id}', [
-        'uses' => 'AdminController@tea_details'
     ]);
     Route::post('admin/record', [
         'uses' => 'AdminController@record'

@@ -70,10 +70,12 @@
                                     <a href="{{ url('/home') }}"> Dashboard </a>
                                 </li>
                                 @if(Auth::guard("student")->check())
-                                    <li><a href="{{ url($add.'/student/profile') }}">Edit Profile</a></li>
+                                    <li><a href="{{ url('/student/profile') }}">Edit Profile</a></li>
                                 @else
                                     <li><a href="{{ url($add.'/new') }}">Create Event</a></li>
-                                    <li><a href="{{ url($add.'/teacher/profile') }}">Edit Profile</a></li>
+                                    @if(Auth::guard('teacher')->check())
+                                        <li><a href="{{ url('/teacher/profile') }}">Edit Profile</a></li>
+                                    @endif
                                 @endif
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">

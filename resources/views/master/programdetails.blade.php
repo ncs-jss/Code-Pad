@@ -8,8 +8,8 @@
             {{ $key->program_name }}( click to see details )
           </a>
           @if(Auth::guard('admin')->check())
-            <a class="pull-right" href="{{ url($add.'/update/').'/'.$code.'/'.$key->id }}"> Edit </a>
-            <a class="pull-right" href="{{ url($add.'/contest/'.$code.'/'.$key->id) }}"> Solve </a>
+            <a class="pull-right" href="{{ url($add.'/update/').'/'.$code.'/'.$key->id }}"> Edit &nbsp;</a>
+            <a class="pull-right" href="{{ url($add.'/contest/'.$code.'/'.$key->id) }}"> Solve &nbsp;&nbsp;</a>
           @elseif(Auth::guard('teacher')->check())
             <a class="pull-right" href="{{ url('update/').'/'.$code.'/'.$key->id }}"> Edit </a>
           @else
