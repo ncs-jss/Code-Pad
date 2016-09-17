@@ -115,6 +115,12 @@ Route::group(['namespace' => 'Admin'], function() {
     Route::post('admin/{id}/event-details', [
         'uses' => 'AdminController@eventsave'
     ]);
+    Route::get('admin/contest/{code}/{id}', [
+        'uses' => 'AdminController@play'
+    ]);
+    Route::get('admin/contest/{id}', [
+        'uses' => 'AdminController@contest'
+    ]);
 
 });
 
@@ -125,16 +131,19 @@ Route::group(['namespace' => 'Student'], function() {
     Route::post('/student_details/{id}', [
         'uses' => 'StudentController@stu_details'
     ]);
+    Route::get('/contest/{code}/{id}', [
+        'uses' => 'StudentController@play'
+    ]);
+    Route::get('/contest/{id}', [
+        'uses' => 'StudentController@contest'
+    ]);
 });
 
 
 
 
-// For writing programs
-Route::get('/check', function() {
-    return view('program.program');
-});
-Route::get('/contest/{id}', 'ProgramController@contest');
+
+
 
 Route::get('/write','ProgramController@writeFile');
 //Error

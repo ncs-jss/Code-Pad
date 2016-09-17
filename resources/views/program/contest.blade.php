@@ -1,8 +1,13 @@
 <?php
 use App\program_details;
 use App\ProgramRecord;
-
-$result = Auth::guard('student')->user();
+$add='';
+if(Auth::guard('admin')->check()):
+    $result = Auth::guard('admin')->user();
+    $add='admin';
+else:
+    $result = Auth::guard('student')->user();
+endif;
 $event=ProgramRecord::find(Session::get('record_id'));
 $code=$event->code;
 $details=Program_Details::where('record_id',Session::get('record_id'))->get();
@@ -38,5 +43,4 @@ $details=Program_Details::where('record_id',Session::get('record_id'))->get();
             </div>
             <!-- /.row -->
         </div>
-        @unset($message)
     @endsection

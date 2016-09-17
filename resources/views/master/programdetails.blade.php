@@ -9,11 +9,11 @@
           </a>
           @if(Auth::guard('admin')->check())
             <a class="pull-right" href="{{ url($add.'/update/').'/'.$code.'/'.$key->id }}"> Edit </a>
-            <a class="pull-right" href="{{ url($add.'/check/') }}"> Solve </a>
+            <a class="pull-right" href="{{ url($add.'/contest/'.$code.'/'.$key->id) }}"> Solve </a>
           @elseif(Auth::guard('teacher')->check())
             <a class="pull-right" href="{{ url('update/').'/'.$code.'/'.$key->id }}"> Edit </a>
           @else
-            <a class="pull-right" href="{{ url('check/') }}"> Solve </a>
+            <a class="pull-right" href="{{ url($add.'/contest/'.$code.'/'.$key->id) }}""> Solve </a>
           @endif
         </h4>
       </div>

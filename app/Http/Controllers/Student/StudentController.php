@@ -13,7 +13,8 @@ use Illuminate\Support\Facades\Hash;
 use Session;
 use Auth;
 use Redirect;
-
+use App\program_details;
+use App\ProgramRecord;
 use App\Student;
 use App\Student_Details;
 use Illuminate\Support\MessageBag;
@@ -76,6 +77,29 @@ class StudentController extends Controller
         }
 
         return Redirect::to('home')->with(['message' => 'Invalid User' , 'class' => 'Warning']);
+    }
+
+    public function contest($code)
+    {
+
+        // Update in a database
+        $result=ProgramRecord::where('code',$code)->first();
+        if($result)
+        {
+            Session::put('record_id',$result->id);
+            return view('program.contest');
+        }
+
+        return Redirect::back()->with('message','Incorrect Event');
+    }
+
+    public function play(Request $request,$code,$id)
+    {
+        // return $code;
+        $details=Program_Details::where('id',$id)->get()->first();
+        // var_dump($details);
+        // return $details;
+        return view('program.program')->with('data',$details);
     }
 
 }

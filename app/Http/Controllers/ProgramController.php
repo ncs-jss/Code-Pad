@@ -22,19 +22,7 @@ class ProgramController extends Controller
 
 
 
-    public function contest($code)
-    {
 
-        // Update in a database
-        $result=ProgramRecord::where('code',$code)->first();
-        if($result)
-        {
-            Session::put('record_id',$result->id);
-            return view('program.contest');
-        }
-
-        return Redirect::back()->with('message','Incorrect Event');
-    }
 
 
 

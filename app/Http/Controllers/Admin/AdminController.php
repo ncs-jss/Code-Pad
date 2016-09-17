@@ -361,4 +361,28 @@ class AdminController extends Controller
         return $time;
     }
 
+
+    public function contest($code)
+    {
+
+        // Update in a database
+        $result=ProgramRecord::where('code',$code)->first();
+        if($result)
+        {
+            Session::put('record_id',$result->id);
+            return view('program.contest');
+        }
+
+        return Redirect::back()->with('message','Incorrect Event');
+    }
+
+    public function play(Request $request,$code,$id)
+    {
+        // return $code;
+        $details=Program_Details::where('id',$id)->get()->first();
+        // var_dump($details);
+        // return $details;
+        return view('program.program')->with('data',$details);
+    }
+
 }
