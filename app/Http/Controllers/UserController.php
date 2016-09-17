@@ -183,6 +183,16 @@ class UserController extends Controller
         return Redirect::back()->withInput()->with(['message' => 'Error in registration, Please Try Again' , 'class' => 'Danger']);
     }
 
+    public function admin(Request $request)
+    {
+        if(Auth::guard('admin')->check())
+        {
+            return Redirect::to('/')->with(['message' => 'You need to logout first' , 'class' => 'Warning']);
+        }
+        return view('admin.login');
+    }
+
+
     public function adminLogin(Request $request)
     {
         //Validation
@@ -197,7 +207,7 @@ class UserController extends Controller
         if(Auth::guard('admin')->attempt(['email' => $login['email'], 'password' => $login['password']]))
         {
             // return $login;
-            return Redirect::to('/admin')->with(['message' => 'You are logged in' , 'class' => 'Success']);
+            return Redirect::to('/home')->with(['message' => 'You are logged in' , 'class' => 'Success']);
         }
         $errors=new MessageBag(['password' => ['Password Invalid']]);
         return Redirect::back()->withErrors($errors)->with(['message' => 'Invalid Credentials' , 'class' => 'Danger']);

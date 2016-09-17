@@ -15,7 +15,7 @@
             $time = date("YmdHi",time());
           ?>
 
-        <div class="event-item col-xs-6 col-md-3">
+        <div class="event-item col-xs-12 col-sm-6 col-md-3">
             <div class="spacer col-xs-12">
                 <h2 class="event-heading"><a href="contest/{{ $flight->code }}">{{ $flight->name }} </a></h2>
 

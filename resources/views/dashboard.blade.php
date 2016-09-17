@@ -1,6 +1,7 @@
 <?php
-
-if(Auth::guard('student')->check()):
+if(Auth::guard('admin')->check()):
+    $result = Auth::guard('admin')->user();
+elseif(Auth::guard('student')->check()):
     $result = Auth::guard('student')->user();
 else:
     $result = Auth::guard('teacher')->user();

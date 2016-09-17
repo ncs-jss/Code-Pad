@@ -28,6 +28,7 @@ Route::get('/home','UserController@home');
 // for logout
 Route::get('/logout','UserController@logout');
 // Student Profile
+Route::get('/admin','UserController@admin');
 
 
 // Teacher controller
@@ -111,7 +112,7 @@ Route::group(['namespace' => 'Admin'], function() {
     Route::post('admin/programUpdate', [
         'uses' => 'AdminController@ProgramUpdateDone'
     ]);
-    Route::post('admin{id}/event-details', [
+    Route::post('admin/{id}/event-details', [
         'uses' => 'AdminController@eventsave'
     ]);
 
@@ -126,14 +127,6 @@ Route::group(['namespace' => 'Student'], function() {
     ]);
 });
 
-Route::group(['namespace' => 'Admin'], function() {
-    Route::get('/admin', [
-        'uses' => 'AdminController@login'
-    ]);
-    Route::post('/student_details/{id}', [
-        'uses' => 'StudentController@stu_details'
-    ]);
-});
 
 
 

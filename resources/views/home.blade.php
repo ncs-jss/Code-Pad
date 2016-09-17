@@ -26,14 +26,13 @@ endif;
 
 
             <div class="col-xs-12 col-sm-9 col-md-10">
-
-                @if(Auth::guard('teacher')->check())
+                @if(Auth::guard('admin')->check())
+                    @include('admin.adminEvents')
+                @elseif(Auth::guard('teacher')->check())
                     @include('master.teacherEvents')
                 @else
                     @include('master.studentEvents')
                 @endif
-
-
             </div>
           </div>
 

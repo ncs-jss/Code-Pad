@@ -24,14 +24,12 @@ use Illuminate\Support\MessageBag;
 
 class AdminController extends Controller
 {
-    public function login(Request $request)
+
+    public function __construct()
     {
-        if(Auth::guard('admin')->check())
-        {
-            return view('admin.dashboard')->with(['message' => 'You need to logout first' , 'class' => 'Warning']);
-        }
-        return view('admin.login');
+        $this->middleware('admin');
     }
+
 
     public function createEvent()
     {
@@ -158,7 +156,6 @@ class AdminController extends Controller
             'time' => 'required',
             'marks' => 'required'
         ]);
-
         // Input
         $pg=Input::all();
 
@@ -181,7 +178,7 @@ class AdminController extends Controller
                 return Redirect::back()->with(['message' => 'Program is uploaded!!' , 'class' => 'Success']);
             $code=ProgramRecord::find(Session::get('record_id'));
             $code=$code->code;
-            return Redirect::to('update/'.$code)->with(['message' => 'Program is uploaded!!' , 'class' => 'Success']);
+            return Redirect::to('admin/update/'.$code)->with(['message' => 'Program is uploaded!!' , 'class' => 'Success']);
         }
 
         return Redirect::back()->with(['message' => 'Program failed to upload' , 'class' => 'Danger']);
@@ -224,7 +221,7 @@ class AdminController extends Controller
             // return view('program.update')->with('message','Program is updated!');
             $code=ProgramRecord::find(Session::get('record_id'));
             $code=$code->code;
-            return Redirect::to('update/'.$code)->with(['message' => 'Program is updated!!' , 'class' => 'Success']);
+            return Redirect::to('admin/update/'.$code)->with(['message' => 'Program is updated!!' , 'class' => 'Success']);
         }
         else
         {
@@ -266,7 +263,7 @@ class AdminController extends Controller
         $start = $this->dateConversion($record['startdate']).$this->timeConversion($record['starttime']);
         $end = $this->dateConversion($record['enddate']).$this->timeConversion($record['endtime']);
         date_default_timezone_set('Asia/Kolkata');
-        $time = $rec->start;
+        $time = date("YmdHi",time());
         // return $start-$time;
 
         if($end-$start >= 100 && $start-$time >=0)
@@ -280,7 +277,7 @@ class AdminController extends Controller
             $rec->start=$start;
             if($rec->save())
             {
-                return Redirect::to('update/'.$code)->with(['message' => 'Record is successfully saved' , 'class' => 'Success']);
+                return Redirect::to('admin/update/'.$code)->with(['message' => 'Record is successfully saved' , 'class' => 'Success']);
             }
             return Redirect::back()->with(['message' => 'Record is failed' , 'class' => 'Danger'])->withInput();
         }

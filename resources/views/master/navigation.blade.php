@@ -2,7 +2,7 @@
         $add = 'admin';
     else
         $add = '';
-    ?>
+?>
     <header>
             <!-- *** NAVBAR *** -->
 
@@ -67,7 +67,7 @@
 
                             @else
                                 <li class="">
-                                    <a href="{{ url($add.'/home') }}"> Dashboard </a>
+                                    <a href="{{ url('/home') }}"> Dashboard </a>
                                 </li>
                                 @if(Auth::guard("student")->check())
                                     <li><a href="{{ url($add.'/student/profile') }}">Edit Profile</a></li>

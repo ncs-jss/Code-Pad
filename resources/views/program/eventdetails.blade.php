@@ -1,5 +1,11 @@
 <?php
-$result = Auth::guard('teacher')->user();
+$add='';
+if(Auth::guard('admin')->check()):
+    $result = Auth::guard('admin')->user();
+    $add='admin';
+else:
+    $result = Auth::guard('teacher')->user();
+endif;
 ?>
 @extends('layouts.layout')
 
@@ -28,7 +34,7 @@ $result = Auth::guard('teacher')->user();
                     </div>
 
                     <div class="col-sm-6 col-sm-offset-3">
-                        <form  role="form" method="POST" action="{{ url($data['code'].'/event-details/') }}">
+                        <form  role="form" method="POST" action="{{ url($add.'/'.$data['code'].'/event-details/') }}">
                             {{ csrf_field() }}
 
                             <div class="form row">

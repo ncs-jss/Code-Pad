@@ -1,7 +1,13 @@
 <?php
 use App\programRecord;
 
-$result = Auth::guard('teacher')->user();
+$add='';
+if(Auth::guard('admin')->check()):
+    $result = Auth::guard('admin')->user();
+    $add='admin';
+else:
+    $result = Auth::guard('teacher')->user();
+endif;
 $programList=programRecord::where('upload_id',$result->id)->get();
 
 ?>
@@ -25,7 +31,7 @@ $programList=programRecord::where('upload_id',$result->id)->get();
                     </div>
 
                     <div class="col-sm-6 col-sm-offset-3">
-                        <form class="form-horizontal" role="form" method="POST" action="{{ url('/program') }}">
+                        <form class="form-horizontal" role="form" method="POST" action="{{ url($add.'/program') }}">
                                 {{ csrf_field() }}
                             <div class="form row">
                                 <div class="col-sm-12">

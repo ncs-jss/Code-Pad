@@ -7,7 +7,10 @@
           <a data-toggle="collapse" data-parent="#accordion" href="#{{ $key->id }}">
             {{ $key->program_name }}( click to see details )
           </a>
-          @if(Auth::guard('teacher')->check())
+          @if(Auth::guard('admin')->check())
+            <a class="pull-right" href="{{ url($add.'/update/').'/'.$code.'/'.$key->id }}"> Edit </a>
+            <a class="pull-right" href="{{ url($add.'/check/') }}"> Solve </a>
+          @elseif(Auth::guard('teacher')->check())
             <a class="pull-right" href="{{ url('update/').'/'.$code.'/'.$key->id }}"> Edit </a>
           @else
             <a class="pull-right" href="{{ url('check/') }}"> Solve </a>

@@ -1,9 +1,13 @@
 <?php
 use App\program_details;
 use App\ProgramRecord;
-
-
-$result = Auth::guard('teacher')->user();
+$add='';
+if(Auth::guard('admin')->check()):
+    $result = Auth::guard('admin')->user();
+    $add='admin';
+else:
+    $result = Auth::guard('teacher')->user();
+endif;
 $event=ProgramRecord::find(Session::get('record_id'));
 $code=$event->code;
 $details=Program_Details::where('record_id',Session::get('record_id'))->get();
@@ -41,10 +45,10 @@ $des = $event->description;
                                 <ul class="nav nav-pills nav-stacked">
                                     @if($message[2]!=1)
                                     <li>
-                                        <a href="{{ url('event-details') }}"> <span class="fa fa-plus"></span> &nbsp; Insert Details</a>
+                                        <a href="{{ url($add.'/event-details') }}"> <span class="fa fa-plus"></span> &nbsp; Insert Details</a>
                                     </li>
                                     <li>
-                                        <a href="{{ url('create') }}"> <span class="fa fa-plus"></span> &nbsp; Add A New Program</a>
+                                        <a href="{{ url($add.'/create') }}"> <span class="fa fa-plus"></span> &nbsp; Add A New Program</a>
                                     </li>
                                     <li>
                                         <a href="#delete"  onclick="deleted()"><span class="fa fa-trash-o"></span> &nbsp; Delete This Event. </a>
@@ -91,7 +95,7 @@ $des = $event->description;
                 var re = confirm("Are you really want to delete this event");
                 if(re)
                 {
-                    location.href="{{ url('/delete/'.Session::get('record_id')) }}";
+                    location.href="{{ url($add.'/delete/'.Session::get('record_id')) }}";
                 }
             }
         </script>

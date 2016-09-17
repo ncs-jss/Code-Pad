@@ -1,6 +1,12 @@
 <?php
 use App\programRecord;
-$result = Auth::guard('teacher')->user();
+$add='';
+if(Auth::guard('admin')->check()):
+    $result = Auth::guard('admin')->user();
+    $add='admin';
+else:
+    $result = Auth::guard('teacher')->user();
+endif;
 $programList=programRecord::where('uploaded_by',$result->name)->get();
 ?>
 @extends('layouts.layout')
@@ -25,7 +31,7 @@ $programList=programRecord::where('uploaded_by',$result->name)->get();
 
                     <div class="col-sm-6 col-sm-offset-3">
 
-                        <form role="form" method="POST" action="{{ url('/programUpdate') }}">
+                        <form role="form" method="POST" action="{{ url($add.'/programUpdate') }}">
                         {{ csrf_field() }}
 
                             <div class="form row">
