@@ -68,7 +68,7 @@ class AdminController extends Controller
         date_default_timezone_set('Asia/Kolkata');
         $time = date("YmdHi",time());
         // return $start-$time;
-        if($end-$start > 100 && $start-$time >=0 )
+        if($end-$start >= 100 && $start-$time >=0 )
         {
                 // Save to database
                 $rec = new ProgramRecord;

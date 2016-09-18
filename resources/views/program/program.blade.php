@@ -7,7 +7,7 @@ if(Auth::guard('admin')->check()):
 else:
     $result = Auth::guard('student')->user();
 endif;
-// echo $data;
+// echo $output;
 ?>
 @extends('layouts.layout')
 
@@ -25,9 +25,9 @@ endif;
 		,allow_toggle: true
 		,word_wrap: true
 		,language: "en"
-		,syntax: "html"
+		,syntax: "c"
 		,toolbar: "search, go_to_line, |, fullscreen,|, undo, redo, |, select_font, |, syntax_selection, |, change_smooth_selection, highlight, reset_highlight, |, help"
-		,syntax_selection_allow: "css,html,js,php,python,java,c,cpp,sql"
+		,syntax_selection_allow: "c"
 	});
 
 	function clr()
@@ -98,14 +98,14 @@ endif;
                       <img src="editor.jpg" class="img-responsive" alt="">
                     </div> -->
 
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/check') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="">
                         {{ csrf_field() }}
 
 
                         <div class="form-group{{ $errors->has('program') ? ' has-error' : '' }}">
 
                             <div class="col-md-10 col-md-offset-1">
-                                <textarea class="form-control" rows="20" name="program" id="program">{{ Session::get('snippet') }}</textarea>
+                                <textarea class="form-control" rows="20" name="program" id="program">{{ old('program') }}</textarea>
 
                                 @if ($errors->has('program'))
                                     <span class="help-block">
@@ -115,26 +115,49 @@ endif;
                             </div>
                         </div>
 
+                        <div class="col-sm-10 col-md-offset-1">
+                          <div class="form-group{{ $errors->has('input') ? ' has-error' : '' }}">
+                            <label for="input" >Input</label>
+                            <textarea class="form-control" rows="5" name="input" id="input">{{ old('input') }}</textarea>
+
+                            @if ($errors->has('input'))
+                              <span class="help-block">
+                                <strong>{{ $errors->first('input') }}</strong>
+                              </span>
+                            @endif
+                          </div>
+                        </div>
 
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-5">
                                 <div class="btn-group">
-                                    <button type="submit" class="btn btn-success">Done</button>
-                                    <button type="button" class="btn btn-danger" onclick='clr()'>Clear</button>
+                                    <button type="button" onclick="compile()" class="btn btn-success">Compile</button>
+                                    <button type="button" class="btn btn-danger" onclick="runcode()">Run</button>
                                 </div>
                             </div>
                         </div>
                     </form>
-
+                    <div>
+                    @if(Session::get('res'))
+                      <div >
+                      <p>Compile Status</p>
+                        {{ Session::get('res')['compile_status'] }}
+                      </div>
+                    @elseif(Session::get('run'))
+                      <div >
+                        <p>Compile Status</p>
+                          {{ Session::get('res')['compile_status'] }}
+                        <br>
+                        <p>Output</p>
+                          {{ Session::get('run')['run_status']['output'] }}
+                      </div>
+                    @endif
                   </div>
-
                 </div>
-
               </div>
               <!-- /.row -->
-
-
+          </div>
           </div>
         </section>
 @endsection
@@ -145,6 +168,20 @@ endif;
 {{Html::script('public/code-prettify-master/src/prettify.js')}}
 <script type="text/javascript">
 prettyPrint();
+
+        function compile()
+        {
+            $("form").attr('action',"{{ url('/compile') }}");
+            $("form").submit();
+        }
+
+        function runcode() {
+            $("form").attr('action',"{{ url('/runcode') }}");
+            $("form").submit();
+        }
+        // CKEDITOR.replaceAll();
+
+
 </script>
 
 @endsection

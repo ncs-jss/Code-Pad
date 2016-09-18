@@ -24,9 +24,9 @@
               <p class="pull-left"><strong>Difficulty:</strong> {{$key->difficulty}}</p>
               <p class="pull-right"><strong>Marks:</strong> {{$key->marks}} </p>
             </span><br style="clear:both;">
-            <strong>Question: </strong> {{ $key->program_statement }} <br><br>
-            <strong> Sample Input : </strong> {{ $key->sample_input }}<br><br>
-            <strong> Sample Output : </strong> {{ $key->sample_output }} <br><br>
+            <strong>Question: </strong> {!!$key->program_statement!!} <br><br>
+            <strong> Sample Input : </strong> {!!$key->sample_input!!}<br><br>
+            <strong> Sample Output : </strong> {!!$key->sample_output!!} <br><br>
             <!-- <strong> Test Case Input : </strong> {{ $key->testcases_input }}<br><br>
             <strong> Test Case Output : </strong> {{ $key->testcases_output }}<br><br> -->
           </p>
