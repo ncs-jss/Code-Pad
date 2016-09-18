@@ -224,7 +224,8 @@ else
            //      console.log(html);
 
            // });
-           CKEDITOR.replace('description');
+           CKEDITOR.replace('description').config.toolbarLocation = 'bottom';
+;
 
         </script>
 

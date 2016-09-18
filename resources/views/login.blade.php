@@ -27,7 +27,7 @@
 
                                         <div class="form-group{{ $errors->has('admision_no') ? ' has-error' : '' }}">
 
-                                            <div class="col-sm-8 col-sm-push-2">
+                                            <div class="col-sm-10 col-sm-push-1">
                                                 <input id="admision_no" type="admision_no" class="form-control" name="admision_no" value="{{ old('admision_no') }}" placeholder="Admission Number" >
 
                                                 @if ($errors->has('admision_no'))
@@ -40,7 +40,7 @@
 
                                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
 
-                                            <div class="col-sm-8 col-sm-push-2">
+                                            <div class="col-sm-10 col-sm-push-1">
                                                 <input id="password" type="password" class="form-control" name="password" placeholder="Password">
 
                                                 @if ($errors->has('password'))
@@ -85,7 +85,7 @@
                                         {{ csrf_field() }}
                                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
 
-                                            <div class="col-sm-8 col-sm-push-2">
+                                            <div class="col-sm-10 col-sm-push-1">
                                                 <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Email ID">
 
                                                 @if ($errors->has('email'))
@@ -98,7 +98,7 @@
 
                                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
 
-                                            <div class="col-sm-8 col-sm-push-2">
+                                            <div class="col-sm-10 col-sm-push-1">
                                                 <input id="password" type="password" class="form-control" name="password" placeholder="Password">
                                                 @if ($errors->has('password'))
                                                     <span class="help-block">

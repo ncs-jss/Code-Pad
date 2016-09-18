@@ -25,7 +25,7 @@ endif;
             <!-- @include('master.sidebar') -->
 
 
-            <div class="col-xs-12 col-sm-9 col-md-10">
+            <div class="col-xs-12 col-sm-10 col-sm-push-1">
                 @if(Auth::guard('admin')->check())
                     @include('admin.adminEvents')
                 @elseif(Auth::guard('teacher')->check())

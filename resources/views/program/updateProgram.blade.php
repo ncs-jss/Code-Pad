@@ -207,6 +207,7 @@ $programList=programRecord::where('uploaded_by',$result->name)->get();
         </section>
         @section('script')
             <script type="text/javascript">
+                CKEDITOR.config.toolbarLocation = 'bottom';
                 CKEDITOR.replaceAll();
             </script>
         @endsection

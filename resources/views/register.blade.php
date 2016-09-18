@@ -26,7 +26,7 @@
                                             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
 
 
-                                                <div class="col-sm-8 col-sm-push-2">
+                                                <div class="col-sm-10 col-sm-push-1">
                                                     <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Your Name">
 
                                                     @if ($errors->has('name'))
@@ -40,7 +40,7 @@
                                             <div class="form-group{{ $errors->has('admision_no') ? ' has-error' : '' }}">
 
 
-                                                <div class="col-sm-8 col-sm-push-2">
+                                                <div class="col-sm-10 col-sm-push-1">
                                                     <input id="admision_no" type="text" class="form-control" name="admision_no" value="{{ old('admision_no') }}" placeholder="Enter Admission No. e.g. 15CSE075">
 
                                                     @if ($errors->has('admision_no'))
@@ -53,7 +53,7 @@
 
                                             <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
 
-                                                <div class="col-sm-8 col-sm-push-2">
+                                                <div class="col-sm-10 col-sm-push-1">
                                                     <input id="password" type="password" class="form-control" name="password" placeholder="Enter Password">
 
                                                     @if ($errors->has('password'))
@@ -66,7 +66,7 @@
 
                                             <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
 
-                                                <div class="col-sm-8 col-sm-push-2">
+                                                <div class="col-sm-10 col-sm-push-1">
                                                     <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password">
 
                                                     @if ($errors->has('password_confirmation'))
@@ -100,7 +100,7 @@
                                             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
 
 
-                                                <div class="col-sm-8 col-sm-push-2">
+                                                <div class="col-sm-10 col-sm-push-1">
                                                     <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Your Name">
 
                                                     @if ($errors->has('name'))
@@ -114,7 +114,7 @@
                                             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
 
 
-                                                <div class="col-sm-8 col-sm-push-2">
+                                                <div class="col-sm-10 col-sm-push-1">
                                                     <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Email ID">
 
                                                     @if ($errors->has('email'))
@@ -128,7 +128,7 @@
                                             <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
 
 
-                                                <div class="col-sm-8 col-sm-push-2">
+                                                <div class="col-sm-10 col-sm-push-1">
                                                     <input id="password" type="password" class="form-control" name="password" placeholder="Password">
 
                                                     @if ($errors->has('password'))
@@ -142,7 +142,7 @@
                                             <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
 
 
-                                                <div class="col-sm-8 col-sm-push-2">
+                                                <div class="col-sm-10 col-sm-push-1">
                                                     <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password">
 
                                                     @if ($errors->has('password_confirmation'))

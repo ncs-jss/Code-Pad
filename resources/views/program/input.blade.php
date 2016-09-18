@@ -211,6 +211,8 @@ $programList=programRecord::where('upload_id',$result->id)->get();
             $("#decide").val('1');
             $("form").submit();
         }
+
+        CKEDITOR.config.toolbarLocation = 'bottom';
         CKEDITOR.replaceAll();
     </script>
 
