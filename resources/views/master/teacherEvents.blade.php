@@ -18,7 +18,9 @@
                 <h4 class="event-heading"><a href="update/{{ $flight->code }}">{{ $flight->name }} </a></h4>
 
                 <p><div class="event-intro"> <strong> Description: </strong>{!!$flight->description!!}</div></p>
-                <p class="text-center"><span class="fa fa-clock-o"></span> <strong>10:40 AM </strong></p>
+                <p class="text-center">
+                    <strong> <span class="fa fa-clock-o"></span> 10:40 AM - 04:30 PM </strong>
+                </p>
                 <p class="read-more text-center "><a href="#" class="btn btn-template-main">Review </a></p>
                 <div class="clearfix">
                     <p class="pull-left">By <a href="#">{{ $flight->uploaded_by }}</a></p>

@@ -20,7 +20,9 @@
                 <h2 class="event-heading"><a href="contest/{{ $flight->code }}">{{ $flight->name }} </a></h2>
 
                 <p><div class="event-intro"> <strong> Description: </strong>{!!$flight->description!!}</div></p>
-                <p class="text-center"><span class="fa fa-clock-o"></span> <strong>10:40 AM </strong></p>
+                <p class="text-center">
+                    <strong> <span class="fa fa-clock-o"></span> 10:40 AM - 04:30 PM </strong> 
+                </p>
                 <p class="read-more text-center "><a href="contest/{{ $flight->code }}" class="btn btn-template-main">Participate </a></p>
                 <div class="clearfix">
                     <p class="pull-left">By <a href="#">{{ $flight->uploaded_by }}</a></p>

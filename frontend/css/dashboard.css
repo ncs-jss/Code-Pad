@@ -101,3 +101,16 @@
 .track.dragging .handle {
     width: 10px;
 }
+
+
+/* Students View Event Styles  */
+
+.register-event.row {
+  background: rgba(107, 146, 130, 0.81);
+    padding-bottom: 20px;
+    color: #fff;
+    margin-top: 10px;
+    font-family: "Raleway"
+}
+.register-event.row h1 { color: #fff; font-family: "Raleway"; }
+.register-event.row .ldr-bd { margin-bottom: 10px; }

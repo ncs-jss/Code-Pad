@@ -4,7 +4,7 @@
 
 /* Dashboard Style */
 .event-item .col-xs-12 {
-    box-shadow: 0px 0px 2px 2px #ccc;
+    box-shadow: 2px 2px 4px -2px #ccc;
     margin: 0 0 15px 0;
 }
 
@@ -25,7 +25,6 @@
 .event-item .text-muted b {
   font-size: 14px
 }
-
 .sidebar {
   padding: 0;
   box-shadow: 3px 0 4px -3px #d8d8d8;
@@ -71,7 +70,6 @@
     border-color: #2ecc71;
   }
 
-
 /*Custom Scroll bar style */
 
 .track {
@@ -103,6 +101,16 @@
 .track.dragging .handle {
     width: 10px;
 }
-.event-intro {
-  min-height: 100px;
+
+
+/* Students View Event Styles  */
+
+.register-event.row {
+  background: rgba(107, 146, 130, 0.81);
+    padding-bottom: 20px;
+    color: #fff;
+    margin-top: 10px;
+    font-family: "Raleway"
 }
+.register-event.row h1 { color: #fff; font-family: "Raleway"; }
+.register-event.row .ldr-bd { margin-bottom: 10px; }
