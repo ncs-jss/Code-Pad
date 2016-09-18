@@ -133,6 +133,9 @@ Route::group(['namespace' => 'Student'], function() {
     ]);
 });
 
+Route::post('/compile','ProgramController@compile');
+
+Route::post('/runcode','ProgramController@runstatus');
 
 
 

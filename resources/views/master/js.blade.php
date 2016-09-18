@@ -16,6 +16,8 @@
     <script src = "{{ URL::asset('public/assets/js/login.js')}}"></script>
     <script src="{{ URL::asset('public/assets/js/focus.js')}}"></script>
     <script src="{{ URL::asset('public/assets/js/flashmessage.js')}}"></script>
+    <script src="{{ URL::asset('public/assets/js/run.js')}}"></script>
+
     <!-- <script src="{{ URL::asset('public/Bootstrap-markdown/js/bootstrap-markdown.js')}}"></script> -->
     <!-- <script src="{{ URL::asset('public/node_modules/markdown/lib/markdown.js')}}"></script> -->
     <!-- <script src="{{ URL::asset('public/node_modules/marked/lib/marked.js')}}"></script> -->
