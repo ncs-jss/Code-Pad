@@ -15,11 +15,14 @@
             $time = date("YmdHi",time());
           ?>
 
-        <div class="event-item col-xs-12 col-sm-6 col-md-3">
+        <div class="event-item col-sm-6 col-xs-12 col-md-3">
             <div class="spacer col-xs-12">
-                <h2 class="event-heading"><a href="admin/update/{{ $flight->code }}">{{ $flight->name }} </a></h2>
+                <h2 class="event-heading"><a href="update/{{ $flight->code }}">{{ $flight->name }} </a></h2>
 
                 <p><div class="event-intro"> <strong> Description: </strong>{!!$flight->description!!}</div></p>
+                <p class="text-center">
+                    <strong> <span class="fa fa-clock-o"></span> {{$flight['starttime']['starttime']." - ".$flight['endtime']['endtime']}} </strong>
+                </p>
                 <p class="read-more text-center "><a href="admin/update/{{ $flight->code }}" class="btn btn-template-main">Review </a></p>
                 <p class="read-more text-center "><a href="admin/contest/{{ $flight->code }}" class="btn btn-template-main">Participate </a></p>
                 <div class="clearfix">

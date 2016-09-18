@@ -37,9 +37,11 @@ endif;
           </div>
 
         </div>
+
+    @endsection
+    @section('footer')
         @include('master.foot')
     @endsection
-
     @section('script')
 
         <script>

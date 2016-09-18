@@ -94,7 +94,8 @@ class StudentController extends Controller
             date_default_timezone_set('Asia/Kolkata');
             $time = date("YmdHi",time());
             $check = Result::where([['record_id', $result->id], ['student_id', $idd]])->get();
-            $timer = $result->start-$time;
+            // $timer = $result->start-$time;
+            $timer = strtotime($result->start)-strtotime($time);
             if($result->start > $time)
             {
                 if($check=='[]')

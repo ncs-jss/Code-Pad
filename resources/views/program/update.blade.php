@@ -87,9 +87,10 @@ $des = $event->description;
             </div>
             <!-- /.container -->
         </div>
+    @endsection
+    @section('footer')
         @include('master.foot')
     @endsection
-
     @section('script')
         <script type="text/javascript">
             function deleted() {

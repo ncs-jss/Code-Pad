@@ -15,11 +15,11 @@
 
         <div class="event-item col-sm-6 col-xs-12 col-md-3">
             <div class="spacer col-xs-12">
-                <h4 class="event-heading"><a href="update/{{ $flight->code }}">{{ $flight->name }} </a></h4>
+                <h2 class="event-heading"><a href="update/{{ $flight->code }}">{{ $flight->name }} </a></h2>
 
                 <p><div class="event-intro"> <strong> Description: </strong>{!!$flight->description!!}</div></p>
                 <p class="text-center">
-                    <strong> <span class="fa fa-clock-o"></span> 10:40 AM - 04:30 PM </strong>
+                    <strong> <span class="fa fa-clock-o"></span> {{$flight['starttime']['starttime']." - ".$flight['endtime']['endtime']}} </strong>
                 </p>
                 <p class="read-more text-center "><a href="#" class="btn btn-template-main">Review </a></p>
                 <div class="clearfix">

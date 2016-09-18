@@ -205,6 +205,8 @@ $programList=programRecord::where('uploaded_by',$result->name)->get();
                 </div>
             </div>
         </section>
+    @endsection
+    @section('footer')
         @include('master.foot')
     @endsection
     @section('script')

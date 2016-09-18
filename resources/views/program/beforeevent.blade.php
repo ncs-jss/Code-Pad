@@ -65,6 +65,9 @@ $details=Program_Details::where('record_id',Session::get('record_id'))->get();
     </section>
 
     @endsection
+    @section('footer')
+        @include('master.foot')
+    @endsection
     @section('script')
       <script>
           $('.countdown').ClassyCountdown({
