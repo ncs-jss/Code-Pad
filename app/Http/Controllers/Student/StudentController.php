@@ -94,19 +94,20 @@ class StudentController extends Controller
             date_default_timezone_set('Asia/Kolkata');
             $time = date("YmdHi",time());
             $check = Result::where([['record_id', $result->id], ['student_id', $idd]])->get();
-            if($result->starttime > $time)
+            $timer = $result->start-$time;
+            if($result->start > $time)
             {
                 if($check=='[]')
-                    return view('program.beforeevent')->with('message', ['message' => 'Register to competete', 'class' => 'Warning', 'sussess' => 0]);
+                    return view('program.beforeevent')->with('message', ['message' => 'Register to competete', 'class' => 'Warning', 'success' => 0, 'timer' => $timer]);
                 else
-                    return view('program.beforeevent')->with('message', ['message' => 'Event is not started yet', 'class' => 'Warning', 'sussess' => 1]);
+                    return view('program.beforeevent')->with('message', ['message' => 'Event is not started yet', 'class' => 'Warning', 'success' => 1, 'timer' => $timer]);
             }
             elseif ($end < $time) {
                return view('program.contest')->with('message', ['message' => 'Event is ended', 'class' => 'Info']);
             }
             $check = Result::where([['record_id', $result->id], ['student_id', $idd]])->get();
             if($check=='[]')
-                return view('program.beforeevent')->with('message', ['message' => 'Register to competete', 'class' => 'Warning', 'sussess' => 0]);
+                return view('program.beforeevent')->with('message', ['message' => 'Register to competete', 'class' => 'Warning', 'success' => 0]);
             return view('program.contest')->with('message', ['message' => 'All the Best!!', 'class' => 'Success']);;
         }
 

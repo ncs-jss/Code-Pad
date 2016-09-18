@@ -9,6 +9,8 @@ else:
     $result = Auth::guard('student')->user();
 endif;
 $event=ProgramRecord::find(Session::get('record_id'));
+$event['starttime'] = unserialize($event['starttime']);
+$event['endtime'] = unserialize($event['endtime']);
 $code=$event->code;
 $details=Program_Details::where('record_id',Session::get('record_id'))->get();
 ?>
@@ -36,18 +38,20 @@ $details=Program_Details::where('record_id',Session::get('record_id'))->get();
 
                           <div class="col-sm-12 text-center">
                               <a class="btn btn-success ldr-bd"><span class="fa fa-users"></span> Show Leaderboard </a>
-                              <p><i class="fa fa-calendar-o"></i>09/16/2016</p>
+                              <p><i class="fa fa-calendar-o"></i>{{$event['starttime']['startdate']}}</p>
                               <p>
-                                  <strong> <span class="fa fa-clock-o"></span> 10:40 AM - 04:30 PM </strong>
+                                  <strong> <span class="fa fa-clock-o"></span> {{$event['starttime']['starttime']." - ".$event['endtime']['endtime']}} </strong>
                               </p>
                           </div>
 
                           <div class="col-sm-6 col-sm-push-3">
                             <div class="countdown"></div>
                           </div>
+                          @if($message['success']==0)
                           <div class="col-xs-12 text-center">
                             <a class="btn btn-success" href="{{ url('event/register') }}">REGISTER</a>
                           </div>
+                          @endif
 
                         </div>
                     </div>
@@ -65,7 +69,7 @@ $details=Program_Details::where('record_id',Session::get('record_id'))->get();
       <script>
           $('.countdown').ClassyCountdown({
             theme: "white",
-            end: $.now() + 20,
+            end: $.now() + {{$message['timer']}},
 
             // custom style for the countdown
             style: {
