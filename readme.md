@@ -6,10 +6,10 @@ Teachers organise events for the students. This improves the skills set of stude
 
 ###Requirements :
 
-1. PHP > 5.6 
-2. MySQL 
-3. Composer 
-4. Laravel > 5.2 
+1. PHP > 5.6
+2. MySQL
+3. Composer
+4. Laravel > 5.2
 
 ###Installation :
 
@@ -25,7 +25,7 @@ After updating composer, Rename the file `.env.example` to `.env` manually.
 Generate the Application key
 ```
 php artisan key:generate
-``` 
+```
 
 Migrate the database.
 ```
@@ -45,6 +45,10 @@ Password : helloworld
 
 For Teacher login:
 Email Id : teacher@jssaten.com
+Password : helloworld
+
+For SuperAdmin:
+Email Id : admin@admin.com
 Password : helloworld
 ```
 

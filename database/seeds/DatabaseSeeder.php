@@ -5,7 +5,7 @@ use App\teacher;
 use App\student;
 use App\student_details;
 use App\teacher_details;
-
+use App\Admin;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -46,6 +46,13 @@ class DatabaseSeeder extends Seeder
             $teacher_details->teacher_id = $id;
             $teacher_details->save();
         }
+        $admin = new Admin;
+        $admin->name = "Admin";
+        $admin->email = "admin@admin.com";
+        $admin->password = Hash::make('helloworld');
+        $admin->type='1';
+        $admin->save();
+
 
         // $this->call(UsersTableSeeder::class);
     }
