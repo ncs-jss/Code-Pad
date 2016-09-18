@@ -30,7 +30,7 @@ $details=Program_Details::where('record_id',Session::get('record_id'))->get();
             </div>
             <div class="view-event row">
                 <!-- *** LEFT COLUMN *** -->
-                <div class="col-sm-9 clearfix">
+                <div class="col-sm-8 clearfix">
                         @foreach($details as $key)
                             @include('master.programdetails')
                         @endforeach

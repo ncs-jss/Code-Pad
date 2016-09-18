@@ -137,6 +137,6 @@ input:focus{
 
 .login .btn-primary:active, .login .btn-primary:focus, .login .btn-primary:hover {
     color: #fff;
-    background-color: #286090;
-    border-color: #204d74;
+    background-color: #6c9283;
+    border-color: #6e9485;
 }

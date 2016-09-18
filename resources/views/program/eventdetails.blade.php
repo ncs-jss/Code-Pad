@@ -179,8 +179,8 @@ endif;
                     $(".ui-timepicker-table").addClass('custom_date_cell_table');
                 });
             });
-            CKEDITOR.replace('description');
-            CKEDITOR.replace('instructions');
+            CKEDITOR.replace('description').config.toolbarLocation = 'bottom';
+            CKEDITOR.replace('instructions').config.toolbarLocation = 'bottom';
 
         </script>
 

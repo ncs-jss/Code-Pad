@@ -72,7 +72,7 @@ $des = $event->description;
                 <div class="view-event row">
                     <!-- *** LEFT COLUMN *** -->
 
-                    <div class="col-sm-9 clearfix">
+                    <div class="col-sm-8 clearfix">
                             @foreach($details as $key)
                                 @include('master.programdetails')
                             @endforeach
