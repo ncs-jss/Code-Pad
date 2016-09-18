@@ -11,7 +11,9 @@
 .event-item:last-child{
   margin-right: 0;
 }
-
+.event-item:nth-child(4n+1){
+    clear:both !important;
+}
 .event-item .spacer .event-intro {
   max-height: 100px;
   overflow: auto;
