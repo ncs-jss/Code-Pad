@@ -70,7 +70,7 @@ endif;
                       <div>{!!$data->sample_input!!}</div>
                     </p>
                     <p>
-                      <<strong>Sample Output: </strong> <br>
+                      <strong>Sample Output: </strong> <br>
                       <div>{!!$data->sample_output!!}</div>
                     </p>
                     <p>
@@ -144,15 +144,15 @@ endif;
                       <p>Compile Status</p>
                         {{ Session::get('res')['compile_status'] }}
                       </div>
-                    @elseif(Session::get('run'))
+                    @elseif(Session::get('out'))
                       <div >
-                        <p>Compile Status</p>
-                          {{ Session::get('res')['compile_status'] }}
-                        <br>
-                        <p>Output</p>
-                          {{ Session::get('run')['run_status']['output'] }}
+                      <p>Compile Status</p>
+                        {{ Session::get('out')['compile_status'] }}
+                      <br>
+                      <p>Output</p>
+                        <!-- {{ Session::get('out')['run_status']['output'] }} -->
                       </div>
-                    @endif
+                  @endif
                   </div>
                 </div>
               </div>
@@ -160,6 +160,7 @@ endif;
           </div>
           </div>
         </section>
+        @include('master.foot')
 @endsection
 
 
@@ -172,14 +173,11 @@ prettyPrint();
         function compile()
         {
             $("form").attr('action',"{{ url('/compile') }}");
-            $("#program").val(editAreaLoader.getValue("program"));
-            console.log($("#program").val());
-            // $("form").submit();
+            $("form").submit();
         }
 
         function runcode() {
             $("form").attr('action',"{{ url('/runcode') }}");
-            $("#program").val(editAreaLoader.getValue("program"));
             $("form").submit();
         }
         // CKEDITOR.replaceAll();

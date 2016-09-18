@@ -28,7 +28,6 @@ class ProgramController extends Controller
         ]);
 
         $output = Input::all();
-        return $output;
         $output = strval($output['program']);
         // return var_dump($output);
         $client = new Client();
@@ -47,7 +46,7 @@ class ProgramController extends Controller
          $result= $res->getBody();
         // dd($result);
          $result =  json_decode($result, true);
-         // return $result;
+         return $result;
         // $output = $result;
         return Redirect::back()->withInput()->with('res',$result);
     }
@@ -81,19 +80,12 @@ class ProgramController extends Controller
          $result =  json_decode($result, true);
          // return $result;
         // $output = $result;
-        return Redirect::back()->withInput()->with('run',$result);
+        return Redirect::back()->withInput()->with('out',$result);
     }
-
-
-
-
 
     public function writeFile()
     {
         Storage::append('record/PHPH.txt',"Ankit1");
     }
-
-
-
 
 }

@@ -87,6 +87,7 @@ $des = $event->description;
             </div>
             <!-- /.container -->
         </div>
+        @include('master.foot')
     @endsection
 
     @section('script')

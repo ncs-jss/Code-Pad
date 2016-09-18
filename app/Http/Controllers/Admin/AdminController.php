@@ -20,6 +20,7 @@ use App\ProgramRecord;
 use App\Program_Details;
 use App\Teacher_Details;
 use App\Teacher;
+use App\Admin;
 use Illuminate\Support\MessageBag;
 
 class AdminController extends Controller
@@ -370,7 +371,18 @@ class AdminController extends Controller
         if($result)
         {
             Session::put('record_id',$result->id);
-            return view('program.contest');
+            $record = unserialize($result['endtime']);
+            $end = $this->dateConversion($record['enddate']).$this->timeConversion($record['endtime']);
+            date_default_timezone_set('Asia/Kolkata');
+            $time = date("YmdHi",time());
+            if($result->starttime > $time)
+            {
+                return view('program.contest')->with('message', ['message' => 'Event is not started yet', 'class' => 'Warning', 'sussess' => 1]);
+            }
+            elseif ($end < $time) {
+               return view('program.contest')->with('message', ['message' => 'Event is ended', 'class' => 'Info']);
+            }
+            return view('program.contest')->with('message', ['message' => 'Event is live!!', 'class' => 'Success']);;
         }
 
         return Redirect::back()->with('message','Incorrect Event');
@@ -383,6 +395,39 @@ class AdminController extends Controller
         // var_dump($details);
         // return $details;
         return view('program.program')->with('data',$details);
+    }
+
+    public function addAdmin()
+    {
+        return view('admin.addadmin');
+    }
+
+    public function addAdmindata(Request $request)
+    {
+        $this->validate($request,[
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:admin',
+            'password' => 'required|min:6|confirmed',
+        ]);
+
+        $add=Input::all();
+
+        $user = new Admin;
+        $user->name = $add['name'];
+        $user->email = $add['email'];
+        $user->type = 0;
+        $user->password =  Hash::make($add['password']);
+        if($user->save())
+        {
+            return Redirect::to('/admin')->with(['message' => 'You have successfully added user' , 'class' => 'Success']);
+        }
+        return Redirect::back()->withInput()->with(['message' => 'Error in registration, Please Try Again' , 'class' => 'Danger']);
+    }
+
+    public function showAdmin(Request $request)
+    {
+        $result = Admin::where('type',0)->get();
+        return view('admin.showAdmin')->with('user',$result);
     }
 
 }

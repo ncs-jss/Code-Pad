@@ -90,4 +90,5 @@ $result = Auth::guard('teacher')->user();
                 </div>
             </div>
         </section>
+        @include('master.foot')
     @endsection

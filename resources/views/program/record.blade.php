@@ -186,6 +186,7 @@ else
                 <!-- /.row -->
             </div>
         </section>
+        @include('master.foot')
     @endsection
 
 

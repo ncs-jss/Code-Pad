@@ -101,4 +101,5 @@ $result = Auth::guard('student')->user();
                 </div>
             </div>
         </section>
+        @include('master.foot')
     @endsection

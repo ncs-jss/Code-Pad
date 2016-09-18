@@ -115,6 +115,15 @@ Route::group(['namespace' => 'Admin'], function() {
     Route::get('admin/contest/{id}', [
         'uses' => 'AdminController@contest'
     ]);
+    Route::get('admin/addAdmin', [
+        'uses' => 'AdminController@addAdmin'
+    ]);
+    Route::get('admin/showAdmin', [
+        'uses' => 'AdminController@showAdmin'
+    ]);
+    Route::post('admin/add', [
+        'uses' => 'AdminController@addAdmindata'
+    ]);
 
 });
 

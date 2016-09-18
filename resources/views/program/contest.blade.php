@@ -43,4 +43,5 @@ $details=Program_Details::where('record_id',Session::get('record_id'))->get();
             </div>
             <!-- /.row -->
         </div>
+        @include('master.foot')
     @endsection

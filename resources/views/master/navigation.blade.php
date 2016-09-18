@@ -77,6 +77,12 @@
                                         <li><a href="{{ url('/teacher/profile') }}">Edit Profile</a></li>
                                     @endif
                                 @endif
+                                @if(Auth::guard('admin')->check())
+                                    @if(Auth::guard('admin')->user()->type == 1)
+                                    <li><a href="{{ url('admin/addAdmin') }}">Add Admin</a></li>
+                                    <li><a href="{{ url('admin/showAdmin') }}">Show Admin</a></li>
+                                    @endif
+                                @endif
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                         {{ $result->name }} <span class="caret"></span>

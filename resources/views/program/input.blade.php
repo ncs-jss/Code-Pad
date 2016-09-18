@@ -197,6 +197,7 @@ $programList=programRecord::where('upload_id',$result->id)->get();
                 </div>
             </div>
         </section>
+        @include('master.foot')
     @endsection
 
     @section('script')

@@ -205,10 +205,11 @@ $programList=programRecord::where('uploaded_by',$result->name)->get();
                 </div>
             </div>
         </section>
-        @section('script')
-            <script type="text/javascript">
-                CKEDITOR.config.toolbarLocation = 'bottom';
-                CKEDITOR.replaceAll();
-            </script>
-        @endsection
+        @include('master.foot')
+    @endsection
+    @section('script')
+        <script type="text/javascript">
+            CKEDITOR.config.toolbarLocation = 'bottom';
+            CKEDITOR.replaceAll();
+        </script>
     @endsection
