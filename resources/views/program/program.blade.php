@@ -172,11 +172,14 @@ prettyPrint();
         function compile()
         {
             $("form").attr('action',"{{ url('/compile') }}");
-            $("form").submit();
+            $("#program").val(editAreaLoader.getValue("program"));
+            console.log($("#program").val());
+            // $("form").submit();
         }
 
         function runcode() {
             $("form").attr('action',"{{ url('/runcode') }}");
+            $("#program").val(editAreaLoader.getValue("program"));
             $("form").submit();
         }
         // CKEDITOR.replaceAll();

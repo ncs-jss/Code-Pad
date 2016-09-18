@@ -17,6 +17,7 @@ use App\program_details;
 use App\ProgramRecord;
 use App\Student;
 use App\Student_Details;
+use App\Result;
 use Illuminate\Support\MessageBag;
 
 class StudentController extends Controller
@@ -87,7 +88,26 @@ class StudentController extends Controller
         if($result)
         {
             Session::put('record_id',$result->id);
-            return view('program.contest');
+            $record = unserialize($result['endtime']);
+            $end = $this->dateConversion($record['enddate']).$this->timeConversion($record['endtime']);
+            $idd = Auth::guard('student')->user()->id;
+            date_default_timezone_set('Asia/Kolkata');
+            $time = date("YmdHi",time());
+            $check = Result::where([['record_id', $result->id], ['student_id', $idd]])->get();
+            if($result->starttime > $time)
+            {
+                if($check=='[]')
+                    return view('program.beforeevent')->with('message', ['message' => 'Register to competete', 'class' => 'Warning', 'sussess' => 0]);
+                else
+                    return view('program.beforeevent')->with('message', ['message' => 'Event is not started yet', 'class' => 'Warning', 'sussess' => 1]);
+            }
+            elseif ($end < $time) {
+               return view('program.contest')->with('message', ['message' => 'Event is ended', 'class' => 'Info']);
+            }
+            $check = Result::where([['record_id', $result->id], ['student_id', $idd]])->get();
+            if($check=='[]')
+                return view('program.beforeevent')->with('message', ['message' => 'Register to competete', 'class' => 'Warning', 'sussess' => 0]);
+            return view('program.contest')->with('message', ['message' => 'All the Best!!', 'class' => 'Success']);;
         }
 
         return Redirect::back()->with('message','Incorrect Event');
@@ -101,5 +121,58 @@ class StudentController extends Controller
         // return $details;
         return view('program.program')->with('data',$details);
     }
+
+    public function eventRegister(Request $request)
+    {
+        $record_id = Session::get('record_id');
+        $id = Auth::guard('student')->user()->id;
+        $result = new Result;
+        $result->student_id = $id;
+        $result->time = 0;
+        $result->score = 0;
+        $result->attempt = 0;
+        $result->record_id = $record_id;
+        if($result->save())
+            return view('program.beforeevent')->with('message', ['message' => 'You are successfully registered', 'class' => 'Success']);
+        return view('program.beforeevent')->with('message', ['message' => 'Try Again', 'class' => 'Danger']);
+
+    }
+
+    public function dateConversion($value)
+    {
+        $value = explode('/', $value);
+        $value = array_reverse($value);
+        $value = $value[0]."".$value[2]."".$value[1];
+        return $value;
+    }
+    public function timeConversion($value)
+    {
+        $time="";
+        if(substr($value, -2)=="AM")
+        {
+            if(substr($value,0,2) == "12")
+            {
+                $time="00".substr($value,3,2);
+            }
+            else
+            {
+                $time=substr($value,0,2).substr($value,3,2);
+            }
+        }
+        else
+        {
+            if(substr($value,0,2) != "12")
+            {
+                $time = substr($value,0,2)+12;
+                $time=$time.substr($value,3,2);
+            }
+            else
+            {
+                $time=substr($value,0,2).substr($value,3,2);
+            }
+        }
+        return $time;
+    }
+
 
 }

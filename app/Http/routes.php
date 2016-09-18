@@ -131,6 +131,9 @@ Route::group(['namespace' => 'Student'], function() {
     Route::get('/contest/{id}', [
         'uses' => 'StudentController@contest'
     ]);
+    Route::get('/event/register', [
+        'uses' => 'StudentController@eventRegister'
+    ]);
 });
 
 Route::post('/compile','ProgramController@compile');

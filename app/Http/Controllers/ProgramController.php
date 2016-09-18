@@ -28,6 +28,7 @@ class ProgramController extends Controller
         ]);
 
         $output = Input::all();
+        return $output;
         $output = strval($output['program']);
         // return var_dump($output);
         $client = new Client();

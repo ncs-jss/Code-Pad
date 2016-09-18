@@ -26,7 +26,10 @@
     <script src="{{ URL::asset('public/ckeditor/ckeditor.js')}}"></script>
     <script src="{{ URL::asset('public/ckeditor/config.js')}}"></script>
 
-
+    <!-- before evenr -->
+    <script src="{{ URL::asset('public/assets/js/jquery.classycountdown.min.js')}}"></script>
+    <script src="{{ URL::asset('public/assets/js/jquery.knob.js')}}"></script>
+    <script src="{{ URL::asset('public/assets/js/jquery.throttle.js')}}"></script>
 
 
 

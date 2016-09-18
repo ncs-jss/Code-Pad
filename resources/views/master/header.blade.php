@@ -57,4 +57,5 @@
     <link href="{{ URL::asset('public/assets/css/owl.carousel.css')}}" rel="stylesheet">
     <link href="{{ URL::asset('public/assets/css/owl.theme.css')}}" rel="stylesheet">
 
+    <link rel="stylesheet" type="text/css" href="{{ URL::asset('public/assets/css/jquery.classycountdown.min.css')}}" />
 
