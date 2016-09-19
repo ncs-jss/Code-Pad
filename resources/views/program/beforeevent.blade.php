@@ -49,7 +49,7 @@ $details=Program_Details::where('record_id',Session::get('record_id'))->get();
                           </div>
                           @if($message['success']==0)
                           <div class="col-xs-12 text-center">
-                            <a class="btn btn-success" href="{{ url('event/register') }}">REGISTER</a>
+                            <a class="btn btn-success" href="{{ url('event/register/'.$code) }}">REGISTER</a>
                           </div>
                           @endif
 
