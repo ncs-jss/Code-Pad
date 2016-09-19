@@ -90,7 +90,7 @@ class AdminController extends Controller
 
                     // Create a new file for that particular event with its unique code
                     Storage::put('record/'.$record['code'].'.txt','');
-                    return Redirect::to('create')->with(['message' => 'Record is successfully saved' , 'class' => 'Success']);
+                    return Redirect::to('admin/')->with(['message' => 'Record is successfully saved' , 'class' => 'Success']);
                 }
                 return Redirect::back()->with(['message' => 'Record is failed' , 'class' => 'Danger'])->withInput();
         }

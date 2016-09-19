@@ -32,12 +32,12 @@
                                 <!-- <li class="">
                                     <a href="#"> Services </a>
                                 </li> -->
-                                <li class="">
+                                <!-- <li class="">
                                     <a href="#"> Blog </a>
                                 </li>
                                 <li class="">
                                     <a href="#"> Contact </a>
-                                </li>
+                                </li> -->
                                @if (!(Auth::guard('student')->check() || Auth::guard('teacher')->check() || Auth::guard('admin')->check()))
                             <!-- <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -85,7 +85,7 @@
                                 @endif
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                        {{ $result->name }} <span class="caret"></span>
+                                        {{ $result['name'] }} <span class="caret"></span>
                                     </a>
 
                                     <ul class="dropdown-menu" role="menu">
@@ -104,4 +104,3 @@
             </div>
             <!-- *** NAVBAR END *** -->
         </header>
-
