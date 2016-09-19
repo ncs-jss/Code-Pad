@@ -165,10 +165,13 @@ prettyPrint();
         {
             $("form").attr('action',"{{ url('/compile/'.$data->code.'/'.$data->id) }}");
             $("#edit_area_toggle_checkbox_program").click();
+            $("#edit_area_toggle_checkbox_program").click();
+
             $("form").submit();
         }
 
         function runcode() {
+            $("#edit_area_toggle_checkbox_program").click();
             $("#edit_area_toggle_checkbox_program").click();
             $("form").attr('action',"{{ url('/runcode/'.$data->code.'/'.$data->id) }}");
             $("form").submit();

@@ -118,13 +118,17 @@ class ProgramController extends Controller
 
          $result= $res->getBody();
         // dd($result);
+
          $result =  json_decode($result, true);
          $result['input'] = $input;
-         $output = $result['run_status']['output'];
-         $result['output'] = $output;
+         if($result['compile_status']=='OK')
+         {
+             $output = $result['run_status']['output'];
+             $result['output'] = $output;
+         }
          $result['expected_output'] = $oup;
-         // return $result;
          // return $output;
+         // return $result;
         // $output = $result;
         return Redirect::back()->withInput()->with('out',$result);
     }

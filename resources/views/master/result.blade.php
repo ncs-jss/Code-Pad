@@ -9,16 +9,16 @@
     <div class="correct">
       <p class="col-xs-12"> <strong> RESULT: </strong>
         @if(Session::get('out')['compile_status'] == 'OK')
-        <span class="fa fa-check-circle"></span> Accepted
+          <span class="fa fa-check-circle"></span> Accepted
         @else
-        <span class="fa fa-warning"></span> Error
+          <span class="fa fa-warning"></span> Error
         @endif
       </p>
       <p class="col-sm-4">
-        <strong>Time(sec)</strong> <br> {{Session::get('out')['run_status']['time_used']}}
+        <strong>Time(sec)</strong> <br> {{ isset(Session::get('out')['run_status']['time_used']) ? Session::get('out')['run_status']['time_used'] : 'Undefined' }}
       </p>
       <p class="col-sm-4">
-        <strong>Memory(KiB)</strong> <br>{{ Session::get('out')['run_status']['memory_used']}}
+        <strong>Memory(KiB)</strong> <br>{{ isset(Session::get('out')['run_status']['memory_used']) ? Session::get('out')['run_status']['memory_used'] : 'Undefined'}}
       </p>
       <p class="col-sm-4">
         <strong>Language</strong> <br> C
@@ -35,7 +35,9 @@
     <!-- <ul class="result-list"> -->
       <!-- <li>3</li> -->
       <!-- <li>6</li> -->
-      {!!Session::get('out')['expected_output']!!}
+      @if(Session::get('out')['compile_status'] == 'OK')
+        {!!Session::get('out')['output']!!}
+      @endif
     <!-- </ul> -->
   </p>
   <p>

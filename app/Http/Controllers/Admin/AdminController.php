@@ -376,7 +376,7 @@ class AdminController extends Controller
             $end = $this->dateConversion($record['enddate']).$this->timeConversion($record['endtime']);
             date_default_timezone_set('Asia/Kolkata');
             $time = date("YmdHi",time());
-            if($result->starttime > $time)
+            if($result->start > $time)
             {
                 return view('program.contest')->with('message', ['message' => 'Event is not started yet', 'class' => 'Warning', 'sussess' => 1]);
             }

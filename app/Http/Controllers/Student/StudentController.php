@@ -106,10 +106,13 @@ class StudentController extends Controller
             elseif ($end < $time) {
                return view('program.contest')->with('message', ['message' => 'Event is ended', 'class' => 'Info']);
             }
-            $check = Result::where([['record_id', $result->id], ['student_id', $idd]])->get();
-            if($check=='[]')
-                return view('program.beforeevent')->with('message', ['message' => 'Register to competete', 'class' => 'Warning', 'success' => 0]);
-            return view('program.contest')->with('message', ['message' => 'All the Best!!', 'class' => 'Success']);;
+            else
+            {
+                if($check=='[]')
+                    return view('program.beforeevent')->with('message', ['message' => 'Register to competete', 'class' => 'Warning', 'success' => 0, 'timer' => $timer]);
+                return view('program.contest')->with('message', ['message' => 'All the Best!!', 'class' => 'Success']);
+            }
+
         }
 
         return Redirect::back()->with('message','Incorrect Event');
@@ -136,28 +139,38 @@ class StudentController extends Controller
     public function eventRegister(Request $request,$code)
     {
         $result=ProgramRecord::where('code',$code)->first();
+        $idd = Auth::guard('student')->user()->id;
+        $check = Result::where([['record_id', $result->id], ['student_id', $idd]])->get();
         if($result)
         {
+
             $record = unserialize($result['endtime']);
             $idd = Auth::guard('student')->user()->id;
             date_default_timezone_set('Asia/Kolkata');
             $time = date("YmdHi",time());
             $check = Result::where([['record_id', $result->id], ['student_id', $idd]])->get();
             // $timer = $result->start-$time;
+            $record_id = Session::get('record_id');
             $timer = strtotime($result->start)-strtotime($time);
 
-            $record_id = Session::get('record_id');
-            $result = new Result;
-            $result->student_id = $idd;
-            $result->time = 0;
-            $result->score = 0;
-            $result->attempt = 0;
-            $result->record_id = $record_id;
-            if($result->save())
-                return view('program.beforeevent')->with('message', ['message' => 'You have successfully registered', 'class' => 'Success', 'success' => 1, 'timer' => $timer]);
-            return view('program.beforeevent')->with('message', ['message' => 'Try Again', 'class' => 'Danger','success' => 0, 'timer' => $timer]);
+            if($check=='[]')
+            {
+                $res = new Result;
+                $res->student_id = $idd;
+                $res->time = 0;
+                $res->score = 0;
+                $res->attempt = 0;
+                $res->record_id = $record_id;
+                $res->save();
+            }
+                // return $time;
+            if($result->start <= $time)
+            {
+                // return $result->start;
+                return view('program.contest')->with('message', ['message' => 'All the Best!!', 'class' => 'Success']);
+            }
+            return view('program.beforeevent')->with('message', ['message' => 'You have successfully registered', 'class' => 'Success', 'success' => 1, 'timer' => $timer]);
         }
-
         return Redirect::back()->with('message','Incorrect Event');
 
     }

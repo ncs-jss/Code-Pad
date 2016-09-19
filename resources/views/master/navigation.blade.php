@@ -6,7 +6,7 @@
     <header>
             <!-- *** NAVBAR *** -->
 
-            <div class="navbar-affixed-top" data-spy="affix" data-offset-top="200">
+            <div class="navbar-affixed-top" data-spy="affix" data-offset-top="0">
 
                 <div class="navbar navbar-default yamm" role="navigation" id="navbar">
 
