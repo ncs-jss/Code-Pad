@@ -1,6 +1,6 @@
 <section>
   <div class="events-wrap container-fluid">
-        <div class="heading col-sm-12 text-center">
+        <div class="col-sm-12 text-center">
             <h3> On Going Events: </h3>
         </div>
 
