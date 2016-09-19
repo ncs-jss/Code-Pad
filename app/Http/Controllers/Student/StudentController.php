@@ -118,25 +118,47 @@ class StudentController extends Controller
     public function play(Request $request,$code,$id)
     {
         // return $code;
-        $details=Program_Details::where('id',$id)->get()->first();
-        $details['code'] = $code;
+        $idd = ProgramRecord::where('code',$code)->first();
+        date_default_timezone_set('Asia/Kolkata');
+        $time = date("YmdHi",time());
+        $start = $idd->start;
+        $idd = $idd->id;
+        $details=Program_Details::where([['id',$id],['record_id',$idd]])->first();
         // return $details;
-        return view('program.program')->with('data',$details);
+        if($details && $start < $time)
+        {
+            $details['code'] = $code;
+            return view('program.program')->with('data',$details);
+        }
+        return Redirect::back()->with('message','Incorrect Event');
     }
 
-    public function eventRegister(Request $request)
+    public function eventRegister(Request $request,$code)
     {
-        $record_id = Session::get('record_id');
-        $id = Auth::guard('student')->user()->id;
-        $result = new Result;
-        $result->student_id = $id;
-        $result->time = 0;
-        $result->score = 0;
-        $result->attempt = 0;
-        $result->record_id = $record_id;
-        if($result->save())
-            return view('program.beforeevent')->with('message', ['message' => 'You are successfully registered', 'class' => 'Success']);
-        return view('program.beforeevent')->with('message', ['message' => 'Try Again', 'class' => 'Danger']);
+        $result=ProgramRecord::where('code',$code)->first();
+        if($result)
+        {
+            $record = unserialize($result['endtime']);
+            $idd = Auth::guard('student')->user()->id;
+            date_default_timezone_set('Asia/Kolkata');
+            $time = date("YmdHi",time());
+            $check = Result::where([['record_id', $result->id], ['student_id', $idd]])->get();
+            // $timer = $result->start-$time;
+            $timer = strtotime($result->start)-strtotime($time);
+
+            $record_id = Session::get('record_id');
+            $result = new Result;
+            $result->student_id = $idd;
+            $result->time = 0;
+            $result->score = 0;
+            $result->attempt = 0;
+            $result->record_id = $record_id;
+            if($result->save())
+                return view('program.beforeevent')->with('message', ['message' => 'You have successfully registered', 'class' => 'Success', 'success' => 1, 'timer' => $timer]);
+            return view('program.beforeevent')->with('message', ['message' => 'Try Again', 'class' => 'Danger','success' => 0, 'timer' => $timer]);
+        }
+
+        return Redirect::back()->with('message','Incorrect Event');
 
     }
 

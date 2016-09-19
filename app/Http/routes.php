@@ -146,7 +146,7 @@ Route::group(['namespace' => 'Student'], function() {
     Route::get('/contest/{id}', [
         'uses' => 'StudentController@contest'
     ]);
-    Route::get('/event/register', [
+    Route::get('/event/register/{code}', [
         'uses' => 'StudentController@eventRegister'
     ]);
 });
