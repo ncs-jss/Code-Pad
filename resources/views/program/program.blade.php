@@ -134,7 +134,7 @@ endif;
                                     <!-- Manual Input -->
                                     <span class="col-xs-4 text-center">
                                       <label class="btn manual-input">
-                                        <input type="checkbox" name="name" value="">
+                                        <input type="checkbox" name="name" value="true" {{(old('name')) ? 'checked' : ''}}>
                                         Manual Input
                                       </label>
                                     </span>
@@ -192,6 +192,11 @@ prettyPrint();
           }
           else
             $("div.manual-input").addClass("hide");
+        });
+        $("label.manual-input").ready(function(){
+          if($('label.manual-input input').is(':checked')) {
+            $("div.manual-input").removeClass("hide");
+          }
         });
 
 </script>

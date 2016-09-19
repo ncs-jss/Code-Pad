@@ -58,6 +58,7 @@ class ProgramController extends Controller
         ]);
 
         $output = Input::all();
+        // return $output;
         $output = strval($output['program']);
         // return var_dump($output);
         $client = new Client();
@@ -101,6 +102,8 @@ class ProgramController extends Controller
         $coded = Input::all();
         $output = strval($coded['program']);
         $input = $inp;
+        if($coded['name']=="true")
+            $input = $coded['input'];
         // return var_dump($output);
         $client = new Client();
         $res = $client->request('POST', 'http://api.hackerearth.com/v3/code/run/', [
