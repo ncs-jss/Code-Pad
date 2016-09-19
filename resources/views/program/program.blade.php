@@ -94,9 +94,6 @@ endif;
 
                     <h3>CODE EDITOR </h3>
 
-                    <!-- <div class="code-editor">
-                      <img src="editor.jpg" class="img-responsive" alt="">
-                    </div> -->
 
                     <form class="form-horizontal" role="form" method="POST" action="">
                         {{ csrf_field() }}
@@ -115,7 +112,7 @@ endif;
                             </div>
                         </div>
 
-                        <div class="col-sm-10 col-md-offset-1">
+                        <div class="col-sm-10 col-md-offset-1 manual-input hide">
                           <div class="form-group{{ $errors->has('input') ? ' has-error' : '' }}">
                             <label for="input" >Input</label>
                             <textarea class="form-control" rows="5" name="input" id="input">{{ old('input') }}</textarea>
@@ -130,11 +127,20 @@ endif;
 
 
                         <div class="form-group">
-                            <div class="col-md-6 col-md-offset-5">
-                                <div class="btn-group">
-                                    <button type="button" onclick="compile()" class="btn btn-success">Compile</button>
-                                    <button type="button" class="btn btn-danger" onclick="runcode()">Run</button>
-                                </div>
+                            <div class="col-sm-10 col-sm-offset-1">
+                                <p>
+                                    <!-- Compile -->
+                                    <span class="col-xs-4"> <button type="button" onclick="compile()" class="btn btn-success">Compile</button> </span>
+                                    <!-- Manual Input -->
+                                    <span class="col-xs-4 text-center">
+                                      <label class="btn manual-input">
+                                        <input type="checkbox" name="name" value="">
+                                        Manual Input
+                                      </label>
+                                    </span>
+                                    <!-- Run -->
+                                    <span class="col-xs-4 text-right"> <button type="button" class="btn btn-danger" onclick="runcode()">Run</button></span>
+                                </p>
                             </div>
                         </div>
                     </form>
@@ -178,6 +184,15 @@ prettyPrint();
         }
         // CKEDITOR.replaceAll();
 
+
+        // For Show /Hide Manual Input textarea
+        $("label.manual-input").on("click",function() {
+          if($('label.manual-input input').is(':checked')) {
+            $("div.manual-input").removeClass("hide");
+          }
+          else
+            $("div.manual-input").addClass("hide");
+        });
 
 </script>
 
