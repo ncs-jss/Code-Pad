@@ -29,6 +29,8 @@
             <strong> Sample Output : </strong> {!!$key->sample_output!!} <br><br>
             <!-- <strong> Test Case Input : </strong> {{ $key->testcases_input }}<br><br>
             <strong> Test Case Output : </strong> {{ $key->testcases_output }}<br><br> -->
+            <strong> Sample Explanationo : </strong> {!!$key->sample_explanation!!} <br><br>
+
           </p>
         </div>
       </div>

@@ -119,7 +119,7 @@ class StudentController extends Controller
     {
         // return $code;
         $details=Program_Details::where('id',$id)->get()->first();
-        // var_dump($details);
+        $details['code'] = $code;
         // return $details;
         return view('program.program')->with('data',$details);
     }

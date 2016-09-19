@@ -124,6 +124,12 @@ Route::group(['namespace' => 'Admin'], function() {
     Route::post('admin/add', [
         'uses' => 'AdminController@addAdmindata'
     ]);
+    Route::get('admin/admin/{id}', [
+        'uses' => 'AdminController@editAdmin'
+    ]);
+    Route::get('admin/edit/{id}', [
+        'uses' => 'AdminController@updateAdmin'
+    ]);
 
 });
 
@@ -145,9 +151,9 @@ Route::group(['namespace' => 'Student'], function() {
     ]);
 });
 
-Route::post('/compile','ProgramController@compile');
+Route::post('/compile/{code}/{id}','ProgramController@compile');
 
-Route::post('/runcode','ProgramController@runstatus');
+Route::post('/runcode/{code}/{id}','ProgramController@runstatus');
 
 
 

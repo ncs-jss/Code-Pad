@@ -140,18 +140,9 @@ endif;
                     </form>
                     <div>
                     @if(Session::get('res'))
-                      <div >
-                      <p>Compile Status</p>
-                        {{ Session::get('res')['compile_status'] }}
-                      </div>
+                      @include('master.compile')
                     @elseif(Session::get('out'))
-                      <div >
-                      <p>Compile Status</p>
-                        {{ Session::get('out')['compile_status'] }}
-                      <br>
-                      <p>Output</p>
-                        <!-- {{ Session::get('out')['run_status']['output'] }} -->
-                      </div>
+                      @include('master.result')
                   @endif
                   </div>
                 </div>
@@ -172,12 +163,14 @@ prettyPrint();
 
         function compile()
         {
-            $("form").attr('action',"{{ url('/compile') }}");
+            $("form").attr('action',"{{ url('/compile/'.$data->code.'/'.$data->id) }}");
+            $("#edit_area_toggle_checkbox_program").click();
             $("form").submit();
         }
 
         function runcode() {
-            $("form").attr('action',"{{ url('/runcode') }}");
+            $("#edit_area_toggle_checkbox_program").click();
+            $("form").attr('action',"{{ url('/runcode/'.$data->code.'/'.$data->id) }}");
             $("form").submit();
         }
         // CKEDITOR.replaceAll();

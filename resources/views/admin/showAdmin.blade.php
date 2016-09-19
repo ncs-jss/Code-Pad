@@ -2,14 +2,16 @@
 $result = Auth::guard('admin')->user();
 ?>
 @extends('layouts.layout')
-
+    @section('body')
+        <div class="custom-flash {{ Session::get('class') }}">{{ Session::get('message') }}</div>
+    @endsection
 @section('content')
 <br><br><br>
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
-                <div class="panel-heading">Show User</div>
+                <div class="panel-heading">Show Admin</div>
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-3">
@@ -18,11 +20,8 @@ $result = Auth::guard('admin')->user();
                         <div class="col-md-4">
                             <p>Email</p>
                         </div>
-                        <div class="col-md-2">
-                            <p>Projects</p>
-                        </div>
                         <div class="col-md-3">
-                            <p>Assign Projects</p>
+                            <p>Edit Details</p>
                         </div>
                     </div>
                     @foreach($user as $users)
@@ -33,11 +32,8 @@ $result = Auth::guard('admin')->user();
                             <div class="col-md-4">
                                 <p>{{$users->email}}</p>
                             </div>
-                            <div class="col-md-2">
-                                <p>{{$users->projects}}</p>
-                            </div>
                             <div class="col-md-3">
-                                <button class="btn btn-primary"><a href="{{url('/admin/user/'.$users->id)}}" >Assign Projects</a></button>
+                                <button class="btn btn-primary"><a style="color:white;"href="{{url('/admin/admin/'.$users->id)}}" >Edit</a></button>
                             </div>
                         </div><br>
                     @endforeach
