@@ -90,7 +90,7 @@ class AdminController extends Controller
 
                     // Create a new file for that particular event with its unique code
                     Storage::put('record/'.$record['code'].'.txt','');
-                    return Redirect::to('create')->with(['message' => 'Record is successfully saved' , 'class' => 'Success']);
+                    return Redirect::to('admim/create')->with(['message' => 'Record is successfully saved' , 'class' => 'Success']);
                 }
                 return Redirect::back()->with(['message' => 'Record is failed' , 'class' => 'Danger'])->withInput();
         }
@@ -392,7 +392,7 @@ class AdminController extends Controller
     {
         // return $code;
         $details=Program_Details::where('id',$id)->get()->first();
-        // var_dump($details);
+        $details['code'] = $code;
         // return $details;
         return view('program.program')->with('data',$details);
     }
@@ -428,6 +428,20 @@ class AdminController extends Controller
     {
         $result = Admin::where('type',0)->get();
         return view('admin.showAdmin')->with('user',$result);
+    }
+
+    public function editAdmin(Request $request,$id)
+    {
+        $result = Admin::find($id);
+        if($result->type == 0)
+            return view('admin.editUser')->with('user',$result);
+        return Redirect::back()->with(['message' => 'Invalid Authorization' , 'class' => 'Danger']);
+    }
+
+    public function updateAdmin(Request $request,$id)
+    {
+        $admin = Admin::find($id);
+
     }
 
 }
