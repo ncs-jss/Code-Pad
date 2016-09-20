@@ -127,8 +127,8 @@ class StudentController extends Controller
         $start = $idd->start;
         $idd = $idd->id;
         $details=Program_Details::where([['id',$id],['record_id',$idd]])->first();
-        // return $details;
-        if($details && $start < $time)
+        // return $start." ".$time;
+        if($details && $start <= $time)
         {
             $details['code'] = $code;
             return view('program.program')->with('data',$details);
@@ -159,7 +159,14 @@ class StudentController extends Controller
                 $res->student_id = $idd;
                 $res->time = 0;
                 $res->score = 0;
-                $res->attempt = 0;
+                $prg=[];
+                $number = Program_Details::where('record_id',$result->id)->get();
+                foreach ($number as $key) {
+                    $prg['program-id'.$key->id] = 0;
+                    $prg['marks-'.$key->id] = 0;
+                    $prg['done-'.$key->id] = 0;
+                }
+                $res->attempt = serialize($prg);
                 $res->record_id = $record_id;
                 $res->save();
             }

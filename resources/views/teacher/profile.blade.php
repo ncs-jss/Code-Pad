@@ -38,7 +38,7 @@ $result = Auth::guard('teacher')->user();
 
                             <div class="col-sm-6">
                                 <div class="form-group{{ $errors->has('position') ? 'has-error' : '' }}">
-                                    <label for="position" class="control-label">Position</label>
+                                    <label for="position" class="control-label">Designation</label>
 
                                     <input id="position" type="text" class="form-control" name="position" value="{{ $data['position'] }}">
 
@@ -90,5 +90,7 @@ $result = Auth::guard('teacher')->user();
                 </div>
             </div>
         </section>
+    @endsection
+    @section('footer')
         @include('master.foot')
     @endsection

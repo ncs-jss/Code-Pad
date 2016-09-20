@@ -212,8 +212,12 @@ class AdminController extends Controller
         $prg= Program_Details::find($result['id']);
         $prg->program_name = $result['program_name'];
         $prg->program_statement = $result['program_statement'];
+        $prg->difficulty = $result['difficulty'];
         $prg->sample_input = $result['sample_input'];
         $prg->sample_output = $result['sample_output'];
+        $prg->sample_explanation = $result['sample_explanation'];
+        $prg->time = $result['time'];
+        $prg->marks = $result['marks'];
         $prg->testcases_input = $result['testcases_input'];
         $prg->testcases_output = $result['testcases_output'];
         $prg->record_id=Session::get('record_id');

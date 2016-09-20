@@ -128,7 +128,7 @@ $programList=programRecord::where('upload_id',$result->id)->get();
                                 <div class="col-sm-5">
                                     <div class="form-group{{ $errors->has('time') ? ' has-error' : '' }}">
                                         <label for="time">Time Limit (in Sec)</label>
-                                        <input id="time" type="text" class="form-control" name="time" value="{{ old('time') }}" placeholder="5.0">
+                                        <input id="time" type="text" class="form-control" name="time" value="{{ old('time') }}" placeholder="5.0" pattern="[0-9]+(\.[0-9])">
 
                                         @if ($errors->has('time'))
                                             <span class="help-block">
@@ -144,7 +144,7 @@ $programList=programRecord::where('upload_id',$result->id)->get();
                                     <div class="form-group{{ $errors->has('marks') ? ' has-error' : '' }}" id="markscheck">
                                         <label for="marks">Maximum Marks</label>
 
-                                         <input id="marks" type="text" class="form-control" name="marks" value="{{ old('marks') }}" placeholder="100">
+                                         <input id="marks" type="text" class="form-control" name="marks" value="{{ old('marks') }}" placeholder="100" pattern="[0-9]+">
 
                                         @if ($errors->has('marks'))
                                             <span class="help-block">
