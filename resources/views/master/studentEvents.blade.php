@@ -22,12 +22,12 @@
 
                 <p><div class="event-intro"> <strong> Description: </strong>{!!$flight->description!!}</div></p>
                 <p class="text-center">
-                    <strong> <span class="fa fa-clock-o"></span>{{$flight['starttime']['starttime']." - ".$flight['endtime']['endtime']}} </strong>
+                    <strong> <span class="fa fa-clock-o"></span> {{$flight['starttime']['starttime']." - ".$flight['endtime']['endtime']}} </strong>
                 </p>
                 <p class="read-more text-center "><a href="contest/{{ $flight->code }}" class="btn btn-template-main">Participate </a></p>
                 <div class="clearfix">
                     <p class="pull-left">By <a href="#">{{ $flight->uploaded_by }}</a></p>
-                    <p class="pull-right"><i class="fa fa-calendar-o"></i>{{ $flight->starttime['startdate'] }}</p>
+                    <p class="pull-right"><span class="fa fa-calendar-o"></span> {{ $flight->starttime['startdate'] }}</p>
                 </div>
             </div>
         </div>

@@ -38,7 +38,7 @@ $details=Program_Details::where('record_id',Session::get('record_id'))->get();
 
                           <div class="col-sm-12 text-center">
                               <a class="btn btn-success ldr-bd"><span class="fa fa-users"></span> Show Leaderboard </a>
-                              <p><i class="fa fa-calendar-o"></i>{{$event['starttime']['startdate']}}</p>
+                              <p><span class="fa fa-calendar-o"></span> {{$event['starttime']['startdate']}}</p>
                               <p>
                                   <strong> <span class="fa fa-clock-o"></span> {{$event['starttime']['starttime']." - ".$event['endtime']['endtime']}} </strong>
                               </p>

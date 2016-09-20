@@ -1,5 +1,9 @@
-@import url('https://fonts.googleapis.com/css?family=Raleway');
+@import url('https://fonts.googleapis.com/css?family=Raleway|Droid+Serif');
 
 * {
   font-family: Raleway ;
+}
+
+h1, .h1, h2, .h2, h3, .h3 {
+  font-family: "Droid Serif" !important;
 }

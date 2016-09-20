@@ -29,9 +29,9 @@ endif;
                 <div class="col-sm-5">
                   <center>
                     <h1>
-                      CODE <br>
-                      COMPETE <br>
-                      COLLABORATE
+                      CODE. <br>
+                      COMPETE. <br>
+                      COLLABORATE.
                     </h1>
                     <ul class="list-style-none">
                       <li>Code Battles</li>

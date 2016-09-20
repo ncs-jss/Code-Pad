@@ -1,8 +1,9 @@
 <section>
+  <div class="col-sm-12 text-center">
+      <h3> On Going Events: </h3>
+  </div>
   <div class="events-wrap container-fluid">
-        <div class="col-sm-12 text-center">
-            <h3> On Going Events: </h3>
-        </div>
+
 
         <!-- Events Listing Start Here -->
           <?php
@@ -29,7 +30,7 @@
                 </p>
                 <div class="clearfix">
                     <p class="pull-left">By <a href="#">{{ $flight->uploaded_by }}</a></p>
-                    <p class="pull-right"><i class="fa fa-calendar-o"></i>{{ $flight->starttime['startdate'] }}</p>
+                    <p class="pull-right"><i class="fa fa-calendar-o"></i> {{ $flight->starttime['startdate'] }}</p>
                 </div>
             </div>
         </div>

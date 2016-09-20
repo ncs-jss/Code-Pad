@@ -24,7 +24,7 @@
                 <p class="read-more text-center "><a href="#" class="btn btn-template-main">Review </a></p>
                 <div class="clearfix">
                     <p class="pull-left">By <a href="#">{{ $flight->uploaded_by }}</a></p>
-                    <p class="pull-right"><i class="fa fa-calendar-o"></i>{{ $flight->starttime['startdate'] }}</p>
+                    <p class="pull-right"><span class="fa fa-calendar-o"></span> {{ $flight->starttime['startdate'] }}</p>
                 </div>
             </div>
         </div>
