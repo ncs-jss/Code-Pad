@@ -26,7 +26,7 @@ $des = $event->description;
                         <h1>{{ $event->name }}</h1>
                     </div>
                     <div class="col-xs-12 col-sm-4">
-                      <a class="btn btn-success ldr-bd"> <span class="fa fa-users "></span> Show Leaderboard </a>
+                      <a class="btn btn-success ldr-bd" href="{{ url('leaderboard/'.$code) }}"> <span class="fa fa-users "></span> Show Leaderboard </a>
                     </div>
                     <div class="col-xs-12 col-sm-8">
                         <p><div><strong>Description:</strong>{!!$des!!}</div></p>

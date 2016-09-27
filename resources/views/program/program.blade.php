@@ -50,7 +50,7 @@ endif;
 
                   <div class="title segment">
                     <h1>{{ $data->program_name }}</h1>
-                    <a class="btn btn-success ldr-bd pull-right"> <span class="fa fa-users "></span> Show Leaderboard </a>
+                    <a class="btn btn-success ldr-bd pull-right" href="{{ url('leaderboard/'.$data->code) }}"> <span class="fa fa-users "></span> Show Leaderboard </a>
 
                   </div>
                   <div class="segment">

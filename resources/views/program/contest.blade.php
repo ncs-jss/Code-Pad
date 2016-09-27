@@ -25,7 +25,7 @@ $details=Program_Details::where('record_id',Session::get('record_id'))->get();
                     <p><div><strong>Instructions:</strong>{!!$event->instructions!!}</div></p>
                 </div>
                 <div class="col-xs-12 col-sm-4">
-                    <a class="btn btn-success ldr-bd"> <span class="fa fa-users "></span> Show Leaderboard </a>
+                    <a class="btn btn-success ldr-bd" href="{{ url('leaderboard/'.$code) }}"> <span class="fa fa-users "></span> Show Leaderboard </a>
                 </div>
             </div>
             <div class="view-event row">

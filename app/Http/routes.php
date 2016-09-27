@@ -127,7 +127,7 @@ Route::group(['namespace' => 'Admin'], function() {
     Route::get('admin/admin/{id}', [
         'uses' => 'AdminController@editAdmin'
     ]);
-    Route::get('admin/edit/{id}', [
+    Route::post('admin/edit/{id}', [
         'uses' => 'AdminController@updateAdmin'
     ]);
 
@@ -155,6 +155,7 @@ Route::post('/compile/{code}/{id}','ProgramController@compile');
 
 Route::post('/runcode/{code}/{id}','ProgramController@runstatus');
 
+Route::get('/leaderboard/{code}','ProgramController@leaderboard');
 
 
 

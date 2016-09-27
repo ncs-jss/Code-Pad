@@ -445,7 +445,29 @@ class AdminController extends Controller
 
     public function updateAdmin(Request $request,$id)
     {
+        $this->validate($request,[
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255',
+        ]);
         $admin = Admin::find($id);
+
+        $inp = Input::all();
+        // return $inp;
+        if($inp['email'] != $admin->email)
+        {
+            $admin->email = $inp['email'];
+        }
+        if($inp['password']!="")
+        {
+            $this->validate($request,[
+            'password' => 'min:6|confirmed',
+            ]);
+
+            $admin->password = Hash::make($inp['password']);
+        }
+
+        $admin->save();
+        return Redirect::back()->with(['message' => 'successfully Done' , 'class' => 'Success']);
 
     }
 
