@@ -75,59 +75,59 @@ Route::group(['namespace' => 'Teacher'], function() {
 
 });
 
-Route::group(['namespace' => 'Admin'], function() {
-    Route::get('admin/update/{id}', [
+Route::group( ['namespace' => 'Admin', 'prefix' => 'admin'], function() {
+    Route::get('update/{id}', [
         'uses' => 'AdminController@openEvent'
     ]);
-    Route::get('admin/update/{code}/{id}', [
+    Route::get('update/{code}/{id}', [
         'uses' => 'AdminController@updateProgram'
     ]);
-    Route::get('admin/check/{id}', [
+    Route::get('check/{id}', [
         'uses' => 'AdminController@checkCode'
     ]);
-    Route::get('admin/delete/{id}', [
+    Route::get('delete/{id}', [
         'uses' => 'AdminController@delete'
     ]);
-    Route::get('admin/event-details', [
+    Route::get('event-details', [
         'uses' => 'AdminController@eventdetails'
     ]);
-    Route::get('admin/new', [
+    Route::get('new', [
         'uses' => 'AdminController@createEvent'
     ]);
-    Route::get('admin/create', [
+    Route::get('create', [
         'uses' => 'AdminController@program_input'
     ]);
-    Route::post('admin/record', [
+    Route::post('record', [
         'uses' => 'AdminController@record'
     ]);
-    Route::post('admin/program', [
+    Route::post('program', [
         'uses' => 'AdminController@programDetails'
     ]);
-    Route::post('admin/programUpdate', [
+    Route::post('programUpdate', [
         'uses' => 'AdminController@ProgramUpdateDone'
     ]);
-    Route::post('admin/{id}/event-details', [
+    Route::post('{id}/event-details', [
         'uses' => 'AdminController@eventsave'
     ]);
-    Route::get('admin/contest/{code}/{id}', [
+    Route::get('contest/{code}/{id}', [
         'uses' => 'AdminController@play'
     ]);
-    Route::get('admin/contest/{id}', [
+    Route::get('contest/{id}', [
         'uses' => 'AdminController@contest'
     ]);
-    Route::get('admin/addAdmin', [
+    Route::get('addAdmin', [
         'uses' => 'AdminController@addAdmin'
     ]);
-    Route::get('admin/showAdmin', [
+    Route::get('showAdmin', [
         'uses' => 'AdminController@showAdmin'
     ]);
-    Route::post('admin/add', [
+    Route::post('add', [
         'uses' => 'AdminController@addAdmindata'
     ]);
-    Route::get('admin/admin/{id}', [
+    Route::get('admin/{id}', [
         'uses' => 'AdminController@editAdmin'
     ]);
-    Route::post('admin/edit/{id}', [
+    Route::post('edit/{id}', [
         'uses' => 'AdminController@updateAdmin'
     ]);
 
