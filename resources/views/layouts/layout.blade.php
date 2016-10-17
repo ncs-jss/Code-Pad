@@ -8,8 +8,9 @@
 
 <body>
   @yield('body')
-  <div id="all">
-    @include('master.navigation')
+  @include('master.navigation')
+
+  <div id="all" style="margin-top:62px;">
     @yield('content')
   </div>
 

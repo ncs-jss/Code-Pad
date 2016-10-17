@@ -114,9 +114,6 @@ input:focus{
   margin: 0;
   border: none;
 }
-.login {
-  margin-bottom: 80px;
-}
 
 .login .form-control {
   border: none;

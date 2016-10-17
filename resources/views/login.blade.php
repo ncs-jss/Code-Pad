@@ -3,6 +3,7 @@
     @section('body')
         <div class="custom-flash {{ Session::get('class') }} ">{{ Session::get('message') }}</div>
         <div id="background"></div>
+
     @endsection
     @section('content')
 
@@ -10,8 +11,8 @@
             <div class="row">
                 <div class="login col-xs-12 col-sm-6 col-sm-push-3 col-md-4 col-md-push-4 ">
                     <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="active" ><a href="#student" aria-controls="student" role="tab" data-toggle="tab">Student</a></li>
-                        <li role="presentation"><a href="#teacher" aria-controls="teacher" role="tab" data-toggle="tab">Teacher</a></li>
+                        <li role="presentation" class="active"><a href="#student" aria-controls="student" role="tab" data-toggle="tab">Student</a></li>
+                        <li role="presentation"><a href="#teacher" aria-controls="teacher" role="tab" data-toggle="tab" id="teacher">Teacher</a></li>
                     </ul>
                     <div class="tab-content" style="padding:0;">
                         <div role="tabpanel" class="tab-pane fade in active" id="student">
@@ -135,3 +136,4 @@
             </div>
         </div>
     @endsection
+

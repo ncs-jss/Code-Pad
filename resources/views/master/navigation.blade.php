@@ -3,12 +3,9 @@
     else
         $add = '';
 ?>
-    <header>
             <!-- *** NAVBAR *** -->
 
-            <div class="navbar-affixed-top navbar-fixed" data-spy="affix" data-offset-top="0">
-
-                <div class="navbar navbar-default yamm" role="navigation" id="navbar">
+            <nav class="navbar navbar-default navbar-fixed-top">
 
                     <div class="container">
                         <div class="navbar-header">
@@ -99,8 +96,6 @@
 
                         <!--/.nav-collapse -->
                     </div>
-                </div>
                 <!-- /#navbar -->
-            </div>
+            </nav>
             <!-- *** NAVBAR END *** -->
-        </header>
