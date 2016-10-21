@@ -130,6 +130,7 @@ class TeacherController extends Controller
                 $rec->starttime=serialize($eventStart);
                 $rec->endtime=serialize($eventEnd);
                 $rec->start=$start;
+                $rec->end=$end;
                 $rec->uploaded_by=$record['uploaded_by'];
                 $rec->upload_id=$record['upload_id'];
                 if($rec->save())
@@ -339,6 +340,7 @@ class TeacherController extends Controller
             $rec->starttime=serialize($eventStart);
             $rec->endtime=serialize($eventEnd);
             $rec->start=$start;
+            $rec->end=$end;
             if($rec->save())
             {
                 return Redirect::to('update/'.$code)->with(['message' => 'Record is successfully saved' , 'class' => 'Success']);

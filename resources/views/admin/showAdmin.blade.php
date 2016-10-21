@@ -13,30 +13,28 @@ $result = Auth::guard('admin')->user();
             <div class="panel panel-default">
                 <div class="panel-heading">Show Admin</div>
                 <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <p>Name</p>
-                        </div>
-                        <div class="col-md-4">
-                            <p>Email</p>
-                        </div>
-                        <div class="col-md-3">
-                            <p>Edit Details</p>
-                        </div>
+                    <div class="row table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                              <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Edit Details</th>
+                                <th>Delete</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($user as $users)
+                              <tr>
+                                <td>{{$users->name}}</td>
+                                <td>{{$users->email}}</td>
+                                <td><a style="color:white;"href="{{url('/admin/admin/'.$users->id)}}" ><button class="btn btn-primary">Edit</button></a></td>
+                                <td><a style="color:white;"href="{{url('/admin/admin/'.$users->id)}}" ><button class="btn btn-danger">Delete</button></a></td>
+                              </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
                     </div>
-                    @foreach($user as $users)
-                        <div class="row">
-                            <div class="col-md-3">
-                                <p>{{$users->name}}</p>
-                            </div>
-                            <div class="col-md-4">
-                                <p>{{$users->email}}</p>
-                            </div>
-                            <div class="col-md-3">
-                                <button class="btn btn-primary"><a style="color:white;"href="{{url('/admin/admin/'.$users->id)}}" >Edit</a></button>
-                            </div>
-                        </div><br>
-                    @endforeach
                 </div>
             </div>
         </div>

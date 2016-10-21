@@ -79,6 +79,7 @@ class AdminController extends Controller
                 $rec->starttime=serialize($eventStart);
                 $rec->endtime=serialize($eventEnd);
                 $rec->start=$start;
+                $rec->end=$end;
                 $rec->uploaded_by=$record['uploaded_by'];
                 $rec->upload_id=$record['upload_id'];
                 if($rec->save())
@@ -91,7 +92,7 @@ class AdminController extends Controller
                     // Create a new file for that particular event with its unique code
                     Storage::put('record/'.$record['code'].'.txt','');
 
-                    return Redirect::to('admim/create')->with(['message' => 'Record is successfully saved' , 'class' => 'Success']);
+                    return Redirect::to('admin/create')->with(['message' => 'Record is successfully saved' , 'class' => 'Success']);
                 }
                 return Redirect::back()->with(['message' => 'Record is failed' , 'class' => 'Danger'])->withInput();
         }
@@ -281,6 +282,7 @@ class AdminController extends Controller
             $rec->starttime=serialize($eventStart);
             $rec->endtime=serialize($eventEnd);
             $rec->start=$start;
+            $rec->end=$end;
             if($rec->save())
             {
                 return Redirect::to('admin/update/'.$code)->with(['message' => 'Record is successfully saved' , 'class' => 'Success']);

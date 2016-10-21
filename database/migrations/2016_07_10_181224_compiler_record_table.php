@@ -21,6 +21,7 @@ class CompilerRecordTable extends Migration
             $table->string('starttime');
             $table->string('endtime');
             $table->string('start');
+            $table->string('end');
             $table->string('uploaded_by');
             $table->string('upload_id');
             $table->timestamps();
