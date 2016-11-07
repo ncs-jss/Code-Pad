@@ -115,20 +115,35 @@ Route::group( ['namespace' => 'Admin', 'prefix' => 'admin'], function() {
     Route::get('contest/{id}', [
         'uses' => 'AdminController@contest'
     ]);
-    Route::get('addAdmin', [
+    Route::get('Admin', [
         'uses' => 'AdminController@addAdmin'
     ]);
-    Route::get('showAdmin', [
+    Route::get('Admin/Show', [
         'uses' => 'AdminController@showAdmin'
     ]);
-    Route::post('add', [
+    Route::post('Admin', [
         'uses' => 'AdminController@addAdmindata'
     ]);
-    Route::get('admin/{id}', [
+    Route::get('Admin/{id}', [
         'uses' => 'AdminController@editAdmin'
     ]);
-    Route::post('edit/{id}', [
+    Route::post('Admin/edit/{id}', [
         'uses' => 'AdminController@updateAdmin'
+    ]);
+    Route::get('Student', [
+        'uses' => 'AdminController@addStudent'
+    ]);
+    Route::get('Student/Show', [
+        'uses' => 'AdminController@showStudent'
+    ]);
+    Route::post('Student', [
+        'uses' => 'AdminController@addStudentdata'
+    ]);
+    Route::get('Student/{id}', [
+        'uses' => 'AdminController@editStudent'
+    ]);
+    Route::post('Student/edit/{id}', [
+        'uses' => 'AdminController@updateStudent'
     ]);
 
 });

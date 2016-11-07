@@ -406,7 +406,7 @@ class AdminController extends Controller
 
     public function addAdmin()
     {
-        return view('admin.addadmin');
+        return view('admin.addAdmin');
     }
 
     public function addAdmindata(Request $request)
@@ -426,7 +426,7 @@ class AdminController extends Controller
         $user->password =  Hash::make($add['password']);
         if($user->save())
         {
-            return Redirect::to('/admin')->with(['message' => 'You have successfully added user' , 'class' => 'Success']);
+            return Redirect::to('/admin/Admin/Show')->with(['message' => 'You have successfully added user' , 'class' => 'Success']);
         }
         return Redirect::back()->withInput()->with(['message' => 'Error in registration, Please Try Again' , 'class' => 'Danger']);
     }
@@ -434,7 +434,8 @@ class AdminController extends Controller
     public function showAdmin(Request $request)
     {
         $result = Admin::where('type',0)->get();
-        return view('admin.showAdmin')->with('user',$result);
+        $result->type = 'admin';
+        return view('admin.showUser')->with('user',$result);
     }
 
     public function editAdmin(Request $request,$id)
@@ -471,6 +472,76 @@ class AdminController extends Controller
         $admin->save();
         return Redirect::back()->with(['message' => 'successfully Done' , 'class' => 'Success']);
 
+    }
+
+    public function addStudent(Request $request)
+    {
+        return view('admin.addStudent');
+    }
+
+    public function addStudentdata(Request $request)
+    {
+        $this->validate($request,[
+            'name' => 'required|max:255',
+            'admision_no' => 'required|max:255|unique:student',
+            'password' => 'required|min:6|confirmed',
+        ]);
+
+        $add=Input::all();
+
+        $user = new Student;
+        $user->name = $add['name'];
+        $user->admision_no = $add['admision_no'];
+        $user->password =  Hash::make($add['password']);
+        if($user->save())
+        {
+            return Redirect::to('/admin/Student/Show')->with(['message' => 'You have successfully added user' , 'class' => 'Success']);
+        }
+        return Redirect::back()->withInput()->with(['message' => 'Error in registration, Please Try Again' , 'class' => 'Danger']);
+    }
+
+    public function showStudent(Request $request)
+    {
+        $result = Student::all();
+        $result->type = 'student';
+        return view('admin.showUser')->with('user',$result);
+    }
+
+    public function editStudent(Request $request,$id)
+    {
+        $result = Student::find($id);
+        $result['type'] = 'student';
+        if($result->type == 0)
+            return view('admin.editUser')->with('user',$result);
+        return Redirect::back()->with(['message' => 'Invalid Authorization' , 'class' => 'Danger']);
+    }
+
+    public function updateStudent(Request $request,$id)
+    {
+        $this->validate($request,[
+            'name' => 'required|max:255',
+            'admision_no' => 'required',
+        ]);
+        $admin = Student::find($id);
+
+        $inp = Input::all();
+        // return $inp;
+        if($inp['admision_no'] != $admin->admision_no)
+        {
+            $admin->admision_no = $inp['admision_no'];
+        }
+        if($inp['password']!="")
+        {
+            $this->validate($request,[
+            'password' => 'min:6|confirmed',
+            ]);
+
+            $admin->password = Hash::make($inp['password']);
+        }
+        if($admin->save())
+            return Redirect::back()->with(['message' => 'successfully Done' , 'class' => 'Success']);
+        else
+            return Redirect::back()->with(['message' => 'Error in updating' , 'class' => 'Danger']);
     }
 
 }

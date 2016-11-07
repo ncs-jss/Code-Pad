@@ -13,7 +13,12 @@ $result = Auth::guard('admin')->user();
             <div class="panel panel-default">
                 <div class="panel-heading">Edit Details</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('admin/edit/'.$user->id) }}">
+                    @if($user->type != 'student')
+                        <form class="form-horizontal" role="form" method="POST" action="{{ url('admin/Admin/edit/'.$user->id) }}">
+                    @else
+                    <form class="form-horizontal" role="form" method="POST" action="{{ url('admin/Student/edit/'.$user->id) }}">
+                    @endif
+
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -30,19 +35,35 @@ $result = Auth::guard('admin')->user();
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+                        @if($user->type != 'student')
+                            <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                                <label for="email" class="col-md-4 control-label">E-Mail Address</label>
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ $user->email }}">
+                                <div class="col-md-6">
+                                    <input id="email" type="email" class="form-control" name="email" value="{{ $user->email }}">
 
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
+                                    @if ($errors->has('email'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('email') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
                             </div>
-                        </div>
+                        @else
+                            <div class="form-group{{ $errors->has('admision_no') ? ' has-error' : '' }}">
+                                <label for="admision_no" class="col-md-4 control-label">Admission Number</label>
+
+                                <div class="col-md-6">
+                                    <input id="admision_no" type="text" class="form-control" name="admision_no" value="{{ $user->admision_no }}">
+
+                                    @if ($errors->has('admision_no'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('admision_no') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                        @endif
 
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                             <label for="password" class="col-md-4 control-label">Change Password</label>

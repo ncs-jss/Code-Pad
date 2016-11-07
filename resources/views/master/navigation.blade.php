@@ -75,10 +75,28 @@
                                     @endif
                                 @endif
                                 @if(Auth::guard('admin')->check())
-                                    @if(Auth::guard('admin')->user()->type == 1)
-                                    <li><a href="{{ url('admin/addAdmin') }}">Add Admin</a></li>
-                                    <li><a href="{{ url('admin/showAdmin') }}">Show Admin</a></li>
-                                    @endif
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                        Show Users <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        @if(Auth::guard('admin')->user()->type == 1)
+                                        <li><a href="{{ url('admin/Admin/Show') }}">Show Admin</a></li>
+                                        @endif
+                                        <li><a href="{{ url('admin/Student/Show') }}">Show Students</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                        Add Users <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        @if(Auth::guard('admin')->user()->type == 1)
+                                        <li><a href="{{ url('admin/Admin') }}">Add Admin</a></li>
+                                        @endif
+                                        <li><a href="{{ url('admin/Student') }}">Add Students</a></li>
+                                    </ul>
+                                </li>
                                 @endif
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">

@@ -9,9 +9,9 @@ $result = Auth::guard('admin')->user();
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Add User</div>
+                <div class="panel-heading">Add Student</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('admin/Admin') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ url('admin/Student') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -28,15 +28,15 @@ $result = Auth::guard('admin')->user();
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+                        <div class="form-group{{ $errors->has('admision_no') ? ' has-error' : '' }}">
+                            <label for="admision_no" class="col-md-4 control-label">Admission No.</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}">
+                                <input id="admision_no" type="admision_no" class="form-control" name="admision_no" value="{{ old('admision_no') }}">
 
-                                @if ($errors->has('email'))
+                                @if ($errors->has('admision_no'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
+                                        <strong>{{ $errors->first('admision_no') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -73,7 +73,7 @@ $result = Auth::guard('admin')->user();
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-btn fa-user"></i> Add Admin
+                                    <i class="fa fa-btn fa-user"></i> Add Student
                                 </button>
                             </div>
                         </div>
