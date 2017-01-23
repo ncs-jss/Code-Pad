@@ -1,0 +1,22 @@
+language: php
+
+services:
+  - mysql
+php:
+  - 5.6
+
+before_install:
+  - cp .env.travis .env
+  - composer require phpunit/phpunit:4.8.* satooshi/php-coveralls:dev-master
+  - composer install --dev --ignore-platform-reqs
+  - php artisan key:generate
+  - mysql -e 'CREATE DATABASE compiler;'
+  - php artisan migrate
+  - php artisan db:seed
+
+script:
+  - mkdir -p build/logs
+  - phpunit --coverage-clover build/logs/clover.xml
+
+after_script:
+  - php vendor/bin/coveralls -v

@@ -23,6 +23,9 @@ use App\Teacher;
 use App\Admin;
 use Illuminate\Support\MessageBag;
 
+
+
+
 class AdminController extends Controller
 {
 
@@ -71,30 +74,30 @@ class AdminController extends Controller
         // return $start-$time;
         if($end-$start >= 100 && $start-$time >=0 )
         {
-                // Save to database
-                $rec = new ProgramRecord;
-                $rec->name=$record['name'];
-                $rec->code=$record['code'];
-                $rec->description=$record['description'];
-                $rec->starttime=serialize($eventStart);
-                $rec->endtime=serialize($eventEnd);
-                $rec->start=$start;
-                $rec->end=$end;
-                $rec->uploaded_by=$record['uploaded_by'];
-                $rec->upload_id=$record['upload_id'];
-                if($rec->save())
-                {
-                    $result=ProgramRecord::where('code',$record['code'])->first();
+            // Save to database
+            $rec = new ProgramRecord;
+            $rec->name=$record['name'];
+            $rec->code=$record['code'];
+            $rec->description=$record['description'];
+            $rec->starttime=serialize($eventStart);
+            $rec->endtime=serialize($eventEnd);
+            $rec->start=$start;
+            $rec->end=$end;
+            $rec->uploaded_by=$record['uploaded_by'];
+            $rec->upload_id=$record['upload_id'];
+            if($rec->save())
+            {
+                $result=ProgramRecord::where('code',$record['code'])->first();
 
-                    // Session create
-                    Session::put('record_id',$result->id);
+                // Session create
+                Session::put('record_id',$result->id);
 
-                    // Create a new file for that particular event with its unique code
-                    Storage::put('record/'.$record['code'].'.txt','');
+                // Create a new file for that particular event with its unique code
+                Storage::put('record/'.$record['code'].'.txt','');
 
-                    return Redirect::to('admin/create')->with(['message' => 'Record is successfully saved' , 'class' => 'Success']);
-                }
-                return Redirect::back()->with(['message' => 'Record is failed' , 'class' => 'Danger'])->withInput();
+                return Redirect::to('admin/create')->with(['message' => 'Record is successfully saved' , 'class' => 'Success']);
+            }
+            return Redirect::back()->with(['message' => 'Record is failed' , 'class' => 'Danger'])->withInput();
         }
         else
         {
@@ -114,31 +117,31 @@ class AdminController extends Controller
         $result=ProgramRecord::where('code',$code)->first();
         if($result)
         {
-                //Session create record_id
-                Session::put('record_id',$result->id);
-                $start=$result['start'];
-                $end = unserialize($result['endtime']);
-                $end = $this->dateConversion($end['enddate']).$this->timeConversion($end['endtime']);
-                date_default_timezone_set('Asia/Kolkata');
-                $time = date("YmdHi",time());
-                if($start>$time)
-                {
-                    $timing="-1";
-                    $class="Info";
-                    $mess="Update the event";
-                }
-                elseif ($time>=$start && $time<=$end) {
-                    $timing="-1";
-                    $class="Warning";
-                    $mess="Event is started, Update changes only that are necessary";
-                }
-                else
-                {
-                    $timing="-1";
-                    $class="Danger";
-                    $mess="Event is ended, Thank You";
-                }
-                return view('program.update')->with('message',[$mess,$class,$timing]);
+            //Session create record_id
+            Session::put('record_id',$result->id);
+            $start=$result['start'];
+            $end = $this->dateConversion($end['enddate']).$this->timeConversion($end['endtime']);
+            date_default_timezone_set('Asia/Kolkata');
+            $time = date("YmdHi",time());
+            if($start>$time)
+            {
+                $timing="-1";
+                $class="Info";
+                $mess="Update the event";
+            }
+            elseif ($time>=$start && $time<=$end)
+            {
+                $timing="-1";
+                $class="Warning";
+                $mess="Event is started, Update changes only that are necessary";
+            }
+            else
+            {
+                $timing="-1";
+                $class="Danger";
+                $mess="Event is ended, Thank You";
+            }
+            return view('program.update')->with('message',[$mess,$class,$timing]);
         }
 
         return Redirect::back()->with(['message' => 'Incorrect program code' , 'class' => 'Danger']);
@@ -163,7 +166,7 @@ class AdminController extends Controller
         $pg=Input::all();
 
         // Save to DB
-        $prg= new Program_Details;
+        $prg = new Program_Details;
         $prg->program_name = $pg['program_name'];
         $prg->program_statement = $pg['program_statement'];
         $prg->difficulty = $pg['difficulty'];
