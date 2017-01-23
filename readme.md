@@ -1,4 +1,6 @@
 #Code-Pad
+[![Build Status](https://travis-ci.org/ncs-jss/Code-Pad.svg?branch=master)](https://travis-ci.org/ncs-jss/Code-Pad)
+
 It is a platform where students use to code online like many competative sites. It is a college competative platform for teacher-student interaction.
 Teachers organise events for the students. This improves the skills set of students.
 
