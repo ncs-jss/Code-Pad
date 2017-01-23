@@ -544,4 +544,75 @@ class AdminController extends Controller
             return Redirect::back()->with(['message' => 'Error in updating' , 'class' => 'Danger']);
     }
 
+    public function addTeacher(Request $request)
+    {
+        return view('admin.addTeacher');
+    }
+
+    public function addTeacherdata(Request $request)
+    {
+        $this->validate($request,[
+            'name' => 'required|max:255',
+            'email' => 'required|max:255|unique:teacher',
+            'password' => 'required|min:6|confirmed',
+        ]);
+
+        $add=Input::all();
+
+        $user = new Teacher;
+        $user->name = $add['name'];
+        $user->email = $add['email'];
+        $user->password =  Hash::make($add['password']);
+        if($user->save())
+        {
+            return Redirect::to('/admin/Teacher/Show')->with(['message' => 'You have successfully added user' , 'class' => 'Success']);
+        }
+        return Redirect::back()->withInput()->with(['message' => 'Error in registration, Please Try Again' , 'class' => 'Danger']);
+    }
+
+    public function showTeacher(Request $request)
+    {
+        $result = Teacher::all();
+        $result->type = 'teacher';
+        return view('admin.showUser')->with('user',$result);
+    }
+
+    public function editTeacher(Request $request,$id)
+    {
+        $result = Teacher::find($id);
+        $result['type'] = 'teacher';
+        if($result->type == 0)
+            return view('admin.editUser')->with('user',$result);
+        return Redirect::back()->with(['message' => 'Invalid Authorization' , 'class' => 'Danger']);
+    }
+
+    public function updateTeacher(Request $request,$id)
+    {
+        $this->validate($request,[
+            'name' => 'required|max:255',
+            'email' => 'required',
+        ]);
+        $admin = Teacher::find($id);
+
+        $inp = Input::all();
+        // return $inp;
+        if($inp['email'] != $admin->email)
+        {
+            $admin->email = $inp['email'];
+        }
+        if($inp['password']!="")
+        {
+            $this->validate($request,[
+            'password' => 'min:6|confirmed',
+            ]);
+
+            $admin->password = Hash::make($inp['password']);
+        }
+        if($admin->save())
+            return Redirect::back()->with(['message' => 'successfully Done' , 'class' => 'Success']);
+        else
+            return Redirect::back()->with(['message' => 'Error in updating' , 'class' => 'Danger']);
+    }
+
+
 }

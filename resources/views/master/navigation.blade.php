@@ -11,8 +11,9 @@
                         <div class="navbar-header">
 
                             <a class="navbar-brand home" href="">
-                                <img src="{{URL::asset('public/assets/img/logo.png')}}" alt="Universal logo" class="hidden-xs hidden-sm">
-                                <img src="{{URL::asset('public/assets/img/logo-small.png')}}" alt="Universal logo" class="visible-xs visible-sm"><span class="sr-only">Universal - go to homepage</span>
+                                <!-- <img src="{{URL::asset('public/assets/img/logo.png')}}" alt="Universal logo" class="hidden-xs hidden-sm">
+                                <img src="{{URL::asset('public/assets/img/logo-small.png')}}" alt="Universal logo" class="visible-xs visible-sm"><span class="sr-only">Universal - go to homepage</span> -->
+                                <h3>Code-Pad</h3>
                             </a>
                             <div class="navbar-buttons">
                                 <button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse" data-target="#navigation">
@@ -83,6 +84,7 @@
                                         @if(Auth::guard('admin')->user()->type == 1)
                                         <li><a href="{{ url('admin/Admin/Show') }}">Show Admin</a></li>
                                         @endif
+                                        <li><a href="{{ url('admin/Teacher/Show') }}">Show Teachers</a></li>
                                         <li><a href="{{ url('admin/Student/Show') }}">Show Students</a></li>
                                     </ul>
                                 </li>
@@ -94,6 +96,7 @@
                                         @if(Auth::guard('admin')->user()->type == 1)
                                         <li><a href="{{ url('admin/Admin') }}">Add Admin</a></li>
                                         @endif
+                                        <li><a href="{{ url('admin/Teacher') }}">Add Teachers</a></li>
                                         <li><a href="{{ url('admin/Student') }}">Add Students</a></li>
                                     </ul>
                                 </li>

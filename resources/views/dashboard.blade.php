@@ -96,7 +96,7 @@ endif;
         <div class="row">
           <div class="col-md-12">
             <h1> &lt;&#47;i&gt;  Can Code</h1>
-            <p class="lead">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+            <p class="lead"></p>
           </div>
         </div>
       </div>

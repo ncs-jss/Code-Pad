@@ -97,7 +97,7 @@ class ProgramController extends Controller
          if(Auth::guard('student')->check())
          {
             $event = Result::where([['record_id',$record_id],['student_id',Auth::guard('student')->user()->id]])->first();
-            $attempt = unserialize($event->attempt);
+            $attempt = unserialize($event['attempt']);
          }
          if($result['compile_status']=='OK')
          {

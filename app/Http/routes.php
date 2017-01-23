@@ -142,8 +142,36 @@ Route::group( ['namespace' => 'Admin', 'prefix' => 'admin'], function() {
     Route::get('Student/{id}', [
         'uses' => 'AdminController@editStudent'
     ]);
+    // Route::delete('Student/{id}', [
+    //     'uses' => 'AdminController@editStudent'
+    // ]);
+    Route::delete('Student/{id}', function() {
+        return "Helo";
+    });
     Route::post('Student/edit/{id}', [
         'uses' => 'AdminController@updateStudent'
+    ]);
+
+    Route::get('Teacher', [
+        'uses' => 'AdminController@addTeacher'
+    ]);
+    Route::get('Teacher/Show', [
+        'uses' => 'AdminController@showTeacher'
+    ]);
+    Route::post('Teacher', [
+        'uses' => 'AdminController@addTeacherdata'
+    ]);
+    Route::get('Teacher/{id}', [
+        'uses' => 'AdminController@editTeacher'
+    ]);
+    // Route::delete('Teacher/{id}', [
+    //     'uses' => 'AdminController@editTeacher'
+    // ]);
+    Route::delete('Teacher/{id}', function() {
+        return "Helo";
+    });
+    Route::post('Teacher/edit/{id}', [
+        'uses' => 'AdminController@updateTeacher'
     ]);
 
 });

@@ -13,8 +13,10 @@ $result = Auth::guard('admin')->user();
             <div class="panel panel-default">
                 <div class="panel-heading">Edit Details</div>
                 <div class="panel-body">
-                    @if($user->type != 'student')
+                    @if($user->type == 'admin')
                         <form class="form-horizontal" role="form" method="POST" action="{{ url('admin/Admin/edit/'.$user->id) }}">
+                    @elseif($user->type == 'teacher')
+                        <form class="form-horizontal" role="form" method="POST" action="{{ url('admin/Teacher/edit/'.$user->id) }}">
                     @else
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('admin/Student/edit/'.$user->id) }}">
                     @endif
