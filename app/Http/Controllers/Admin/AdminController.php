@@ -1,9 +1,6 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
-
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use DB;
@@ -23,9 +20,9 @@ use App\Teacher;
 use App\Admin;
 use Illuminate\Support\MessageBag;
 
-
-
-
+/**
+ * Admin Controller Class
+ */
 class AdminController extends Controller
 {
 
@@ -49,7 +46,9 @@ class AdminController extends Controller
     public function record(Request $request)
     {
         // Validation
-        $this->validate($request,[
+        $this->validate(
+            $request,
+            [
             'name' => 'required|max:255|',
             'code' => 'required|max:20|unique:compiler_record',
             'description' => 'required',
@@ -59,50 +58,88 @@ class AdminController extends Controller
             'endtime' => 'required',
             'uploaded_by'=>'required',
             'upload_id' => 'required',
-        ]);
+            ]
+        );
 
 
         $record = Input::all();
         // return $record;
-        $eventStart = array('startdate' => $record['startdate'] , 'starttime' => $record['starttime'] );
-        $eventEnd = array('enddate' => $record['enddate'] , 'endtime' => $record['endtime'] );
+        $eventStart = array(
+            'startdate' => $record['startdate'],
+            'starttime' => $record['starttime']
+        );
+
+        $eventEnd = array(
+            'enddate' => $record['enddate'],
+            'endtime' => $record['endtime']
+        );
+
         // return substr($record['starttime'],-2);
-        $start = $this->dateConversion($record['startdate']).$this->timeConversion($record['starttime']);
-        $end = $this->dateConversion($record['enddate']).$this->timeConversion($record['endtime']);
+        $start = $this->dateConversion(
+            $record['startdate']
+        ) . $this->timeConversion(
+            $record['starttime']
+        );
+
+        $end = $this->dateConversion(
+            $record['enddate']
+        ) . $this->timeConversion(
+            $record['endtime']
+        );
+
         date_default_timezone_set('Asia/Kolkata');
-        $time = date("YmdHi",time());
+        $time = date("YmdHi", time());
         // return $start-$time;
-        if($end-$start >= 100 && $start-$time >=0 )
-        {
+        if ($end - $start >= 100 && $start - $time >=0 ) {
             // Save to database
             $rec = new ProgramRecord;
-            $rec->name=$record['name'];
-            $rec->code=$record['code'];
-            $rec->description=$record['description'];
-            $rec->starttime=serialize($eventStart);
-            $rec->endtime=serialize($eventEnd);
-            $rec->start=$start;
-            $rec->end=$end;
-            $rec->uploaded_by=$record['uploaded_by'];
-            $rec->upload_id=$record['upload_id'];
-            if($rec->save())
-            {
-                $result=ProgramRecord::where('code',$record['code'])->first();
+            $rec->name = $record['name'];
+            $rec->code = $record['code'];
+            $rec->description = $record['description'];
+            $rec->starttime = serialize($eventStart);
+            $rec->endtime = serialize($eventEnd);
+            $rec->start = $start;
+            $rec->end = $end;
+            $rec->uploaded_by = $record['uploaded_by'];
+            $rec->upload_id = $record['upload_id'];
+            if ($rec->save()) {
+                $result = ProgramRecord::where(
+                    'code', $record['code']
+                )->first();
 
                 // Session create
-                Session::put('record_id',$result->id);
+                Session::put('record_id', $result->id);
 
                 // Create a new file for that particular event with its unique code
-                Storage::put('record/'.$record['code'].'.txt','');
+                Storage::put('record/' . $record['code'] . '.txt', '');
 
-                return Redirect::to('admin/create')->with(['message' => 'Record is successfully saved' , 'class' => 'Success']);
+                return Redirect::to('admin/create')->with(
+                    [
+                    'message' => 'Record is successfully saved',
+                    'class' => 'Success'
+                    ]
+                );
             }
-            return Redirect::back()->with(['message' => 'Record is failed' , 'class' => 'Danger'])->withInput();
-        }
-        else
-        {
-            $errors=new MessageBag(['startdate' => ['Event must be start before the end time'], 'enddate' => ['Event must be end after the start time']]);
-            return Redirect::back()->withErrors($errors)->withInput()->with(['message' => 'Enter correct time, Event must be started after 24 hours from now' , 'class' => 'Warning']);
+            return Redirect::back()->with(
+                [
+                'message' => 'Record is failed',
+                'class' => 'Danger'
+                ]
+            )->withInput();
+        } else {
+            $errors = new MessageBag(
+                [
+                'startdate' => ['Event must be start before the end time'],
+                'enddate' => ['Event must be end after the start time']
+                ]
+            );
+            return Redirect::back()->withErrors($errors)->withInput()->with(
+                [
+                'message' => 'Enter correct time,
+                    Event must be started after 24 hours from now',
+                'class' => 'Warning'
+                ]
+            );
         }
     }
 
@@ -114,54 +151,64 @@ class AdminController extends Controller
     public function openEvent($code)
     {
         // Update in a database
-        $result=ProgramRecord::where('code',$code)->first();
-        if($result)
-        {
+        $result = ProgramRecord::where('code', $code)->first();
+        if ($result) {
             //Session create record_id
-            Session::put('record_id',$result->id);
-            $start=$result['start'];
-            $end = $this->dateConversion($end['enddate']).$this->timeConversion($end['endtime']);
+            Session::put('record_id', $result->id);
+            $start = $result['start'];
+
+            $end = $this->dateConversion(
+                $end['enddate']
+            ) . $this->timeConversion(
+                $end['endtime']
+            );
+
             date_default_timezone_set('Asia/Kolkata');
-            $time = date("YmdHi",time());
-            if($start>$time)
-            {
-                $timing="-1";
-                $class="Info";
-                $mess="Update the event";
+            $time = date("YmdHi", time());
+            if ($start > $time) {
+                $timing = "-1";
+                $class = "Info";
+                $mess = "Update the event";
+            } elseif ($time >= $start && $time <= $end) {
+                $timing = "-1";
+                $class = "Warning";
+                $mess = "Event is started, Update changes only that are necessary";
+            } else {
+                $timing = "-1";
+                $class = "Danger";
+                $mess = "Event is ended, Thank You";
             }
-            elseif ($time>=$start && $time<=$end)
-            {
-                $timing="-1";
-                $class="Warning";
-                $mess="Event is started, Update changes only that are necessary";
-            }
-            else
-            {
-                $timing="-1";
-                $class="Danger";
-                $mess="Event is ended, Thank You";
-            }
-            return view('program.update')->with('message',[$mess,$class,$timing]);
+            return view('program.update')->with('message', [$mess, $class, $timing]);
         }
 
-        return Redirect::back()->with(['message' => 'Incorrect program code' , 'class' => 'Danger']);
+        return Redirect::back()->with(
+            [
+            'message' => 'Incorrect program code',
+            'class' => 'Danger'
+            ]
+        );
     }
 
     /**
-     * function program_details for creating programs for the event and saving it to database
-     * return back if successfully saved for adding more programs to event else return back for removing errors
+     * function program_details for creating programs
+     * for the event and saving it to database
+     * return back if successfully saved for adding more
+     * programs to event else return back for removing errors
      */
     public function programDetails(Request $request)
     {
         // Validation
-        $this->validate($request,[
+        $this->validate(
+            $request,
+            [
             'program_name' => 'required|max:255|',
             'program_statement' => 'required|',
             'testcases_input' =>'required',
             'testcases_output' => 'required',
             'time' => 'required',
             'marks' => 'required'
-        ]);
+            ]
+        );
         // Input
         $pg=Input::all();
 
@@ -178,28 +225,42 @@ class AdminController extends Controller
         $prg->testcases_input = $pg['testcases_input'];
         $prg->testcases_output = $pg['testcases_output'];
         $prg->record_id=Session::get('record_id');
-        if($prg->save())
-        {
-            if($pg['decide']=='1')
-                return Redirect::back()->with(['message' => 'Program is uploaded!!' , 'class' => 'Success']);
-            $code=ProgramRecord::find(Session::get('record_id'));
-            $code=$code->code;
-            return Redirect::to('admin/update/'.$code)->with(['message' => 'Program is uploaded!!' , 'class' => 'Success']);
+        if ($prg->save()) {
+            if ($pg['decide']=='1') {
+                return Redirect::back()->with(
+                    [
+                    'message' => 'Program is uploaded!!',
+                    'class' => 'Success'
+                    ]
+                );
+            }
+            $code = ProgramRecord::find(Session::get('record_id'));
+            $code = $code->code;
+            return Redirect::to('admin/update/'.$code)->with(
+                [
+                'message' => 'Program is uploaded!!',
+                'class' => 'Success'
+                ]
+            );
         }
 
-        return Redirect::back()->with(['message' => 'Program failed to upload' , 'class' => 'Danger']);
+        return Redirect::back()->with(
+            [
+            'message' => 'Program failed to upload',
+            'class' => 'Danger'
+            ]
+        );
     }
 
         /**
      * function updateProgram for updating programs for the event and saving it to database
      * return to program.updateProgram else return to error not found page
      */
-    public function updateProgram($code,$id)
+    public function updateProgram($code, $id)
     {
-        $result=Program_Details::find($id);
-        if(Session::get('record_id')==$result['record_id'])
-        {
-            return View('program.updateProgram')->with('data',$result);
+        $result = Program_Details::find($id);
+        if (Session::get('record_id') == $result['record_id']) {
+            return View('program.updateProgram')->with('data', $result);
         }
         return View("errors.503");
     }
@@ -213,7 +274,7 @@ class AdminController extends Controller
         //Get Input
         $result=Input::all();
         //Update data in DB
-        $prg= Program_Details::find($result['id']);
+        $prg = Program_Details::find($result['id']);
         $prg->program_name = $result['program_name'];
         $prg->program_statement = $result['program_statement'];
         $prg->difficulty = $result['difficulty'];
@@ -224,18 +285,25 @@ class AdminController extends Controller
         $prg->marks = $result['marks'];
         $prg->testcases_input = $result['testcases_input'];
         $prg->testcases_output = $result['testcases_output'];
-        $prg->record_id=Session::get('record_id');
-        if($prg->save())
-        {
+        $prg->record_id = Session::get('record_id');
+        if ($prg->save()) {
             // return Redirect::to('program')->with('message','Program is updated!');
             // return view('program.update')->with('message','Program is updated!');
-            $code=ProgramRecord::find(Session::get('record_id'));
-            $code=$code->code;
-            return Redirect::to('admin/update/'.$code)->with(['message' => 'Program is updated!!' , 'class' => 'Success']);
-        }
-        else
-        {
-            return Redirect::back()->with(['message' => 'Error in updating program, Try Again' , 'class' => 'Danger']);
+            $code = ProgramRecord::find(Session::get('record_id'));
+            $code = $code->code;
+            return Redirect::to('admin/update/'.$code)->with(
+                [
+                'message' => 'Program is updated!!',
+                'class' => 'Success'
+                ]
+            );
+        } else {
+            return Redirect::back()->with(
+                [
+                'message' => 'Error in updating program, Try Again',
+                'class' => 'Danger'
+                ]
+            );
         }
 
     }
@@ -249,35 +317,53 @@ class AdminController extends Controller
         $result['starttime'] = $start['starttime'];
         $result['enddate'] = $end['enddate'];
         $result['endtime'] = $end['endtime'];
-        return view('program.eventdetails')->with('data',$result);
+        return view('program.eventdetails')->with('data', $result);
     }
 
-    public function eventsave(Request $request,$code)
+    public function eventsave(Request $request, $code)
     {
-        $this->validate($request,[
+        $this->validate(
+            $request,
+            [
             'name' => 'required|max:255|',
             'description' => 'required',
             'starttime' => 'required',
             'startdate' => 'required',
             'enddate' => 'required',
             'endtime' => 'required',
-        ]);
+            ]
+        );
 
         $record = Input::all();
 
-        $rec = ProgramRecord::where('code',$code)->first();
+        $rec = ProgramRecord::where('code', $code)->first();
 
-        $eventStart = array('startdate' => $record['startdate'] , 'starttime' => $record['starttime'] );
-        $eventEnd = array('enddate' => $record['enddate'] , 'endtime' => $record['endtime'] );
+        $eventStart = array(
+            'startdate' => $record['startdate'],
+            'starttime' => $record['starttime']
+        );
+        $eventEnd = array(
+            'enddate' => $record['enddate'],
+            'endtime' => $record['endtime']
+        );
 
-        $start = $this->dateConversion($record['startdate']).$this->timeConversion($record['starttime']);
-        $end = $this->dateConversion($record['enddate']).$this->timeConversion($record['endtime']);
+        $start = $this->dateConversion(
+            $record['startdate']
+        ) . $this->timeConversion(
+            $record['starttime']
+        );
+
+        $end = $this->dateConversion(
+            $record['enddate']
+        ) . $this->timeConversion(
+            $record['endtime']
+        );
+
         date_default_timezone_set('Asia/Kolkata');
-        $time = date("YmdHi",time());
+        $time = date("YmdHi", time());
         // return $start-$time;
 
-        if($end-$start >= 100 && $start-$time >=0)
-        {
+        if ($end-$start >= 100 && $start-$time >=0) {
             // Save to database
             $rec->name=$record['name'];
             $rec->description=$record['description'];
@@ -286,46 +372,68 @@ class AdminController extends Controller
             $rec->endtime=serialize($eventEnd);
             $rec->start=$start;
             $rec->end=$end;
-            if($rec->save())
-            {
-                return Redirect::to('admin/update/'.$code)->with(['message' => 'Record is successfully saved' , 'class' => 'Success']);
+            if ($rec->save()) {
+                return Redirect::to('admin/update/' . $code)->with(
+                    [
+                    'message' => 'Record is successfully saved',
+                    'class' => 'Success'
+                    ]
+                );
             }
-            return Redirect::back()->with(['message' => 'Record is failed' , 'class' => 'Danger'])->withInput();
-        }
-        else
-        {
-            $errors=new MessageBag(['startdate' => ['Event must be start before the end time'], 'enddate' => ['Event must be end after the start time']]);
-            return Redirect::back()->withErrors($errors)->withInput()->with(['message' => 'Enter correct time, Event must be started after 24 hours from now' , 'class' => 'Warning']);
+            return Redirect::back()->with(
+                [
+                'message' => 'Record is failed',
+                'class' => 'Danger'
+                ]
+            )->withInput();
+        } else {
+            $errors=new MessageBag(
+                [
+                'startdate' => ['Event must be start before the end time'],
+                'enddate' => ['Event must be end after the start time']
+                ]
+            );
+            return Redirect::back()->withErrors($errors)->withInput()->with(
+                [
+                'message' => 'Enter correct time,
+                     Event must be started after 24 hours from now',
+                'class' => 'Warning'
+                ]
+            );
         }
     }
 
-    public function delete(Request $request,$id)
+    public function delete(Request $request, $id)
     {
         // $del=ProgramRecord::find($id);
-        if($id==Session::get('record_id'))
-        {
-            $del=ProgramRecord::find($id);
+        if ($id == Session::get('record_id')) {
+            $del = ProgramRecord::find($id);
             // return $del;
             $del->delete();
             // ProgramRecord::destroy($id);
             // if($)
-            return Redirect::to('home')->with(['message' => 'Event is successfully deleted' , 'class' => 'Success']);
+            return Redirect::to('home')->with(
+                [
+                'message' => 'Event is successfully deleted',
+                'class' => 'Success'
+                ]
+            );
         }
     }
 
-    public function checkCode(Request $request,$code)
+    public function checkCode(Request $request, $code)
     {
         // echo $code;
-        if(ProgramRecord::where('code',$code)->first())
-        {
-            $errors=new MessageBag(['code' => ['Password Invalid']]);
+        if (ProgramRecord::where('code', $code)->first()) {
+            $errors = new MessageBag(
+                [
+                'code' => ['Password Invalid']
+                ]
+            );
             echo $errors;
-        }
-        else
-        {
+        } else {
             echo "false";
         }
-
     }
 
     /**
@@ -340,33 +448,24 @@ class AdminController extends Controller
     {
         $value = explode('/', $value);
         $value = array_reverse($value);
-        $value = $value[0]."".$value[2]."".$value[1];
+        $value = $value[0] . "" . $value[2] . "" . $value[1];
         return $value;
     }
     public function timeConversion($value)
     {
-        $time="";
-        if(substr($value, -2)=="AM")
-        {
-            if(substr($value,0,2) == "12")
-            {
-                $time="00".substr($value,3,2);
+        $time = "";
+        if (substr($value, -2) == "AM") {
+            if (substr($value, 0, 2) == "12") {
+                $time="00" . substr($value, 3, 2);
+            } else {
+                $time=substr($value, 0, 2) . substr($value, 3, 2);
             }
-            else
-            {
-                $time=substr($value,0,2).substr($value,3,2);
-            }
-        }
-        else
-        {
-            if(substr($value,0,2) != "12")
-            {
-                $time = substr($value,0,2)+12;
-                $time=$time.substr($value,3,2);
-            }
-            else
-            {
-                $time=substr($value,0,2).substr($value,3,2);
+        } else {
+            if (substr($value, 0, 2) != "12") {
+                $time = substr($value, 0, 2) + 12;
+                $time = $time . substr($value, 3, 2);
+            } else {
+                $time = substr($value, 0, 2) . substr($value, 3, 2);
             }
         }
         return $time;
@@ -377,34 +476,54 @@ class AdminController extends Controller
     {
 
         // Update in a database
-        $result=ProgramRecord::where('code',$code)->first();
-        if($result)
-        {
-            Session::put('record_id',$result->id);
+        $result = ProgramRecord::where('code', $code)->first();
+        if ($result) {
+            Session::put('record_id', $result->id);
             $record = unserialize($result['endtime']);
-            $end = $this->dateConversion($record['enddate']).$this->timeConversion($record['endtime']);
+            $end = $this->dateConversion(
+                $record['enddate']
+            ) . $this->timeConversion(
+                $record['endtime']
+            );
             date_default_timezone_set('Asia/Kolkata');
-            $time = date("YmdHi",time());
-            if($result->start > $time)
-            {
-                return view('program.contest')->with('message', ['message' => 'Event is not started yet', 'class' => 'Warning', 'sussess' => 1]);
+            $time = date("YmdHi", time());
+            if ($result->start > $time) {
+                return view('program.contest')->with(
+                    'message',
+                    [
+                    'message' => 'Event is not started yet',
+                    'class' => 'Warning',
+                    'sussess' => 1
+                    ]
+                );
+            } elseif ($end < $time) {
+                return view('program.contest')->with(
+                    'message',
+                    [
+                    'message' => 'Event is ended',
+                    'class' => 'Info'
+                    ]
+                );
             }
-            elseif ($end < $time) {
-               return view('program.contest')->with('message', ['message' => 'Event is ended', 'class' => 'Info']);
-            }
-            return view('program.contest')->with('message', ['message' => 'Event is live!!', 'class' => 'Success']);;
+            return view('program.contest')->with(
+                'message',
+                [
+                'message' => 'Event is live!!',
+                'class' => 'Success'
+                ]
+            );
         }
 
         return Redirect::back()->with('message','Incorrect Event');
     }
 
-    public function play(Request $request,$code,$id)
+    public function play(Request $request, $code, $id)
     {
         // return $code;
-        $details=Program_Details::where('id',$id)->get()->first();
+        $details = Program_Details::where('id', $id)->get()->first();
         $details['code'] = $code;
         // return $details;
-        return view('program.program')->with('data',$details);
+        return view('program.program')->with('data', $details);
     }
 
     public function addAdmin()
@@ -414,67 +533,93 @@ class AdminController extends Controller
 
     public function addAdmindata(Request $request)
     {
-        $this->validate($request,[
+        $this->validate(
+            $request,
+            [
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:admin',
             'password' => 'required|min:6|confirmed',
-        ]);
+            ]
+        );
 
-        $add=Input::all();
+        $add = Input::all();
 
         $user = new Admin;
         $user->name = $add['name'];
         $user->email = $add['email'];
         $user->type = 0;
         $user->password =  Hash::make($add['password']);
-        if($user->save())
-        {
-            return Redirect::to('/admin/Admin/Show')->with(['message' => 'You have successfully added user' , 'class' => 'Success']);
+        if ($user->save()) {
+            return Redirect::to('/admin/Admin/Show')->with(
+                [
+                'message' => 'You have successfully added user',
+                'class' => 'Success'
+                ]
+            );
         }
-        return Redirect::back()->withInput()->with(['message' => 'Error in registration, Please Try Again' , 'class' => 'Danger']);
+        return Redirect::back()->withInput()->with(
+            [
+            'message' => 'Error in registration, Please Try Again',
+            'class' => 'Danger'
+            ]
+        );
     }
 
     public function showAdmin(Request $request)
     {
-        $result = Admin::where('type',0)->get();
+        $result = Admin::where('type', 0)->get();
         $result->type = 'admin';
-        return view('admin.showUser')->with('user',$result);
+        return view('admin.showUser')->with('user', $result);
     }
 
-    public function editAdmin(Request $request,$id)
+    public function editAdmin(Request $request, $id)
     {
         $result = Admin::find($id);
-        if($result->type == 0)
-            return view('admin.editUser')->with('user',$result);
-        return Redirect::back()->with(['message' => 'Invalid Authorization' , 'class' => 'Danger']);
+        if ($result->type == 0) {
+            return view('admin.editUser')->with('user', $result);
+        }
+        return Redirect::back()->with(
+            [
+            'message' => 'Invalid Authorization',
+            'class' => 'Danger'
+            ]
+        );
     }
 
-    public function updateAdmin(Request $request,$id)
+    public function updateAdmin(Request $request, $id)
     {
-        $this->validate($request,[
+        $this->validate(
+            $request,
+            [
             'name' => 'required|max:255',
             'email' => 'required|email|max:255',
-        ]);
+            ]
+        );
         $admin = Admin::find($id);
 
         $inp = Input::all();
         // return $inp;
-        if($inp['email'] != $admin->email)
-        {
+        if ($inp['email'] != $admin->email) {
             $admin->email = $inp['email'];
         }
-        if($inp['password']!="")
-        {
-            $this->validate($request,[
-            'password' => 'min:6|confirmed',
-            ]);
+        if ($inp['password'] != "") {
+            $this->validate(
+                $request,
+                [
+                'password' => 'min:6|confirmed',
+                ]
+            );
 
             $admin->password = Hash::make($inp['password']);
         }
 
         $admin->save();
-        return Redirect::back()->with(['message' => 'successfully Done' , 'class' => 'Success']);
-
+        return Redirect::back()->with(
+            [
+            'message' => 'successfully Done',
+            'class' => 'Success'
+            ]
+        );
     }
 
     public function addStudent(Request $request)
@@ -484,67 +629,100 @@ class AdminController extends Controller
 
     public function addStudentdata(Request $request)
     {
-        $this->validate($request,[
+        $this->validate(
+            $request,
+            [
             'name' => 'required|max:255',
             'admision_no' => 'required|max:255|unique:student',
             'password' => 'required|min:6|confirmed',
-        ]);
+            ]
+        );
 
-        $add=Input::all();
+        $add = Input::all();
 
         $user = new Student;
         $user->name = $add['name'];
         $user->admision_no = $add['admision_no'];
         $user->password =  Hash::make($add['password']);
-        if($user->save())
-        {
-            return Redirect::to('/admin/Student/Show')->with(['message' => 'You have successfully added user' , 'class' => 'Success']);
+        if ($user->save()) {
+            return Redirect::to('/admin/Student/Show')->with(
+                [
+                'message' => 'You have successfully added user',
+                'class' => 'Success'
+                ]
+            );
         }
-        return Redirect::back()->withInput()->with(['message' => 'Error in registration, Please Try Again' , 'class' => 'Danger']);
+        return Redirect::back()->withInput()->with(
+            [
+            'message' => 'Error in registration, Please Try Again',
+            'class' => 'Danger'
+            ]
+        );
     }
 
     public function showStudent(Request $request)
     {
         $result = Student::all();
         $result->type = 'student';
-        return view('admin.showUser')->with('user',$result);
+        return view('admin.showUser')->with('user', $result);
     }
 
-    public function editStudent(Request $request,$id)
+    public function editStudent(Request $request, $id)
     {
         $result = Student::find($id);
         $result['type'] = 'student';
-        if($result->type == 0)
-            return view('admin.editUser')->with('user',$result);
-        return Redirect::back()->with(['message' => 'Invalid Authorization' , 'class' => 'Danger']);
+        if ($result->type == 0) {
+            return view('admin.editUser')->with('user', $result);
+        }
+        return Redirect::back()->with(
+            [
+            'message' => 'Invalid Authorization',
+            'class' => 'Danger'
+            ]
+        );
     }
 
-    public function updateStudent(Request $request,$id)
+    public function updateStudent(Request $request, $id)
     {
-        $this->validate($request,[
+        $this->validate(
+            $request,
+            [
             'name' => 'required|max:255',
             'admision_no' => 'required',
-        ]);
+            ]
+        );
         $admin = Student::find($id);
 
         $inp = Input::all();
         // return $inp;
-        if($inp['admision_no'] != $admin->admision_no)
-        {
+        if ($inp['admision_no'] != $admin->admision_no) {
             $admin->admision_no = $inp['admision_no'];
         }
-        if($inp['password']!="")
-        {
-            $this->validate($request,[
-            'password' => 'min:6|confirmed',
-            ]);
+        if ($inp['password'] != "") {
+            $this->validate(
+                $request,
+                [
+                'password' => 'min:6|confirmed',
+                ]
+            );
 
             $admin->password = Hash::make($inp['password']);
         }
-        if($admin->save())
-            return Redirect::back()->with(['message' => 'successfully Done' , 'class' => 'Success']);
-        else
-            return Redirect::back()->with(['message' => 'Error in updating' , 'class' => 'Danger']);
+        if ($admin->save()) {
+            return Redirect::back()->with(
+                [
+                'message' => 'successfully Done',
+                'class' => 'Success'
+                ]
+            );
+        } else {
+            return Redirect::back()->with(
+                [
+                'message' => 'Error in updating',
+                'class' => 'Danger'
+                ]
+            );
+        }
     }
 
     public function addTeacher(Request $request)
@@ -554,11 +732,14 @@ class AdminController extends Controller
 
     public function addTeacherdata(Request $request)
     {
-        $this->validate($request,[
+        $this->validate(
+            $request,
+            [
             'name' => 'required|max:255',
             'email' => 'required|max:255|unique:teacher',
             'password' => 'required|min:6|confirmed',
-        ]);
+            ]
+        );
 
         $add=Input::all();
 
@@ -566,55 +747,85 @@ class AdminController extends Controller
         $user->name = $add['name'];
         $user->email = $add['email'];
         $user->password =  Hash::make($add['password']);
-        if($user->save())
-        {
-            return Redirect::to('/admin/Teacher/Show')->with(['message' => 'You have successfully added user' , 'class' => 'Success']);
+        if ($user->save()) {
+            return Redirect::to('/admin/Teacher/Show')->with(
+                [
+                'message' => 'You have successfully added user',
+                'class' => 'Success'
+                ]
+            );
         }
-        return Redirect::back()->withInput()->with(['message' => 'Error in registration, Please Try Again' , 'class' => 'Danger']);
+        return Redirect::back()->withInput()->with(
+            [
+            'message' => 'Error in registration, Please Try Again',
+            'class' => 'Danger'
+            ]
+        );
     }
 
     public function showTeacher(Request $request)
     {
         $result = Teacher::all();
         $result->type = 'teacher';
-        return view('admin.showUser')->with('user',$result);
+        return view('admin.showUser')->with('user', $result);
     }
 
-    public function editTeacher(Request $request,$id)
+    public function editTeacher(Request $request, $id)
     {
         $result = Teacher::find($id);
         $result['type'] = 'teacher';
-        if($result->type == 0)
-            return view('admin.editUser')->with('user',$result);
-        return Redirect::back()->with(['message' => 'Invalid Authorization' , 'class' => 'Danger']);
+        if ($result->type == 0) {
+            return view('admin.editUser')->with('user', $result);
+        }
+        return Redirect::back()->with(
+            [
+            'message' => 'Invalid Authorization',
+            'class' => 'Danger'
+            ]
+        );
     }
 
-    public function updateTeacher(Request $request,$id)
+    public function updateTeacher(Request $request, $id)
     {
-        $this->validate($request,[
+        $this->validate(
+            $request,
+            [
             'name' => 'required|max:255',
             'email' => 'required',
-        ]);
+            ]
+        );
         $admin = Teacher::find($id);
 
         $inp = Input::all();
         // return $inp;
-        if($inp['email'] != $admin->email)
-        {
+        if ($inp['email'] != $admin->email) {
             $admin->email = $inp['email'];
         }
-        if($inp['password']!="")
-        {
-            $this->validate($request,[
-            'password' => 'min:6|confirmed',
-            ]);
+        if ($inp['password']!="") {
+            $this->validate(
+                $request,
+                [
+                'password' => 'min:6|confirmed',
+                ]
+            );
 
             $admin->password = Hash::make($inp['password']);
         }
-        if($admin->save())
-            return Redirect::back()->with(['message' => 'successfully Done' , 'class' => 'Success']);
-        else
-            return Redirect::back()->with(['message' => 'Error in updating' , 'class' => 'Danger']);
+        if ($admin->save()) {
+            return Redirect::back()->with(
+                [
+                'message' => 'successfully Done',
+                'class' => 'Success'
+                ]
+            );
+        } else {
+            return Redirect::back()->with(
+                [
+                'message' => 'Error in updating',
+                'class' => 'Danger'
+                ]
+            );
+        }
     }
 
 
