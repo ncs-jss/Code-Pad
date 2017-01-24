@@ -76,7 +76,7 @@ Route::group(['namespace' => 'Teacher'], function() {
 });
 
 Route::group( ['namespace' => 'Admin', 'prefix' => 'admin'], function() {
-    Route::get('update/{id}', [
+    Route::get('update/{code}', [
         'uses' => 'AdminController@openEvent'
     ]);
     Route::get('update/{code}/{id}', [
@@ -89,13 +89,13 @@ Route::group( ['namespace' => 'Admin', 'prefix' => 'admin'], function() {
         'uses' => 'AdminController@delete'
     ]);
     Route::get('event-details', [
-        'uses' => 'AdminController@eventdetails'
+        'uses' => 'AdminController@eventDetails'
     ]);
     Route::get('new', [
         'uses' => 'AdminController@createEvent'
     ]);
     Route::get('create', [
-        'uses' => 'AdminController@program_input'
+        'uses' => 'AdminController@programInput'
     ]);
     Route::post('record', [
         'uses' => 'AdminController@record'
@@ -104,10 +104,10 @@ Route::group( ['namespace' => 'Admin', 'prefix' => 'admin'], function() {
         'uses' => 'AdminController@programDetails'
     ]);
     Route::post('programUpdate', [
-        'uses' => 'AdminController@ProgramUpdateDone'
+        'uses' => 'AdminController@programUpdateDone'
     ]);
     Route::post('{id}/event-details', [
-        'uses' => 'AdminController@eventsave'
+        'uses' => 'AdminController@eventSave'
     ]);
     Route::get('contest/{code}/{id}', [
         'uses' => 'AdminController@play'

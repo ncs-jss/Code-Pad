@@ -1,5 +1,18 @@
 <?php
+/**
+ * AdminController Class Doc Comment
+ *
+ * PHP version 5
+ *
+ * @category PHP
+ * @package  CodePad
+ * @author   Ankit Jain <ankitjain28may77@gmail.com>
+ * @license  The MIT License (MIT)
+ * @link     https://github.com/ncs-jss/Code-Pad
+ *
+ */
 namespace App\Http\Controllers\Admin;
+
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -21,17 +34,42 @@ use App\Admin;
 use Illuminate\Support\MessageBag;
 
 /**
- * Admin Controller Class
+ * This controller handles the all the functionalities for the Admin User.
+ *
+ * @category PHP
+ * @package  CodePad
+ * @author   Ankit Jain <ankitjain28may77@gmail.com>
+ * @license  The MIT License (MIT)
+ * @link     https://github.com/ncs-jss/Code-Pad
  */
 class AdminController extends Controller
 {
 
+    /*
+    |--------------------------------------------------------------------------
+    | Admin Controller
+    |--------------------------------------------------------------------------
+    |
+    | This controller handles the all the functionalities for the Admin User.
+    |
+    */
+
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
     public function __construct()
     {
         $this->middleware('admin');
     }
 
-
+    /**
+     * Show the create event page.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function createEvent()
     {
         // Session::flash('message','Create an Event');
@@ -42,7 +80,12 @@ class AdminController extends Controller
      * function record for creating new event and saving it in database
      * Create a session for event(record_id)
      * return to program_input if successfully saved else return back
+     *
+     * @param Request $request To obtain an instance of the current HTTP request
+     *
+     * @return \Illuminate\Http\Response
      */
+
     public function record(Request $request)
     {
         // Validation
@@ -147,6 +190,10 @@ class AdminController extends Controller
      * function update_data for updating the existing event and saving it in database
      * Create a session for event(record_id)
      * return to program.update page if authorized else return back
+     *
+     * @param string $code Contains the Event Unique Code
+     *
+     * @return \Illuminate\Http\Response
      */
     public function openEvent($code)
     {
@@ -156,6 +203,7 @@ class AdminController extends Controller
             //Session create record_id
             Session::put('record_id', $result->id);
             $start = $result['start'];
+            $end = unserialize($result['endtime']);
 
             $end = $this->dateConversion(
                 $end['enddate']
@@ -194,6 +242,10 @@ class AdminController extends Controller
      * for the event and saving it to database
      * return back if successfully saved for adding more
      * programs to event else return back for removing errors
+     *
+     * @param Request $request To obtain an instance of the current HTTP request
+     *
+     * @return \Illuminate\Http\Response
      */
     public function programDetails(Request $request)
     {
@@ -252,9 +304,15 @@ class AdminController extends Controller
         );
     }
 
-        /**
-     * function updateProgram for updating programs for the event and saving it to database
+    /**
+     * function updateProgram for updating programs
+     * for the event and saving it to database
      * return to program.updateProgram else return to error not found page
+     *
+     * @param string $code Contains the Event Unique Code
+     * @param int    $id   Contains Id of the associated Event
+     *
+     * @return \Illuminate\Http\Response
      */
     public function updateProgram($code, $id)
     {
@@ -268,8 +326,10 @@ class AdminController extends Controller
     /**
      * function programUpdateDone for saving programs for the event
      * return to program.update else return back with error
+     *
+     * @return \Illuminate\Http\Response
      */
-    public function ProgramUpdateDone()
+    public function programUpdateDone()
     {
         //Get Input
         $result=Input::all();
@@ -308,7 +368,12 @@ class AdminController extends Controller
 
     }
 
-    public function eventdetails()
+    /**
+     * Shows Event details to the user
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function eventDetails()
     {
         $result = ProgramRecord::find(Session::get('record_id'));
         $start = unserialize($result['starttime']);
@@ -320,7 +385,15 @@ class AdminController extends Controller
         return view('program.eventdetails')->with('data', $result);
     }
 
-    public function eventsave(Request $request, $code)
+    /**
+     * Edit the Event Details
+     *
+     * @param Request $request To obtain an instance of the current HTTP request
+     * @param string  $code    Contains the Event Unique Code
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function eventSave(Request $request, $code)
     {
         $this->validate(
             $request,
@@ -403,6 +476,14 @@ class AdminController extends Controller
         }
     }
 
+    /**
+     * Delete the Event
+     *
+     * @param Request $request To obtain an instance of the current HTTP request
+     * @param int     $id      Contains the Event ID
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function delete(Request $request, $id)
     {
         // $del=ProgramRecord::find($id);
@@ -421,6 +502,14 @@ class AdminController extends Controller
         }
     }
 
+    /**
+     * Check for the Existing Code during the Event Creation
+     *
+     * @param Request $request To obtain an instance of the current HTTP request
+     * @param string  $code    Contains the Code which needs to be checked
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function checkCode(Request $request, $code)
     {
         // echo $code;
@@ -437,13 +526,22 @@ class AdminController extends Controller
     }
 
     /**
-     * function program_input for checking the active session of the Teacher and record_id to make him input the details of the programs
+     * Add the Program
+     *
+     * @return \Illuminate\Http\Response
      */
-    public function program_input()
+    public function programInput()
     {
         return view('program.input');
     }
 
+    /**
+     * Date Conversion
+     *
+     * @param string $value Contains the Date
+     *
+     * @return string
+     */
     public function dateConversion($value)
     {
         $value = explode('/', $value);
@@ -451,6 +549,14 @@ class AdminController extends Controller
         $value = $value[0] . "" . $value[2] . "" . $value[1];
         return $value;
     }
+
+    /**
+     * Converts Time
+     *
+     * @param string $value Contains the time
+     *
+     * @return string
+     */
     public function timeConversion($value)
     {
         $time = "";
@@ -471,7 +577,13 @@ class AdminController extends Controller
         return $time;
     }
 
-
+    /**
+     * Shows the Contest Page
+     *
+     * @param string $code Contains the Event Code
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function contest($code)
     {
 
@@ -514,9 +626,18 @@ class AdminController extends Controller
             );
         }
 
-        return Redirect::back()->with('message','Incorrect Event');
+        return Redirect::back()->with('message', 'Incorrect Event');
     }
 
+    /**
+     * Write Programs for the Contest Page
+     *
+     * @param Request $request To obtain an instance of the current HTTP request
+     * @param string  $code    Contains the Event Code
+     * @param int     $id      Contains the Id of the Program
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function play(Request $request, $code, $id)
     {
         // return $code;
@@ -526,11 +647,23 @@ class AdminController extends Controller
         return view('program.program')->with('data', $details);
     }
 
+    /**
+     * Shows Add new Admin page
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function addAdmin()
     {
         return view('admin.addAdmin');
     }
 
+    /**
+     * Add new Admin Data in DB
+     *
+     * @param Request $request To obtain an instance of the current HTTP request
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function addAdmindata(Request $request)
     {
         $this->validate(
@@ -565,6 +698,13 @@ class AdminController extends Controller
         );
     }
 
+    /**
+     * Shows Admin Page
+     *
+     * @param Request $request To obtain an instance of the current HTTP request
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function showAdmin(Request $request)
     {
         $result = Admin::where('type', 0)->get();
@@ -572,6 +712,14 @@ class AdminController extends Controller
         return view('admin.showUser')->with('user', $result);
     }
 
+    /**
+     * Show Edit Admin Page
+     *
+     * @param Request $request To obtain an instance of the current HTTP request
+     * @param int     $id      Contains the Admin ID
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function editAdmin(Request $request, $id)
     {
         $result = Admin::find($id);
@@ -586,6 +734,14 @@ class AdminController extends Controller
         );
     }
 
+    /**
+     * Update the Admin Details or Credentials
+     *
+     * @param Request $request To obtain an instance of the current HTTP request
+     * @param int     $id      Contains the Admin ID
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function updateAdmin(Request $request, $id)
     {
         $this->validate(
@@ -622,11 +778,23 @@ class AdminController extends Controller
         );
     }
 
-    public function addStudent(Request $request)
+    /**
+     * Show Students Page
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function addStudent()
     {
         return view('admin.addStudent');
     }
 
+    /**
+     * Add new Student Data in DB
+     *
+     * @param Request $request To obtain an instance of the current HTTP request
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function addStudentdata(Request $request)
     {
         $this->validate(
@@ -660,6 +828,13 @@ class AdminController extends Controller
         );
     }
 
+    /**
+     * Shows Student Page
+     *
+     * @param Request $request To obtain an instance of the current HTTP request
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function showStudent(Request $request)
     {
         $result = Student::all();
@@ -667,6 +842,14 @@ class AdminController extends Controller
         return view('admin.showUser')->with('user', $result);
     }
 
+    /**
+     * Show Edit Student Page
+     *
+     * @param Request $request To obtain an instance of the current HTTP request
+     * @param int     $id      Contains the Student ID
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function editStudent(Request $request, $id)
     {
         $result = Student::find($id);
@@ -682,6 +865,14 @@ class AdminController extends Controller
         );
     }
 
+    /**
+     * Update the Student Details or Credentials
+     *
+     * @param Request $request To obtain an instance of the current HTTP request
+     * @param int     $id      Contains the Student ID
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function updateStudent(Request $request, $id)
     {
         $this->validate(
@@ -725,11 +916,23 @@ class AdminController extends Controller
         }
     }
 
-    public function addTeacher(Request $request)
+    /**
+     * Show Teacher Page
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function addTeacher()
     {
         return view('admin.addTeacher');
     }
 
+    /**
+     * Add new Teacher Data in DB
+     *
+     * @param Request $request To obtain an instance of the current HTTP request
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function addTeacherdata(Request $request)
     {
         $this->validate(
@@ -763,6 +966,13 @@ class AdminController extends Controller
         );
     }
 
+    /**
+     * Shows Teacher Page
+     *
+     * @param Request $request To obtain an instance of the current HTTP request
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function showTeacher(Request $request)
     {
         $result = Teacher::all();
@@ -770,6 +980,14 @@ class AdminController extends Controller
         return view('admin.showUser')->with('user', $result);
     }
 
+    /**
+     * Show Edit Teacher Page
+     *
+     * @param Request $request To obtain an instance of the current HTTP request
+     * @param int     $id      Contains the Teacher ID
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function editTeacher(Request $request, $id)
     {
         $result = Teacher::find($id);
@@ -785,6 +1003,14 @@ class AdminController extends Controller
         );
     }
 
+    /**
+     * Update the Teacher Details or Credentials
+     *
+     * @param Request $request To obtain an instance of the current HTTP request
+     * @param int     $id      Contains the Teacher ID
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function updateTeacher(Request $request, $id)
     {
         $this->validate(
@@ -827,6 +1053,4 @@ class AdminController extends Controller
             );
         }
     }
-
-
 }
