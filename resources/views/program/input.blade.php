@@ -1,5 +1,5 @@
 <?php
-use App\programRecord;
+use App\ProgramRecord;
 
 $add='';
 if(Auth::guard('admin')->check()):
@@ -8,7 +8,7 @@ if(Auth::guard('admin')->check()):
 else:
     $result = Auth::guard('teacher')->user();
 endif;
-$programList=programRecord::where('upload_id',$result->id)->get();
+$programList=ProgramRecord::where('upload_id',$result->id)->get();
 
 ?>
 @extends('layouts.layout')

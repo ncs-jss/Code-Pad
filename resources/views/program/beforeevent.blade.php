@@ -1,5 +1,5 @@
 <?php
-use App\program_details;
+use App\ProgramDetails;
 use App\ProgramRecord;
 $add='';
 if(Auth::guard('admin')->check()):
@@ -12,7 +12,7 @@ $event=ProgramRecord::find(Session::get('record_id'));
 $event['starttime'] = unserialize($event['starttime']);
 $event['endtime'] = unserialize($event['endtime']);
 $code=$event->code;
-$details=Program_Details::where('record_id',Session::get('record_id'))->get();
+$details=ProgramDetails::where('record_id', Session::get('record_id'))->get();
 ?>
 @extends('layouts.layout')
     @section('body')

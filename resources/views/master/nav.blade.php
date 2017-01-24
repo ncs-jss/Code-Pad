@@ -1,15 +1,15 @@
 <?php
-use App\student;
-use App\teacher;
-use App\programRecord;
+use App\Student;
+use App\Teacher;
+use App\ProgramRecord;
 
 if(Session::get('type')=='student')
 {
-    $result=student::find(Session::get('start'));
+    $result = Student::find(Session::get('start'));
 }
 elseif (Session::get('type')=='teacher') {
-    $result=teacher::find(Session::get('start'));
-    $programList=programRecord::where('uploaded_by',$result->name)->get();
+    $result = Teacher::find(Session::get('start'));
+    $programList = ProgramRecord::where('uploaded_by',$result->name)->get();
 }
 
 ?>
