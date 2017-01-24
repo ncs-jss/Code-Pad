@@ -46,7 +46,7 @@ Route::group(['namespace' => 'Teacher'], function() {
         'uses' => 'TeacherController@delete'
     ]);
     Route::get('/event-details', [
-        'uses' => 'TeacherController@eventdetails'
+        'uses' => 'TeacherController@eventDetails'
     ]);
     Route::get('/teacher/profile', [
         'uses' => 'TeacherController@profile'
@@ -55,10 +55,10 @@ Route::group(['namespace' => 'Teacher'], function() {
         'uses' => 'TeacherController@createEvent'
     ]);
     Route::get('/create', [
-        'uses' => 'TeacherController@program_input'
+        'uses' => 'TeacherController@programInput'
     ]);
     Route::post('/teacher_details/{id}', [
-        'uses' => 'TeacherController@tea_details'
+        'uses' => 'TeacherController@teacherDetails'
     ]);
     Route::post('/record', [
         'uses' => 'TeacherController@record'
@@ -67,10 +67,10 @@ Route::group(['namespace' => 'Teacher'], function() {
         'uses' => 'TeacherController@programDetails'
     ]);
     Route::post('/programUpdate', [
-        'uses' => 'TeacherController@ProgramUpdateDone'
+        'uses' => 'TeacherController@programUpdateDone'
     ]);
     Route::post('{id}/event-details', [
-        'uses' => 'TeacherController@eventsave'
+        'uses' => 'TeacherController@eventSave'
     ]);
 
 });
@@ -181,7 +181,7 @@ Route::group(['namespace' => 'Student'], function() {
         'uses' => 'StudentController@profile'
     ]);
     Route::post('/student_details/{id}', [
-        'uses' => 'StudentController@stu_details'
+        'uses' => 'StudentController@studentDetails'
     ]);
     Route::get('/contest/{code}/{id}', [
         'uses' => 'StudentController@play'

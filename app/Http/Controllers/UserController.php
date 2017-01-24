@@ -12,10 +12,10 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\MessageBag;
 use Validation;
 use Session;
-use App\Student_Details;
+use App\StudentDetails;
 use App\Student;
 use App\Teacher;
-use App\Teacher_Details;
+use App\TeacherDetails;
 use App\Admin;
 class UserController extends Controller
 {
@@ -111,7 +111,7 @@ class UserController extends Controller
                 $id=$row->id;
             }
 
-            $student_details= new Student_details;
+            $student_details= new StudentDetails;
             $student_details->student_id = $id;
             $student_details->save();
 
@@ -173,7 +173,7 @@ class UserController extends Controller
                 $id=$row->id;
             }
 
-            $teacher_details= new Teacher_Details;
+            $teacher_details= new TeacherDetails;
             $teacher_details->teacher_id = $id;
             $teacher_details->save();
 

@@ -25,10 +25,8 @@ use Auth;
 use Redirect;
 use Storage;
 use App\Student;
-use App\Student_Details;
 use App\ProgramRecord;
-use App\Program_Details;
-use App\Teacher_Details;
+use App\ProgramDetails;
 use App\Teacher;
 use App\Admin;
 use Illuminate\Support\MessageBag;
@@ -66,7 +64,7 @@ class AdminController extends Controller
     }
 
     /**
-     * Show the create event page.
+     * Show Create Event Page.
      *
      * @return \Illuminate\Http\Response
      */
@@ -77,15 +75,12 @@ class AdminController extends Controller
     }
 
     /**
-     * function record for creating new event and saving it in database
-     * Create a session for event(record_id)
-     * return to program_input if successfully saved else return back
+     * Adding New Event in DB
      *
      * @param Request $request To obtain an instance of the current HTTP request
      *
      * @return \Illuminate\Http\Response
      */
-
     public function record(Request $request)
     {
         // Validation
@@ -187,9 +182,7 @@ class AdminController extends Controller
     }
 
     /**
-     * function update_data for updating the existing event and saving it in database
-     * Create a session for event(record_id)
-     * return to program.update page if authorized else return back
+     * For showing Event Page on the basis of the Code
      *
      * @param string $code Contains the Event Unique Code
      *
@@ -238,10 +231,7 @@ class AdminController extends Controller
     }
 
     /**
-     * function program_details for creating programs
-     * for the event and saving it to database
-     * return back if successfully saved for adding more
-     * programs to event else return back for removing errors
+     * Create Programs for the Event
      *
      * @param Request $request To obtain an instance of the current HTTP request
      *
@@ -265,7 +255,7 @@ class AdminController extends Controller
         $pg=Input::all();
 
         // Save to DB
-        $prg = new Program_Details;
+        $prg = new ProgramDetails;
         $prg->program_name = $pg['program_name'];
         $prg->program_statement = $pg['program_statement'];
         $prg->difficulty = $pg['difficulty'];
@@ -305,9 +295,7 @@ class AdminController extends Controller
     }
 
     /**
-     * function updateProgram for updating programs
-     * for the event and saving it to database
-     * return to program.updateProgram else return to error not found page
+     * Show Update Programs Page for the Event
      *
      * @param string $code Contains the Event Unique Code
      * @param int    $id   Contains Id of the associated Event
@@ -316,7 +304,7 @@ class AdminController extends Controller
      */
     public function updateProgram($code, $id)
     {
-        $result = Program_Details::find($id);
+        $result = ProgramDetails::find($id);
         if (Session::get('record_id') == $result['record_id']) {
             return View('program.updateProgram')->with('data', $result);
         }
@@ -324,8 +312,7 @@ class AdminController extends Controller
     }
 
     /**
-     * function programUpdateDone for saving programs for the event
-     * return to program.update else return back with error
+     * Show page after updating the Program
      *
      * @return \Illuminate\Http\Response
      */
@@ -334,7 +321,7 @@ class AdminController extends Controller
         //Get Input
         $result=Input::all();
         //Update data in DB
-        $prg = Program_Details::find($result['id']);
+        $prg = ProgramDetails::find($result['id']);
         $prg->program_name = $result['program_name'];
         $prg->program_statement = $result['program_statement'];
         $prg->difficulty = $result['difficulty'];
@@ -641,7 +628,7 @@ class AdminController extends Controller
     public function play(Request $request, $code, $id)
     {
         // return $code;
-        $details = Program_Details::where('id', $id)->get()->first();
+        $details = ProgramDetails::where('id', $id)->get()->first();
         $details['code'] = $code;
         // return $details;
         return view('program.program')->with('data', $details);

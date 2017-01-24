@@ -4,12 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Result extends Model
+class StudentDetails extends Model
 {
     /**
      * Table name.
      *
      * @var string
      */
-    protected $table = 'result';
+    protected $table = 'students_details';
 }

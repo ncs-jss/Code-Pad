@@ -7,8 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Teacher extends Authenticatable
 {
-    protected $table='teacher';
+    /**
+     * Table name.
+     *
+     * @var string
+     */
+    protected $table = 'teacher';
 
-    protected $fillable =['name','email','password'];
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name','email','password'
+    ];
 
 }
