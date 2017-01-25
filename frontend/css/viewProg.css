@@ -1,7 +1,0 @@
-/*.prog-details .info:nth-child(2n+1) {
-    clear:both !important;
-}*/
-
-.prog-code textarea {
-  width: 80%;
-}

@@ -170,7 +170,7 @@ class ProgramController extends Controller
         // return $result;
 
         foreach ($result as $key) {
-            # code....
+            // code....
             $stdname = Student::find($key->student_id);
             $key['name']= $stdname->name;
         }

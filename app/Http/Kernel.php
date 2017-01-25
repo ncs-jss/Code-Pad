@@ -53,6 +53,7 @@ class Kernel extends HttpKernel
         'teacher' => \App\Http\Middleware\Teacher::class,
         'program' => \App\Http\Middleware\Program::class,
         'admin' => \App\Http\Middleware\Admin::class,
+        'event' => \App\Http\Middleware\Event::class,
 
     ];
 }

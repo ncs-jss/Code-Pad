@@ -1,18 +1,6 @@
 <?php
-use App\programDetails;
-use App\ProgramRecord;
-$add='';
-if(Auth::guard('admin')->check()):
-    $result = Auth::guard('admin')->user();
-    $add='admin';
-else:
-    $result = Auth::guard('teacher')->user();
-endif;
-$event=ProgramRecord::find(Session::get('record_id'));
-$code=$event->code;
-$details=ProgramDetails::where('record_id',Session::get('record_id'))->get();
-    // echo $details;
-$des = $event->description;
+$event = $details->event;
+$code = $event->code;
 ?>
 
 @extends('layouts.layout')
@@ -29,7 +17,7 @@ $des = $event->description;
                       <a class="btn btn-success ldr-bd" href="{{ url('leaderboard/'.$code) }}"> <span class="fa fa-users "></span> Show Leaderboard </a>
                     </div>
                     <div class="col-xs-12 col-sm-8">
-                        <p><div><strong>Description:</strong>{!!$des!!}</div></p>
+                        <p><div><strong>Description:</strong>{!!$event->description!!}</div></p>
                         <p><div><strong>Instructions:</strong>{!!$event->instructions!!}</div></p>
 
                     </div>
@@ -45,10 +33,10 @@ $des = $event->description;
                                 <ul class="nav nav-pills nav-stacked">
                                     @if($message[2]!=1)
                                     <li>
-                                        <a href="{{ url($add.'/event-details') }}"> <span class="fa fa-plus"></span> &nbsp; Insert Details</a>
+                                        <a href="{{ url('/events/' . $code . '/edit') }}"> <span class="fa fa-plus"></span> &nbsp; Insert Details</a>
                                     </li>
                                     <li>
-                                        <a href="{{ url($add.'/create') }}"> <span class="fa fa-plus"></span> &nbsp; Add A New Program</a>
+                                        <a href="{{ url('/create') }}"> <span class="fa fa-plus"></span> &nbsp; Add A New Program</a>
                                     </li>
                                     <li>
                                         <a href="#delete"  onclick="deleted()"><span class="fa fa-trash-o"></span> &nbsp; Delete This Event. </a>
@@ -97,7 +85,7 @@ $des = $event->description;
                 var re = confirm("Are you really want to delete this event");
                 if(re)
                 {
-                    location.href="{{ url($add.'/delete/'.Session::get('record_id')) }}";
+                    location.href="{{ url('events/' . $code) }}";
                 }
             }
         </script>

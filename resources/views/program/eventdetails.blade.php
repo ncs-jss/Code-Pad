@@ -34,7 +34,8 @@ endif;
                     </div>
 
                     <div class="col-sm-6 col-sm-offset-3">
-                        <form  role="form" method="POST" action="{{ url($add.'/'.$data['code'].'/event-details/') }}">
+                        {!! Form::open(array('url'=>'events/' . $data['code'], 'method'=>'PUT', 'accept-charset'=>'UTF-8','files'=>true)) !!}
+
                             {{ csrf_field() }}
 
                             <div class="form row">

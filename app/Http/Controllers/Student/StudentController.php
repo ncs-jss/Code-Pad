@@ -9,7 +9,6 @@
  * @author   Ankit Jain <ankitjain28may77@gmail.com>
  * @license  The MIT License (MIT)
  * @link     https://github.com/ncs-jss/Code-Pad
- *
  */
 namespace App\Http\Controllers\Student;
 

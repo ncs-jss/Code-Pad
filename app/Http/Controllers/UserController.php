@@ -25,11 +25,10 @@ class UserController extends Controller
      */
     public function login(Request $request)
     {
-    	if(Auth::guard('student')->check() || Auth::guard('teacher')->check())
-    	{
-    		return Redirect::to('home')->with(['message' => 'You need to logout first' , 'class' => 'Warning']);
-    	}
-    	return view('login');
+        if(Auth::guard('student')->check() || Auth::guard('teacher')->check()) {
+            return Redirect::to('home')->with(['message' => 'You need to logout first' , 'class' => 'Warning']);
+        }
+        return view('login');
     }
 
     /**
@@ -37,12 +36,11 @@ class UserController extends Controller
      */
     public function register(Request $request)
     {
-    	if(Auth::guard('student')->check() || Auth::guard('teacher')->check())
-    	{
-    		return Redirect::to('home')->with(['message' => 'You need to logout first' , 'class' => 'Warning']);
-    	}
+        if(Auth::guard('student')->check() || Auth::guard('teacher')->check()) {
+            return Redirect::to('home')->with(['message' => 'You need to logout first' , 'class' => 'Warning']);
+        }
 
-    	return view('register');
+        return view('register');
     }
 
     /**
@@ -50,9 +48,8 @@ class UserController extends Controller
      */
     public function home(Request $request)
     {
-        if(Auth::guard('student')->check() || Auth::guard('teacher')->check() || Auth::guard('admin')->check())
-        {
-            return view('home')->with('message',['You are logged in','Success']);
+        if(Auth::guard('student')->check() || Auth::guard('teacher')->check() || Auth::guard('admin')->check()) {
+            return view('home')->with('message', ['You are logged in','Success']);
         }
         return Redirect::to('login')->with(['message' => 'You need to login first' , 'class' => 'Warning']);
     }
@@ -71,16 +68,17 @@ class UserController extends Controller
 
     public function studentLogin(Request $request)
     {
-        $this->validate($request,[
+        $this->validate(
+            $request, [
             'admision_no' => 'required|max:255|',
             'password' => 'required|',
-        ]);
+            ]
+        );
 
         $slogin=Input::all();
 
         // return Auth::guard('student')->attempt(['admision_no' => $slogin['admision_no'], 'password' => $slogin['password']]);
-        if(Auth::guard('student')->attempt(['admision_no' => $slogin['admision_no'], 'password' => $slogin['password']]))
-        {
+        if(Auth::guard('student')->attempt(['admision_no' => $slogin['admision_no'], 'password' => $slogin['password']])) {
             // $user = Auth::guard('student')->user();
             // return $user;
             return Redirect::to('/home')->with(['message' => 'You are logged in' , 'class' => 'Success']);
@@ -92,11 +90,13 @@ class UserController extends Controller
 
     public function studentRegister(Request $request)
     {
-        $this->validate($request,[
+        $this->validate(
+            $request, [
             'name' => 'required|max:255',
             'admision_no' => 'required|max:255|unique:student',
             'password' => 'required|min:6|confirmed',
-        ]);
+            ]
+        );
 
         $sregister=Input::all();
 
@@ -104,9 +104,8 @@ class UserController extends Controller
         $student->name = $sregister['name'];
         $student->admision_no = $sregister['admision_no'];
         $student->password =  Hash::make($sregister['password']);
-        if($student->save())
-        {
-            $result=Student::where('admision_no',$sregister['admision_no'])->get();
+        if($student->save()) {
+            $result=Student::where('admision_no', $sregister['admision_no'])->get();
             foreach ($result as $row) {
                 $id=$row->id;
             }
@@ -129,16 +128,17 @@ class UserController extends Controller
     public function teacherLogin(Request $request)
     {
         //Validation
-        $this->validate($request,[
+        $this->validate(
+            $request, [
             'email' => 'required|email|max:255|',
             'password' => 'required|',
-        ]);
+            ]
+        );
 
          //Get Input
         $tlogin=Input::all();
 
-        if(Auth::guard('teacher')->attempt(['email' => $tlogin['email'], 'password' => $tlogin['password']]))
-        {
+        if(Auth::guard('teacher')->attempt(['email' => $tlogin['email'], 'password' => $tlogin['password']])) {
             return Redirect::to('/home')->with(['message' => 'You are logged in' , 'class' => 'Success']);
         }
         $errors=new MessageBag(['password' => ['Password Invalid']]);
@@ -153,11 +153,13 @@ class UserController extends Controller
     public function teacherRegister(Request $request)
     {
         //Validation
-        $this->validate($request,[
+        $this->validate(
+            $request, [
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:teacher',
             'password' => 'required|min:6|confirmed',
-        ]);
+            ]
+        );
 
         //Get Input
         $tregister=Input::all();
@@ -166,9 +168,8 @@ class UserController extends Controller
         $teacher->name = $tregister['name'];
         $teacher->email = $tregister['email'];
         $teacher->password =  Hash::make($tregister['password']);
-        if($teacher->save())
-        {
-            $result=Teacher::where('email',$tregister['email'])->get();
+        if($teacher->save()) {
+            $result=Teacher::where('email', $tregister['email'])->get();
             foreach ($result as $row) {
                 $id=$row->id;
             }
@@ -185,8 +186,7 @@ class UserController extends Controller
 
     public function admin(Request $request)
     {
-        if(Auth::guard('admin')->check())
-        {
+        if(Auth::guard('admin')->check()) {
             return Redirect::to('/')->with(['message' => 'You need to logout first' , 'class' => 'Warning']);
         }
         return view('admin.login');
@@ -196,16 +196,17 @@ class UserController extends Controller
     public function adminLogin(Request $request)
     {
         //Validation
-        $this->validate($request,[
+        $this->validate(
+            $request, [
             'email' => 'required|email|max:255|',
             'password' => 'required|',
-        ]);
+            ]
+        );
 
          //Get Input
         $login=Input::all();
         // return $login;
-        if(Auth::guard('admin')->attempt(['email' => $login['email'], 'password' => $login['password']]))
-        {
+        if(Auth::guard('admin')->attempt(['email' => $login['email'], 'password' => $login['password']])) {
             // return $login;
             return Redirect::to('/home')->with(['message' => 'You are logged in' , 'class' => 'Success']);
         }

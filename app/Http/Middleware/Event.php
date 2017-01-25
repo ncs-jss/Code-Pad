@@ -1,25 +1,26 @@
 <?php
 
 namespace App\Http\Middleware;
-
+use Auth;
 use Closure;
 use Session;
 use Redirect;
 
-class Program
+
+class Event
 {
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure                 $next
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
      * @return mixed
      */
     public function handle($request, Closure $next)
     {
-        if(Session::has('record_id')) {
+        if(!Auth::guard('student')->check()) {
             return $next($request);
         }
-        return Redirect::back();
+        return Redirect::to('/login');
     }
 }

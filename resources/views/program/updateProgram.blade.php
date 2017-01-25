@@ -1,14 +1,4 @@
-<?php
-use App\programRecord;
-$add='';
-if(Auth::guard('admin')->check()):
-    $result = Auth::guard('admin')->user();
-    $add='admin';
-else:
-    $result = Auth::guard('teacher')->user();
-endif;
-$programList=programRecord::where('uploaded_by',$result->name)->get();
-?>
+
 @extends('layouts.layout')
     @section('body')
         <div class="custom-flash {{ Session::get('class') }} ">{{ Session::get('message') }}</div>
@@ -31,7 +21,7 @@ $programList=programRecord::where('uploaded_by',$result->name)->get();
 
                     <div class="col-sm-6 col-sm-offset-3">
 
-                        <form role="form" method="POST" action="{{ url($add.'/programUpdate') }}">
+                        {!! Form::open(array('url'=>'event/programs/' . $data->id, 'method'=>'PUT', 'accept-charset'=>'UTF-8','files'=>true)) !!}
                         {{ csrf_field() }}
 
                             <div class="form row">

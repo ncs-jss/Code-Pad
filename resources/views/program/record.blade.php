@@ -32,9 +32,9 @@ else
 
                     <div class="col-sm-6 col-sm-offset-3">
                         @if(Auth::guard('admin')->check())
-                            <form  role="form" method="POST" action="{{ url('admin/record') }}">
+                            <form  role="form" method="POST" action="{{ url('events') }}">
                         @else
-                            <form  role="form" method="POST" action="{{ url('/record') }}">
+                            <form  role="form" method="POST" action="{{ url('/events') }}">
                         @endif
                             {{ csrf_field() }}
 

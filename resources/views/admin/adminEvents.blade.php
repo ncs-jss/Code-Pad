@@ -25,15 +25,14 @@
             ?>
         <div class="event-item col-sm-6 col-xs-12 col-md-3">
             <div class="spacer col-xs-12">
-                <h2 class="event-heading"><a href="admin/update/{{ $flight->code }}">{{ $flight->name }} </a></h2>
+                <h2 class="event-heading"><a href="events/{{ $flight->code }}">{{ $flight->name }} </a></h2>
 
                 <p><strong> Description: </strong><div class="event-intro"> {!!$flight->description!!}</div></p>
                 <p class="text-center">
                     <strong> <span class="fa fa-clock-o"></span> {{$flight['starttime']['starttime']." - ".$flight['endtime']['endtime']}} </strong>
                 </p>
                 <p class="read-more text-center">
-                  <a href="admin/update/{{ $flight->code }}" class="btn">Review </a>
-                  <a href="admin/contest/{{ $flight->code }}" class="btn">Participate </a>
+                  <a href="events/{{ $flight->code }}" class="btn">Review </a>
                 </p>
                 <div class="clearfix">
                     <p class="pull-left">By <a href="#">{{ $flight->uploaded_by }}</a></p>
@@ -68,15 +67,14 @@
           ?>
         <div class="event-item col-sm-6 col-xs-12 col-md-3">
             <div class="spacer col-xs-12">
-                <h2 class="event-heading"><a href="admin/update/{{ $pre->code }}">{{ $pre->name }} </a></h2>
+                <h2 class="event-heading"><a href="events/{{ $pre->code }}">{{ $pre->name }} </a></h2>
 
                 <p><strong> Description: </strong><div class="event-intro"> {!!$pre->description!!}</div></p>
                 <p class="text-center">
                     <strong> <span class="fa fa-clock-o"></span> {{$pre['starttime']['starttime']." - ".$pre['endtime']['endtime']}} </strong>
                 </p>
                 <p class="read-more text-center">
-                  <a href="admin/update/{{ $pre->code }}" class="btn">Review </a>
-                  <a href="admin/contest/{{ $pre->code }}" class="btn">Participate </a>
+                  <a href="events/{{ $pre->code }}" class="btn">Review </a>
                 </p>
                 <div class="clearfix">
                     <p class="pull-left">By <a href="#">{{ $pre->uploaded_by }}</a></p>
