@@ -36,7 +36,7 @@ $code = $event->code;
                                         <a href="{{ url('/events/' . $code . '/edit') }}"> <span class="fa fa-plus"></span> &nbsp; Insert Details</a>
                                     </li>
                                     <li>
-                                        <a href="{{ url('/create') }}"> <span class="fa fa-plus"></span> &nbsp; Add A New Program</a>
+                                        <a href="{{ url('/event/programs/create') }}"> <span class="fa fa-plus"></span> &nbsp; Add A New Program</a>
                                     </li>
                                     <li>
                                         <a href="#delete"  onclick="deleted()"><span class="fa fa-trash-o"></span> &nbsp; Delete This Event. </a>

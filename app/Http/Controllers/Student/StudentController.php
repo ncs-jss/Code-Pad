@@ -71,7 +71,7 @@ class StudentController extends Controller
         $result = StudentDetails::where(
             'student_id', Auth::guard('student')->user()->id
         )->first();
-        return view('student.profile')->with('data', $result);
+        return view('Student.profile')->with('data', $result);
     }
 
 
@@ -178,7 +178,7 @@ class StudentController extends Controller
             $timer = strtotime($result->start) - strtotime($time);
             if ($result->start > $time) {
                 if ($check == '[]') {
-                    return view('program.beforeevent')->with(
+                    return view('Event.BeforeEvent')->with(
                         'message',
                         [
                         'message' => 'Register to competete',
@@ -188,7 +188,7 @@ class StudentController extends Controller
                         ]
                     );
                 } else {
-                    return view('program.beforeevent')->with(
+                    return view('Event.BeforeEvent')->with(
                         'message',
                         [
                         'message' => 'Event is not started yet',
@@ -199,7 +199,7 @@ class StudentController extends Controller
                     );
                 }
             } elseif ($end < $time) {
-                return view('program.contest')->with(
+                return view('Event.Contest')->with(
                     'message',
                     [
                     'message' => 'Event is ended',
@@ -208,7 +208,7 @@ class StudentController extends Controller
                 );
             } else {
                 if ($check == '[]') {
-                    return view('program.beforeevent')->with(
+                    return view('Event.BeforeEvent')->with(
                         'message',
                         [
                         'message' => 'Register to competete',
@@ -218,7 +218,7 @@ class StudentController extends Controller
                         ]
                     );
                 }
-                return view('program.contest')->with(
+                return view('Event.Contest')->with(
                     'message',
                     [
                     'message' => 'All the Best!!',
@@ -230,41 +230,7 @@ class StudentController extends Controller
         return Redirect::back()->with('message', 'Incorrect Event');
     }
 
-    /**
-     * Show PlayGround for his performance
-     *
-     * @param Request $request To obtain an instance of the current HTTP request
-     * @param string  $code    Contains Code of the associated Event
-     * @param int     $id      Contains id of the Program
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function play(Request $request, $code, $id)
-    {
-        // return $code;
-        $idd = ProgramRecord::where('code', $code)->first();
-        date_default_timezone_set('Asia/Kolkata');
-        $time = date("YmdHi", time());
-        $start = $idd->start;
-        $idd = $idd->id;
-        $details = ProgramDetails::where(
-            [
-            [
-            'id', $id
-            ],
-            [
-            'record_id', $idd
-            ]
-            ]
-        )->first();
 
-        // return $start." ".$time;
-        if ($details && $start <= $time) {
-            $details['code'] = $code;
-            return view('program.program')->with('data', $details);
-        }
-        return Redirect::back()->with('message', 'Incorrect Event');
-    }
 
     /**
      * Show Event Register Page if Event is not Started
@@ -328,7 +294,7 @@ class StudentController extends Controller
             }
                 // return $time;
             if ($result->start <= $time) {
-                return view('program.contest')->with(
+                return view('Event.Contest')->with(
                     'message',
                     [
                     'message' => 'All the Best!!',
@@ -336,7 +302,7 @@ class StudentController extends Controller
                     ]
                 );
             }
-            return view('program.beforeevent')->with(
+            return view('Event.BeforeEvent')->with(
                 'message',
                 [
                 'message' => 'You have successfully registered',

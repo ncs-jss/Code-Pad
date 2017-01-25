@@ -55,7 +55,7 @@ class ProgramController extends Controller
      */
     public function create()
     {
-        return view('program.input');
+        return view('Program.Create');
     }
 
     /**
@@ -105,7 +105,7 @@ class ProgramController extends Controller
             }
             $code = ProgramRecord::find(Session::get('record_id'));
             $code = $code->code;
-            return Redirect::to('admin/update/'.$code)->with(
+            return Redirect::to('events/'. $code)->with(
                 [
                 'message' => 'Program is uploaded!!',
                 'class' => 'Success'
@@ -136,7 +136,7 @@ class ProgramController extends Controller
         $details['code'] = $code;
         // return $details;
         if ($details) {
-            return view('program.program')->with('data', $details);
+            return view('Program.Show')->with('data', $details);
         }
         return view("errors.503");
     }
@@ -151,7 +151,7 @@ class ProgramController extends Controller
     {
         $result = ProgramDetails::find($id);
         if ($result) {
-            return View('program.updateProgram')->with('data', $result);
+            return View('Program.Edit')->with('data', $result);
         }
         return view("errors.503");
     }
@@ -185,7 +185,7 @@ class ProgramController extends Controller
             // return view('program.update')->with('message','Program is updated!');
             $code = ProgramRecord::find(Session::get('record_id'));
             $code = $code->code;
-            return Redirect::to('events/'.$code)->with(
+            return Redirect::to('events/' . $code)->with(
                 [
                 'message' => 'Program is updated!!',
                 'class' => 'Success'

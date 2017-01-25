@@ -7,7 +7,9 @@
           <a data-toggle="collapse" data-parent="#accordion" href="#{{ $key->id }}">
             {{ $key->program_name }}( click to see details )
           </a>
+            @if(!Auth::guard('student')->check())
             <a class="pull-right" href="{{ url('/event/programs/' . $key->id . '/edit' ) }}"> Edit &nbsp;</a>
+            @endif
             <a class="pull-right" href="{{ url('/event/programs/'.$code.'-'.$key->id) }}"> Solve &nbsp;&nbsp;</a>
         </h4>
       </div>
