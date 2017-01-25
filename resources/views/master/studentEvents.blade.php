@@ -25,13 +25,13 @@
             ?>
               <div class="event-item col-xs-12 col-sm-6 col-md-3">
                   <div class="spacer col-xs-12">
-                      <h2 class="event-heading"><a href="events/{{ $flight->code }}">{{ $flight->name }} </a></h2>
+                      <h2 class="event-heading"><a href="contest/{{ $flight->code }}">{{ $flight->name }} </a></h2>
 
                       <p> <strong> Description: </strong><div class="event-intro">{!!$flight->description!!}</div></p>
                       <p class="text-center">
                           <strong> <span class="fa fa-clock-o"></span> {{$flight['starttime']['starttime']." - ".$flight['endtime']['endtime']}} </strong>
                       </p>
-                      <p class="read-more text-center "><a href="events/{{ $flight->code }}" class="btn btn-template-main">Participate </a></p>
+                      <p class="read-more text-center "><a href="contest/{{ $flight->code }}" class="btn btn-template-main">Participate </a></p>
                       <div class="clearfix">
                           <p class="pull-left">By <a href="#">{{ $flight->uploaded_by }}</a></p>
                           <p class="pull-right"><span class="fa fa-calendar-o"></span> {{ $flight->starttime['startdate'] }}</p>
@@ -62,13 +62,13 @@
 
         <div class="event-item col-xs-12 col-sm-6 col-md-3">
             <div class="spacer col-xs-12">
-                <h2 class="event-heading"><a href="events/{{ $pre->code }}">{{ $pre->name }} </a></h2>
+                <h2 class="event-heading"><a href="contest/{{ $pre->code }}">{{ $pre->name }} </a></h2>
 
                 <p><strong> Description: </strong><div class="event-intro"> {!!$pre->description!!}</div></p>
                 <p class="text-center">
                     <strong> <span class="fa fa-clock-o"></span> {{$pre['starttime']['starttime']." - ".$pre['endtime']['endtime']}} </strong>
                 </p>
-                <p class="read-more text-center "><a href="events/{{ $pre->code }}" class="btn btn-template-main">Participate </a></p>
+                <p class="read-more text-center "><a href="contest/{{ $pre->code }}" class="btn btn-template-main">Participate </a></p>
                 <div class="clearfix">
                     <p class="pull-left">By <a href="#">{{ $pre->uploaded_by }}</a></p>
                     <p class="pull-right"><span class="fa fa-calendar-o"></span> {{ $pre->starttime['startdate'] }}</p>

@@ -23,7 +23,7 @@
                                 </div>
                                 <div class="panel-body text-center">
 
-                                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/student_login') }}">
+                                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/student/login') }}">
                                             {{ csrf_field() }}
 
                                         <div class="form-group{{ $errors->has('admision_no') ? ' has-error' : '' }}">
@@ -82,7 +82,7 @@
                                     <p id="typein">Type in your Email Id and Password</p>
                                 </div>
                                 <div class="panel-body text-center">
-                                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/teacher_login') }}">
+                                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/user/login') }}">
                                         {{ csrf_field() }}
                                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
 

@@ -198,13 +198,10 @@ Route::get(
 
 // POST routes added
 Route::post('/admin_login', 'UserController@adminLogin');
-Route::post('/student_login', 'UserController@studentLogin');    // Check Student login details
+Route::post('/student/login', 'Student\StudentController@login');    // Check Student login details
 
-Route::post('/student_register', 'UserController@studentRegister');    // Check and save student registration
 
-Route::post('/teacher_login', 'UserController@teacherLogin');    // Check Teacher login details
-
-Route::post('/teacher_register', 'UserController@teacherRegister');    // Check and save Teacher registration
+Route::post('/user/login', 'Teacher\TeacherController@login');    // Check Teacher login details
 
 Route::post('/check', 'ProgramController@snippet');
 

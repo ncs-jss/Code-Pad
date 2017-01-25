@@ -75,53 +75,6 @@ class UserController extends Controller
         return Redirect::to('/');
     }
 
-    public function studentLogin(Request $request)
-    {
-        $this->validate(
-            $request, [
-            'admision_no' => 'required|max:255|',
-            'password' => 'required|',
-            ]
-        );
-
-        $slogin=Input::all();
-
-        // return Auth::guard('student')->attempt(['admision_no' => $slogin['admision_no'], 'password' => $slogin['password']]);
-        if(Auth::guard('student')->attempt(['admision_no' => $slogin['admision_no'], 'password' => $slogin['password']])) {
-            // $user = Auth::guard('student')->user();
-            // return $user;
-            return Redirect::to('/home')->with(['message' => 'You are logged in' , 'class' => 'Success']);
-        }
-
-        $errors=new MessageBag(['password' => ['Password Invalid']]);
-        return Redirect::back()->withErrors($errors)->with(['message' => 'Invalid Credentials' , 'class' => 'Danger']);
-    }
-
-
-    /**
-     * function login for login the teacher
-     Create his active session(start and type)
-     return to home else return back with errors
-     */
-    public function teacherLogin(Request $request)
-    {
-        //Validation
-        $this->validate(
-            $request, [
-            'email' => 'required|email|max:255|',
-            'password' => 'required|',
-            ]
-        );
-
-         //Get Input
-        $tlogin=Input::all();
-
-        if(Auth::guard('teacher')->attempt(['email' => $tlogin['email'], 'password' => $tlogin['password']])) {
-            return Redirect::to('/home')->with(['message' => 'You are logged in' , 'class' => 'Success']);
-        }
-        $errors=new MessageBag(['password' => ['Password Invalid']]);
-        return Redirect::back()->withErrors($errors)->with(['message' => 'Invalid Credentials' , 'class' => 'Danger']);
-    }
 
 
 

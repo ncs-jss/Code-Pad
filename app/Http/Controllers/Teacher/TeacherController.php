@@ -214,4 +214,30 @@ class TeacherController extends Controller
     {
         //
     }
+
+    /**
+     * function login for login the teacher
+     Create his active session(start and type)
+     return to home else return back with errors
+     */
+    public function login(Request $request)
+    {
+        //Validation
+        $this->validate(
+            $request, [
+            'email' => 'required|email|max:255|',
+            'password' => 'required|',
+            ]
+        );
+
+         //Get Input
+        $tlogin=Input::all();
+
+        if(Auth::guard('teacher')->attempt(['email' => $tlogin['email'], 'password' => $tlogin['password']])) {
+            return Redirect::to('/home')->with(['message' => 'You are logged in' , 'class' => 'Success']);
+        }
+        $errors=new MessageBag(['password' => ['Password Invalid']]);
+        return Redirect::back()->withErrors($errors)->with(['message' => 'Invalid Credentials' , 'class' => 'Danger']);
+    }
+
 }

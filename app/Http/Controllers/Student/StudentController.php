@@ -57,7 +57,7 @@ class StudentController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('student', ['except' => ['store', 'show', 'create']]);
+        $this->middleware('student', ['except' => ['store', 'show', 'create', 'login']]);
     }
 
     /**
@@ -214,6 +214,26 @@ class StudentController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function login(Request $request)
+    {
+        $this->validate(
+            $request, [
+            'admision_no' => 'required|max:255|',
+            'password' => 'required|',
+            ]
+        );
+
+        $slogin=Input::all();
+
+
+        if(Auth::guard('student')->attempt(['admision_no' => $slogin['admision_no'], 'password' => $slogin['password']])) {
+            return Redirect::to('/home')->with(['message' => 'You are logged in' , 'class' => 'Success']);
+        }
+
+        $errors=new MessageBag(['password' => ['Password Invalid']]);
+        return Redirect::back()->withErrors($errors)->with(['message' => 'Invalid Credentials' , 'class' => 'Danger']);
     }
 
     /**
