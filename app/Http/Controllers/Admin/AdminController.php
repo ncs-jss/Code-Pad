@@ -62,8 +62,6 @@ class AdminController extends Controller
         $this->middleware('admin');
     }
 
-
-
     /**
      * Delete the Event
      *

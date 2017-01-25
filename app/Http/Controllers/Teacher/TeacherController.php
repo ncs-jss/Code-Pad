@@ -13,6 +13,7 @@
 namespace App\Http\Controllers\Teacher;
 
 use Illuminate\Http\Request;
+
 use Auth;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -57,34 +58,103 @@ class TeacherController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('teacher');
+        $this->middleware('teacher', ['only' => ['edit','update']]);
     }
 
 
     /**
-     * Show Profile Page of Teacher
+     * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function profile()
+    public function index()
     {
-        $result=TeacherDetails::where(
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //Validation
+        $this->validate(
+            $request, [
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:teacher',
+            'password' => 'required|min:6|confirmed',
+            ]
+        );
+
+        //Get Input
+        $tregister=Input::all();
+
+        $teacher = new Teacher;
+        $teacher->name = $tregister['name'];
+        $teacher->email = $tregister['email'];
+        $teacher->password =  Hash::make($tregister['password']);
+        if($teacher->save()) {
+            $result=Teacher::where('email', $tregister['email'])->get();
+            foreach ($result as $row) {
+                $id=$row->id;
+            }
+
+            $teacher_details= new TeacherDetails;
+            $teacher_details->teacher_id = $id;
+            $teacher_details->save();
+
+            Auth::guard('teacher')->loginUsingId($id);
+            return Redirect::to('/home')->with(['message' => 'You are successfully registered' , 'class' => 'Success']);
+        }
+        return Redirect::back()->withInput()->with(['message' => 'Error in registration, Please Try Again' , 'class' => 'Danger']);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $result = TeacherDetails::where(
             'teacher_id', Auth::guard('teacher')->user()->id
         )->first();
         return view('Teacher.profile')->with('data', $result);
     }
 
     /**
-     * Update Teacher Details and Render Page
+     * Update the specified resource in storage.
      *
-     * @param Request $request To obtain an instance of the current HTTP request
-     * @param int     $id      Contains Id of the associated Event
-     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function teacherDetails(Request $request, $id)
+    public function update(Request $request, $id)
     {
-
         //Validation
         $this->validate(
             $request,
@@ -135,45 +205,13 @@ class TeacherController extends Controller
     }
 
     /**
-     * Date Conversion
+     * Remove the specified resource from storage.
      *
-     * @param string $value Contains the Date
-     *
-     * @return string
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
-    public function dateConversion($value)
+    public function destroy($id)
     {
-        $value = explode('/', $value);
-        $value = array_reverse($value);
-        $value = $value[0] . "" . $value[2] . "" . $value[1];
-        return $value;
+        //
     }
-
-    /**
-     * Converts Time
-     *
-     * @param string $value Contains the time
-     *
-     * @return string
-     */
-    public function timeConversion($value)
-    {
-        $time = "";
-        if (substr($value, -2) == "AM") {
-            if (substr($value, 0, 2) == "12") {
-                $time="00" . substr($value, 3, 2);
-            } else {
-                $time=substr($value, 0, 2) . substr($value, 3, 2);
-            }
-        } else {
-            if (substr($value, 0, 2) != "12") {
-                $time = substr($value, 0, 2) + 12;
-                $time = $time . substr($value, 3, 2);
-            } else {
-                $time = substr($value, 0, 2) . substr($value, 3, 2);
-            }
-        }
-        return $time;
-    }
-
 }

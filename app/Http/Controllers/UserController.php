@@ -16,7 +16,9 @@ use App\StudentDetails;
 use App\Student;
 use App\Teacher;
 use App\TeacherDetails;
+use App\ProgramRecord;
 use App\Admin;
+
 class UserController extends Controller
 {
 
@@ -48,10 +50,17 @@ class UserController extends Controller
      */
     public function home(Request $request)
     {
-        if(Auth::guard('student')->check() || Auth::guard('teacher')->check() || Auth::guard('admin')->check()) {
-            return view('home')->with('message', ['You are logged in','Success']);
+        if (Auth::guard('student')->check()) {
+            $programList = ProgramRecord::all();
+        } elseif (Auth::guard('admin')->check()) {
+            $programList = ProgramRecord::all();
+        } elseif (Auth::guard('teacher')->check()) {
+            $result = Auth::guard('teacher')->user();
+            $programList = ProgramRecord::where('upload_id', $result->id)->orderBy('start', 'asc')->get();
+        } else {
+            return Redirect::to('login')->with(['message' => 'You need to login first' , 'class' => 'Warning']);
         }
-        return Redirect::to('login')->with(['message' => 'You need to login first' , 'class' => 'Warning']);
+        return view('home')->with('message', ['You are logged in','Success'])->with('programList', $programList);
     }
 
 
@@ -88,37 +97,6 @@ class UserController extends Controller
         return Redirect::back()->withErrors($errors)->with(['message' => 'Invalid Credentials' , 'class' => 'Danger']);
     }
 
-    public function studentRegister(Request $request)
-    {
-        $this->validate(
-            $request, [
-            'name' => 'required|max:255',
-            'admision_no' => 'required|max:255|unique:student',
-            'password' => 'required|min:6|confirmed',
-            ]
-        );
-
-        $sregister=Input::all();
-
-        $student = new Student;
-        $student->name = $sregister['name'];
-        $student->admision_no = $sregister['admision_no'];
-        $student->password =  Hash::make($sregister['password']);
-        if($student->save()) {
-            $result=Student::where('admision_no', $sregister['admision_no'])->get();
-            foreach ($result as $row) {
-                $id=$row->id;
-            }
-
-            $student_details= new StudentDetails;
-            $student_details->student_id = $id;
-            $student_details->save();
-
-            Auth::guard('student')->loginUsingId($id);
-            return Redirect::to('/home')->with(['message' => 'You are successfully registered' , 'class' => 'Success']);
-        }
-        return Redirect::back()->withInput()->with(['message' => 'Error in registration, Please Try Again' , 'class' => 'Danger']);
-    }
 
     /**
      * function login for login the teacher
@@ -145,44 +123,7 @@ class UserController extends Controller
         return Redirect::back()->withErrors($errors)->with(['message' => 'Invalid Credentials' , 'class' => 'Danger']);
     }
 
-    /**
-     * function register for register the Teacher
-     Create his active session(start and type)
-     return to home else return back with errors
-     */
-    public function teacherRegister(Request $request)
-    {
-        //Validation
-        $this->validate(
-            $request, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:teacher',
-            'password' => 'required|min:6|confirmed',
-            ]
-        );
 
-        //Get Input
-        $tregister=Input::all();
-
-        $teacher = new Teacher;
-        $teacher->name = $tregister['name'];
-        $teacher->email = $tregister['email'];
-        $teacher->password =  Hash::make($tregister['password']);
-        if($teacher->save()) {
-            $result=Teacher::where('email', $tregister['email'])->get();
-            foreach ($result as $row) {
-                $id=$row->id;
-            }
-
-            $teacher_details= new TeacherDetails;
-            $teacher_details->teacher_id = $id;
-            $teacher_details->save();
-
-            Auth::guard('teacher')->loginUsingId($id);
-            return Redirect::to('/home')->with(['message' => 'You are successfully registered' , 'class' => 'Success']);
-        }
-        return Redirect::back()->withInput()->with(['message' => 'Error in registration, Please Try Again' , 'class' => 'Danger']);
-    }
 
     public function admin(Request $request)
     {

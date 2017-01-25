@@ -17,16 +17,14 @@ class Teacher
      */
     public function handle($request, Closure $next, $guard='teacher')
     {
-        // if(Session::has('start') and Session::get('type')=='student')
-        // {
-        //     return $next($request);
-        // }
-        // return Redirect::to('/login');
 
-        if(Auth::guard($guard)->check()) {
+        if (Auth::guard($guard)->check()) {
             return $next($request);
+        } elseif (Auth::guard('admin')->check()) {
+            return Redirect::back();
+        } elseif (Auth::guard('student')->check()) {
+            return Redirect::back();
         }
         return Redirect::to('/login');
-
     }
 }

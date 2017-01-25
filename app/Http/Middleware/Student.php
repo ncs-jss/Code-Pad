@@ -15,16 +15,14 @@ class Student
      * @param  \Closure                 $next
      * @return mixed
      */
-    public function handle($request, Closure $next, $guard='student')
+    public function handle($request, Closure $next, $guard = 'student')
     {
-        // if(Session::has('start') and Session::get('type')=='student')
-        // {
-        //     return $next($request);
-        // }
-        // return Redirect::to('/login');
-
-        if(Auth::guard($guard)->check()) {
+        if (Auth::guard($guard)->check()) {
             return $next($request);
+        } elseif (Auth::guard('admin')->check()) {
+            return Redirect::back();
+        } elseif (Auth::guard('teacher')->check()) {
+            return Redirect::back();
         }
         return Redirect::to('/login');
 

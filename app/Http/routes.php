@@ -24,6 +24,10 @@ Route::resource('events', 'Event\EventController');
 
 Route::resource('event/programs', 'Event\ProgramController');
 
+Route::resource('users', 'Teacher\TeacherController');
+
+Route::resource('students', 'Student\StudentController');
+
 Route::get('/reset', 'HomeController@index');
 // User login
 Route::get('/login', 'UserController@login');
@@ -36,35 +40,10 @@ Route::get('/logout', 'UserController@logout');
 // Student Profile
 Route::get('/admin', 'UserController@admin');
 
+Route::get('/check/{code}', 'Event\EventController@checkCode');
+Route::get('/event/delete/{code}', 'Event\EventController@destroy');
 
-// Teacher controller
-Route::group(
-    ['namespace' => 'Teacher'], function () {
 
-        Route::get(
-            '/check/{id}', [
-            'uses' => 'TeacherController@checkCode'
-            ]
-        );
-        Route::get(
-            '/delete/{id}', [
-            'uses' => 'TeacherController@delete'
-            ]
-        );
-
-        Route::get(
-            '/teacher/profile', [
-            'uses' => 'TeacherController@profile'
-            ]
-        );
-
-        Route::post(
-            '/teacher_details/{id}', [
-            'uses' => 'TeacherController@teacherDetails'
-            ]
-        );
-    }
-);
 
 Route::group(
     ['namespace' => 'Admin', 'prefix' => 'admin'], function () {
@@ -176,21 +155,7 @@ Route::group(
 
 Route::group(
     ['namespace' => 'Student'], function () {
-        Route::get(
-            '/student/profile', [
-            'uses' => 'StudentController@profile'
-            ]
-        );
-        Route::post(
-            '/student_details/{id}', [
-            'uses' => 'StudentController@studentDetails'
-            ]
-        );
-        Route::get(
-            '/contest/{code}/{id}', [
-            'uses' => 'StudentController@play'
-            ]
-        );
+
         Route::get(
             '/contest/{id}', [
             'uses' => 'StudentController@contest'

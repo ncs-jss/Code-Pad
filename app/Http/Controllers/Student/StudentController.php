@@ -38,9 +38,9 @@ use Illuminate\Support\MessageBag;
  * @license  The MIT License (MIT)
  * @link     https://github.com/ncs-jss/Code-Pad
  */
+
 class StudentController extends Controller
 {
-
     /*
     |--------------------------------------------------------------------------
     | Student Controller
@@ -57,16 +57,85 @@ class StudentController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('student');
+        $this->middleware('student', ['except' => ['store', 'show', 'create']]);
     }
 
-
     /**
-     * Show Profile Page of Student
+     * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function profile()
+    public function index()
+    {
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $this->validate(
+            $request, [
+            'name' => 'required|max:255',
+            'admision_no' => 'required|max:255|unique:student',
+            'password' => 'required|min:6|confirmed',
+            ]
+        );
+
+        $sregister=Input::all();
+
+        $student = new Student;
+        $student->name = $sregister['name'];
+        $student->admision_no = $sregister['admision_no'];
+        $student->password =  Hash::make($sregister['password']);
+        if($student->save()) {
+            $result=Student::where('admision_no', $sregister['admision_no'])->get();
+            foreach ($result as $row) {
+                $id=$row->id;
+            }
+
+            $student_details= new StudentDetails;
+            $student_details->student_id = $id;
+            $student_details->save();
+
+            Auth::guard('student')->loginUsingId($id);
+            return Redirect::to('/home')->with(['message' => 'You are successfully registered' , 'class' => 'Success']);
+        }
+        return Redirect::back()->withInput()->with(['message' => 'Error in registration, Please Try Again' , 'class' => 'Danger']);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
     {
         $result = StudentDetails::where(
             'student_id', Auth::guard('student')->user()->id
@@ -74,18 +143,15 @@ class StudentController extends Controller
         return view('Student.profile')->with('data', $result);
     }
 
-
     /**
-     * Update Student Details and Render Page
+     * Update the specified resource in storage.
      *
-     * @param Request $request To obtain an instance of the current HTTP request
-     * @param int     $id      Contains Id of the associated Event
-     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function studentDetails(Request $request, $id)
+    public function update(Request $request, $id)
     {
-
         //Validation
         $this->validate(
             $request,
@@ -137,6 +203,17 @@ class StudentController extends Controller
             'class' => 'Warning'
             ]
         );
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
     }
 
     /**

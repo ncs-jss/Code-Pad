@@ -20,7 +20,7 @@
                                         <h3>CodePad <small>logo</small></h3>
                                     </div>
                                     <div class="panel-body text-center">
-                                        <form class="form-horizontal" role="form" method="POST" action="{{ url('/student_register') }}">
+                                        <form class="form-horizontal" role="form" method="POST" action="{{ url('/students') }}">
                                             {{ csrf_field() }}
 
                                             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -94,7 +94,7 @@
                                         <h3>CodePad <small>logo</small></h3>
                                     </div>
                                     <div class="panel-body text-center">
-                                        <form class="form-horizontal" role="form" method="POST" action="{{ url('/teacher_register') }}">
+                                        <form class="form-horizontal" role="form" method="POST" action="{{ url('/users') }}">
                                             {{ csrf_field() }}
 
                                             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">

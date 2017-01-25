@@ -85,7 +85,7 @@ $code = $event->code;
                 var re = confirm("Are you really want to delete this event");
                 if(re)
                 {
-                    location.href="{{ url('events/' . $code) }}";
+                    location.href="{{ url('event/delete/' . $event->id) }}";
                 }
             }
         </script>

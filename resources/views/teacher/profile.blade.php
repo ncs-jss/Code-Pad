@@ -18,8 +18,7 @@ $result = Auth::guard('teacher')->user();
                     </div>
 
                     <div class="col-sm-6 col-sm-offset-3">
-
-                        <form role="form" method="POST" action="{{ url('teacher_details/'.Auth::guard('teacher')->user()->id) }}">
+                        {!! Form::open(array('url'=>'users/' . Auth::guard('teacher')->user()->id, 'method'=>'PUT', 'accept-charset'=>'UTF-8','files'=>true)) !!}
                         {{ csrf_field() }}
                             <div class="form row">
                                 <div class="col-sm-6">

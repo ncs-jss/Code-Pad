@@ -24,9 +24,13 @@ $("#code").blur(function() {
     };
     if(q!='')
     {
-      var link="check";
-      link=link+"/"+q
-      // console.log(link);
+      var link = location.origin;
+      var a = location.pathname.split("/");
+      if( a.length > 3) {
+        link = link + "/" + a[1];
+      }
+      link = link + "/check/" + q
+
       xmlhttp.open("GET", link, true);
       xmlhttp.send();
     }

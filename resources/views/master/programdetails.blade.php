@@ -34,5 +34,4 @@
     <!-- /.panel -->
   </div>
   <!-- /.panel-group -->
-  <!-- <p class="text-muted"> Random text.</p> -->
 </section>

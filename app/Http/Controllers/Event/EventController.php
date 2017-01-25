@@ -345,6 +345,29 @@ class EventController extends Controller
     }
 
     /**
+     * Check for the Existing Code during the Event Creation
+     *
+     * @param Request $request To obtain an instance of the current HTTP request
+     * @param string  $code    Contains the Code which needs to be checked
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function checkCode(Request $request, $code)
+    {
+        // echo $code;
+        if (ProgramRecord::where('code', $code)->first()) {
+            $errors = new MessageBag(
+                [
+                'code' => ['Password Invalid']
+                ]
+            );
+            echo $errors;
+        } else {
+            echo "false";
+        }
+    }
+
+    /**
      * Date Conversion
      *
      * @param string $value Contains the Date

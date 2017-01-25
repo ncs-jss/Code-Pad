@@ -64,11 +64,11 @@ endif;
           <a href="{{ url('/home') }}"> Dashboard </a>
         </li>
         @if(Auth::guard("student")->check())
-        <li><a href="{{ url('/student/profile') }}">Edit Profile</a></li>
+        <li><a href="{{ url('/students/profile/edit') }}">Edit Profile</a></li>
         @else
         <li><a href="{{ url('events/create') }}">Create Event</a></li>
         @if(Auth::guard('teacher')->check())
-        <li><a href="{{ url('/teacher/profile') }}">Edit Profile</a></li>
+        <li><a href="{{ url('/users/profile/edit') }}">Edit Profile</a></li>
         @endif @endif @if(Auth::guard('admin')->check())
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
