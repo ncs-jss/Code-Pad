@@ -1,102 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!--
-        ===
-        This comment should NOT be removed.
-
-        Charisma v2.0.0
-
-        Copyright 2012-2014 Muhammad Usman
-        Licensed under the Apache License v2.0
-        http://www.apache.org/licenses/LICENSE-2.0
-
-        http://usman.it
-        http://twitter.com/halalit_usman
-        ===
-    -->
     <meta charset="utf-8">
-    <title>Free HTML5 Bootstrap Admin Template</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Charisma, a fully featured, responsive, HTML5, Bootstrap admin template.">
-    <meta name="author" content="Muhammad Usman">
 
-    <!-- The styles -->
-    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <title>Admin Login</title>
 
-    <link id="bs-css" href="{{ URL::asset('public/admin/css/bootstrap-cerulean.min.css')}}" rel="stylesheet">
-    <link href="{{ URL::asset('public/admin/css/bootstrap-cerulean.min.css')}}" rel="stylesheet">
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700">
 
+    <!-- Styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
 
-    <link href="{{ URL::asset('public/admin/css/charisma-app.css')}}" rel="stylesheet">
-    <link href="{{ URL::asset('public/admin/bower_components/fullcalendar/dist/fullcalendar.css')}}" rel='stylesheet'>
-    <link href="{{ URL::asset('public/admin/bower_components/fullcalendar/dist/fullcalendar.print.css')}}" rel='stylesheet' media='print'>
-    <link href="{{ URL::asset('public/admin/bower_components/chosen/chosen.min.css')}}" rel='stylesheet'>
-    <link href="{{ URL::asset('public/admin/bower_components/colorbox/example3/colorbox.css')}}" rel='stylesheet'>
-    <link href="{{ URL::asset('public/admin/bower_components/responsive-tables/responsive-tables.css')}}" rel='stylesheet'>
-    <link href="{{ URL::asset('public/admin/bower_components/bootstrap-tour/build/css/bootstrap-tour.min.css')}}" rel='stylesheet'>
-    <link href="{{ URL::asset('public/admin/css/jquery.noty.css')}}" rel='stylesheet'>
-    <link href="{{ URL::asset('public/admin/css/noty_theme_default.css')}}" rel='stylesheet'>
-    <link href="{{ URL::asset('public/admin/css/elfinder.min.css')}}" rel='stylesheet'>
-    <link href="{{ URL::asset('public/admin/css/elfinder.theme.css')}}" rel='stylesheet'>
-    <link href="{{ URL::asset('public/admin/css/jquery.iphone.toggle.css')}}" rel='stylesheet'>
-    <link href="{{ URL::asset('public/admin/css/uploadify.css')}}" rel='stylesheet'>
-    <link href="{{ URL::asset('public/admin/css/animate.min.css')}}" rel='stylesheet'>
+    <style>
+        body {
+            font-family: 'Lato';
+        }
 
-    <!-- jQuery -->
-    <!-- <script src="{{ URL::asset('public/admin/bower_components/jquery/jquery.min.js')}}"></script> -->
-
-    <!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js')}}"></script>
-    <![endif]-->
-
-    <!-- The fav icon -->
-    <link rel="shortcut icon" href="{{ URL::asset('public/admin/img/favicon.ico')}}"">
-    @yield('head')
+        .fa-btn {
+            margin-right: 6px;
+        }
+    </style>
 </head>
+<body id="app-layout">
+    <nav class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
 
-<body>
+                <!-- Collapsed Hamburger -->
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
+                    <span class="sr-only">Toggle Navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <!-- Branding Image -->
+                <a class="navbar-brand" href="{{ url('/') }}">
+                    Admin Login
+                </a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="app-navbar-collapse">
+                <!-- Left Side Of Navbar -->
+                <ul class="nav navbar-nav">
+                    <li><a href="{{ url('/home') }}">Home</a></li>
+                </ul>
+
+                <!-- Right Side Of Navbar -->
+                <ul class="nav navbar-nav navbar-right">
+                    <!-- Authentication Links -->
+                    @if (Auth::guest())
+                        <li><a href="{{ url('/login') }}">Login</a></li>
+                        <li><a href="{{ url('/register') }}">Register</a></li>
+                    @else
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                {{ Auth::user()->name }} <span class="caret"></span>
+                            </a>
+
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+                            </ul>
+                        </li>
+                    @endif
+                </ul>
+            </div>
+        </div>
+    </nav>
+
     @yield('content')
 
-    @yield('footer')
-
-  <!-- external javascript -->
-
-<script src="{{ URL::asset('public/admin/bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
-
-<!-- library for cookie management -->
-<script src="{{ URL::asset('public/admin/js/jquery.cookie.js')}}"></script>
-<!-- calender plugin -->
-<script src="{{ URL::asset('public/admin/bower_components/moment/min/moment.min.js')}}"></script>
-<script src="{{ URL::asset('public/admin/bower_components/fullcalendar/dist/fullcalendar.min.js')}}"></script>
-<!-- data table plugin -->
-<script src="{{ URL::asset('public/admin/js/jquery.dataTables.min.js')}}"></script>
-
-<!-- select or dropdown enhancer -->
-<script src="{{ URL::asset('public/admin/bower_components/chosen/chosen.jquery.min.js')}}"></script>
-<!-- plugin for gallery image view -->
-<script src="{{ URL::asset('public/admin/bower_components/colorbox/jquery.colorbox-min.js')}}"></script>
-<!-- notification plugin -->
-<script src="{{ URL::asset('public/admin/js/jquery.noty.js')}}"></script>
-<!-- library for making tables responsive -->
-<script src="{{ URL::asset('public/admin/bower_components/responsive-tables/responsive-tables.js')}}"></script>
-<!-- tour plugin -->
-<script src="{{ URL::asset('public/admin/bower_components/bootstrap-tour/build/js/bootstrap-tour.min.js')}}"></script>
-<!-- star rating plugin -->
-<script src="{{ URL::asset('public/admin/js/jquery.raty.min.js')}}"></script>
-<!-- for iOS style toggle switch -->
-<script src="{{ URL::asset('public/admin/js/jquery.iphone.toggle.js')}}"></script>
-<!-- autogrowing textarea plugin -->
-<script src="{{ URL::asset('public/admin/js/jquery.autogrow-textarea.js')}}"></script>
-<!-- multiple file upload plugin -->
-<script src="{{ URL::asset('public/admin/js/jquery.uploadify-3.1.min.js')}}"></script>
-<!-- history.js for cross-browser state change on ajax -->
-<script src="{{ URL::asset('public/admin/js/jquery.history.js')}}"></script>
-<!-- application script for Charisma demo -->
-<script src="{{ URL::asset('public/admin/js/charisma.js')}}"></script>
-
-    @yield('script')
-
+    <!-- JavaScripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
 </body>
 </html>
