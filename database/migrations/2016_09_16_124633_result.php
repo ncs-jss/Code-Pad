@@ -31,6 +31,6 @@ class Result extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('result');
     }
 }

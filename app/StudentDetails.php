@@ -12,4 +12,14 @@ class StudentDetails extends Model
      * @var string
      */
     protected $table = 'students_details';
+
+     protected $fillable = [
+        'photo_path',
+        'branch',
+        'year',
+        'email',
+        'mobile',
+        'gender',
+        'student_id'
+    ];
 }

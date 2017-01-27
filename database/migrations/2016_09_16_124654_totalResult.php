@@ -31,6 +31,6 @@ class TotalResult extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('TotalResult');
     }
 }

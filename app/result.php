@@ -12,4 +12,12 @@ class Result extends Model
      * @var string
      */
     protected $table = 'result';
+
+     protected $fillable = [
+        'student_id',
+        'time',
+        'score',
+        'attempt',
+        'record_id'
+    ];
 }

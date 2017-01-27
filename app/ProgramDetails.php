@@ -12,4 +12,18 @@ class ProgramDetails extends Model
      * @var string
      */
     protected $table = 'program_details';
+
+    protected $fillable = [
+        'program_name',
+        'program_statement',
+        'difficulty',
+        'sample_input',
+        'sample_output',
+        'sample_explanation',
+        'time',
+        'marks',
+        'testcases_input',
+        'testcases_output',
+        'record_id'
+    ];
 }

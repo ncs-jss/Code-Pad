@@ -12,4 +12,13 @@ class TeacherDetails extends Model
      * @var string
      */
     protected $table = 'teachers_details';
+
+    protected $fillable = [
+        'photo_path',
+        'department',
+        'position',
+        'mobile',
+        'gender',
+        'teacher_id'
+    ];
 }

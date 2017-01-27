@@ -30,6 +30,6 @@ class Admin extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('admin');
     }
 }
