@@ -57,7 +57,7 @@ class ProgramController extends Controller
          $result = $res->getBody();
         // dd($result);
          $result =  json_decode($result, true);
-         // return $result;
+         return $result;
         // $output = $result;
         return Redirect::back()->withInput()->with('res', $result);
     }

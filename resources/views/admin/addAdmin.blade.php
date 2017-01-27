@@ -1,6 +1,3 @@
-<?php
-$result = Auth::guard('admin')->user();
-?>
 @extends('layouts.layout')
 
 @section('content')
