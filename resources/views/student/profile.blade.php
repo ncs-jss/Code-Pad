@@ -1,6 +1,3 @@
-<?php
-$result = Auth::guard('student')->user();
-?>
 @extends('layouts.layout')
     @section('body')
         <div class="custom-flash {{ Session::get('class') }} ">{{ Session::get('message') }}</div>

@@ -143,7 +143,7 @@ class TeacherController extends Controller
         $result = TeacherDetails::where(
             'teacher_id', Auth::guard('teacher')->user()->id
         )->first();
-        return view('Teacher.profile')->with('data', $result);
+        return view('teacher.profile')->with('data', $result);
     }
 
     /**

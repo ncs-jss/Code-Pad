@@ -55,7 +55,7 @@ class ProgramController extends Controller
      */
     public function create()
     {
-        return view('Program.Create');
+        return view('program.create');
     }
 
     /**
@@ -136,7 +136,7 @@ class ProgramController extends Controller
         $details['code'] = $code;
         // return $details;
         if ($details) {
-            return view('Program.Show')->with('data', $details);
+            return view('program.show')->with('data', $details);
         }
         return view("errors.503");
     }
@@ -151,7 +151,7 @@ class ProgramController extends Controller
     {
         $result = ProgramDetails::find($id);
         if ($result) {
-            return View('Program.Edit')->with('data', $result);
+            return View('program.edit')->with('data', $result);
         }
         return view("errors.503");
     }

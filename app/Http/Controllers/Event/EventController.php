@@ -54,7 +54,7 @@ class EventController extends Controller
      */
     public function create()
     {
-        return view('Event.Create');
+        return view('event.create');
     }
 
     /**
@@ -205,7 +205,7 @@ class EventController extends Controller
                 $class = "Danger";
                 $mess = "Event is ended, Thank You";
             }
-            return view('Event.Show')->with('message', [$mess, $class, $timing])->with('details', $details);
+            return view('event.show')->with('message', [$mess, $class, $timing])->with('details', $details);
         }
 
         return Redirect::back()->with(
@@ -231,7 +231,7 @@ class EventController extends Controller
         $result['starttime'] = $start['starttime'];
         $result['enddate'] = $end['enddate'];
         $result['endtime'] = $end['endtime'];
-        return view('Event.Edit')->with('data', $result);
+        return view('event.edit')->with('data', $result);
     }
 
     /**

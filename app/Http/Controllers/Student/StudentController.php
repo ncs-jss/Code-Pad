@@ -140,8 +140,7 @@ class StudentController extends Controller
         $result = StudentDetails::where(
             'student_id', Auth::guard('student')->user()->id
         )->first();
-        return $result;
-        return view('Student.profile')->with('data', $result);
+        return view('student.profile')->with('data', $result);
     }
 
     /**
@@ -276,7 +275,7 @@ class StudentController extends Controller
             $timer = strtotime($result->start) - strtotime($time);
             if ($result->start > $time) {
                 if ($check == '[]') {
-                    return view('Event.BeforeEvent')->with(
+                    return view('event.beforeEvent')->with(
                         'message',
                         [
                         'message' => 'Register to competete',
@@ -286,7 +285,7 @@ class StudentController extends Controller
                         ]
                     );
                 } else {
-                    return view('Event.BeforeEvent')->with(
+                    return view('event.beforeEvent')->with(
                         'message',
                         [
                         'message' => 'Event is not started yet',
@@ -297,7 +296,7 @@ class StudentController extends Controller
                     );
                 }
             } elseif ($end < $time) {
-                return view('Event.Contest')->with(
+                return view('event.contest')->with(
                     'message',
                     [
                     'message' => 'Event is ended',
@@ -306,7 +305,7 @@ class StudentController extends Controller
                 );
             } else {
                 if ($check == '[]') {
-                    return view('Event.BeforeEvent')->with(
+                    return view('event.beforeEvent')->with(
                         'message',
                         [
                         'message' => 'Register to competete',
@@ -316,7 +315,7 @@ class StudentController extends Controller
                         ]
                     );
                 }
-                return view('Event.Contest')->with(
+                return view('event.contest')->with(
                     'message',
                     [
                     'message' => 'All the Best!!',
@@ -392,7 +391,7 @@ class StudentController extends Controller
             }
                 // return $time;
             if ($result->start <= $time) {
-                return view('Event.Contest')->with(
+                return view('event.contest')->with(
                     'message',
                     [
                     'message' => 'All the Best!!',
@@ -400,7 +399,7 @@ class StudentController extends Controller
                     ]
                 );
             }
-            return view('Event.BeforeEvent')->with(
+            return view('event.beforeEvent')->with(
                 'message',
                 [
                 'message' => 'You have successfully registered',
