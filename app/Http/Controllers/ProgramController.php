@@ -7,8 +7,8 @@ use Storage;
 use App\Http\Requests;
 use Session;
 use Redirect;
-use App\programRecord;
-use App\programDetails;
+use App\ProgramRecord;
+use App\ProgramDetails;
 use App\Teacher;
 use App\Student;
 
