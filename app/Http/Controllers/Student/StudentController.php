@@ -140,6 +140,7 @@ class StudentController extends Controller
         $result = StudentDetails::where(
             'student_id', Auth::guard('student')->user()->id
         )->first();
+        return $result;
         return view('Student.profile')->with('data', $result);
     }
 
