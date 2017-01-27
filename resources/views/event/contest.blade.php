@@ -1,13 +1,7 @@
 <?php
-use App\programDetails;
+use App\ProgramDetails;
 use App\ProgramRecord;
-$add='';
-if(Auth::guard('admin')->check()):
-    $result = Auth::guard('admin')->user();
-    $add='admin';
-else:
-    $result = Auth::guard('student')->user();
-endif;
+
 $event=ProgramRecord::find(Session::get('record_id'));
 $code=$event->code;
 $details=ProgramDetails::where('record_id',Session::get('record_id'))->get();
