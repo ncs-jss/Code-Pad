@@ -17,7 +17,7 @@ class CompilerRecordTable extends Migration
             $table->string('name');
             $table->string('code');
             $table->text('description');
-            $table->text('instructions');
+            $table->text('instructions')->nullable();
             $table->string('starttime');
             $table->string('endtime');
             $table->string('start');

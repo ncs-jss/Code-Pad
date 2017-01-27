@@ -13,7 +13,7 @@ class StudentDetails extends Model
      */
     protected $table = 'students_details';
 
-     protected $fillable = [
+    protected $fillable = [
         'photo_path',
         'branch',
         'year',
