@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'pgsql'),
+    'default' => env('DB_CONNECTION', 'mysql'),
 
     /*
     |--------------------------------------------------------------------------
@@ -54,11 +54,11 @@ return [
 
         'mysql' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST', 'localhost'),
-            'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'compiler'),
-            'username' => env('DB_USERNAME', 'root'),
-            'password' => env('DB_PASSWORD', ''),
+            'host' => env('DB_HOST_SQL', 'localhost'),
+            'port' => env('DB_PORT_SQL', '3306'),
+            'database' => env('DB_DATABASE_SQL', 'compiler'),
+            'username' => env('DB_USERNAME_SQL', 'root'),
+            'password' => env('DB_PASSWORD_SQL', ''),
             'charset' => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix' => '',
@@ -68,11 +68,11 @@ return [
 
         'pgsql' => [
             'driver' => 'pgsql',
-            'host' => env('DB_HOST', 'localhost'),
-            'port' => env('DB_PORT', '5432'),
-            'database' => env('DB_DATABASE', 'compiler'),
-            'username' => env('DB_USERNAME', 'postgres'),
-            'password' => env('DB_PASSWORD', '9463'),
+            'host' => env('DB_HOST_PSQL', 'localhost'),
+            'port' => env('DB_PORT_PSQL', '5432'),
+            'database' => env('DB_DATABASE_PSQL', 'compiler'),
+            'username' => env('DB_USERNAME_PSQL', 'postgres'),
+            'password' => env('DB_PASSWORD_PSQL', 'postgres'),
             'charset' => 'utf8',
             'prefix' => '',
             'schema' => 'public',
