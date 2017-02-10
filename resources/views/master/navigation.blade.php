@@ -16,9 +16,9 @@ endif;
     <div class="navbar-header">
 
       <a class="navbar-brand home" href="">
-        <!-- <img src="{{URL::asset('public/assets/img/logo.png')}}" alt="Universal logo" class="hidden-xs hidden-sm">
-        <img src="{{URL::asset('public/assets/img/logo-small.png')}}" alt="Universal logo" class="visible-xs visible-sm"><span class="sr-only">Universal - go to homepage</span> -->
-        <h3>Code-Pad</h3>
+        <img src="{{URL::asset('public/assets/img/logo.png')}}" alt="Universal logo" class="hidden-xs hidden-sm">
+        <!-- <img src="{{URL::asset('public/assets/img/logo-small.png')}}" alt="Universal logo" class="visible-xs visible-sm"><span class="sr-only">Universal - go to homepage</span> -->
+        <!-- <h3>Code-Pad</h3> -->
       </a>
       <div class="navbar-buttons">
         <button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse" data-target="#navigation">
