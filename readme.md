@@ -1,5 +1,6 @@
 #Code-Pad
 [![Build Status](https://travis-ci.org/ncs-jss/Code-Pad.svg?branch=master)](https://travis-ci.org/ncs-jss/Code-Pad)
+[![Coverage Status](https://coveralls.io/repos/github/ncs-jss/Code-Pad/badge.svg?branch=master)](https://coveralls.io/github/ncs-jss/Code-Pad?branch=master)
 
 It is a platform where students use to code online like many competative sites. It is a college competative platform for teacher-student interaction.
 Teachers organise events for the students. This improves the skills set of students.
@@ -18,26 +19,37 @@ Teachers organise events for the students. This improves the skills set of stude
 Fork and Clone this repo or download it on your local system.
 
 Open composer and run this given command.
-```
-composer update
-```
 
-After updating composer, Rename the file `.env.example` to `.env` manually.
+    ```shell
+    composer install
+    composer update
+    ```
+
+After installing composer, Rename the file `.env.example` to `.env`.
+
+    ```shell
+    cp .env.example .env
+    ```
 
 Generate the Application key
-```
-php artisan key:generate
-```
+
+    ```php
+    php artisan key:generate
+    ```
 
 Migrate the database.
-```
-php artisan migrate
-```
+
+    ```php
+    php artisan migrate
+    ```
 
 Seed the database
-```
-php artisan db:seed
-```
+
+    ```php
+    php artisan db:seed
+    ```
+
+Set db credentials in `.env` and run the project.
 
 For Login
 ```
@@ -55,11 +67,13 @@ Password : helloworld
 ```
 
 Run this project on localhost
-```
-php artisan serve
-```
+
+    ```php
+    php artisan serve
+    ```
 
 This project will run on this server:
-```
-http://localhost:8000/
-```
+
+    ```
+    http://localhost:8000/
+    ```
