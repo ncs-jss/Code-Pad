@@ -20,16 +20,16 @@ Fork and Clone this repo or download it on your local system.
 
 Open composer and run this given command.
 
-    ```shell
-    composer install
-    composer update
-    ```
+```shell
+composer install
+composer update
+```
 
 After installing composer, Rename the file `.env.example` to `.env`.
 
-    ```shell
-    cp .env.example .env
-    ```
+```shell
+cp .env.example .env
+```
 
 Generate the Application key
 
