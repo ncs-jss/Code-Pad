@@ -33,21 +33,21 @@ cp .env.example .env
 
 Generate the Application key
 
-    ```php
-    php artisan key:generate
-    ```
+```php
+php artisan key:generate
+```
 
 Migrate the database.
 
-    ```php
-    php artisan migrate
-    ```
+```php
+php artisan migrate
+```
 
 Seed the database
 
-    ```php
-    php artisan db:seed
-    ```
+```php
+php artisan db:seed
+```
 
 Set db credentials in `.env` and run the project.
 
@@ -68,12 +68,12 @@ Password : helloworld
 
 Run this project on localhost
 
-    ```php
-    php artisan serve
-    ```
+```php
+php artisan serve
+```
 
 This project will run on this server:
 
-    ```
-    http://localhost:8000/
-    ```
+```
+http://localhost:8000/
+```
