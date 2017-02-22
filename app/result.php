@@ -13,7 +13,7 @@ class Result extends Model
      */
     protected $table = 'result';
 
-     protected $fillable = [
+    protected $fillable = [
         'student_id',
         'time',
         'score',
