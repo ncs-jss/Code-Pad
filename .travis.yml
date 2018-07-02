@@ -7,7 +7,7 @@ php:
 
 before_install:
   - cp .env.travis .env
-  - composer require phpunit/phpunit:4.8.* satooshi/php-coveralls:dev-master
+  - composer require phpunit/phpunit:4.8.* php-coveralls/php-coveralls:^2.1
   - composer install --dev --ignore-platform-reqs
   - php artisan key:generate
   - mysql -e 'CREATE DATABASE compiler;'
