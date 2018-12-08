@@ -30,6 +30,7 @@ After installing composer, Rename the file `.env.example` to `.env`.
 ```shell
 cp .env.example .env
 ```
+Set db credentials in `.env` and run the project.
 
 Generate the Application key
 
@@ -48,8 +49,6 @@ Seed the database
 ```php
 php artisan db:seed
 ```
-
-Set db credentials in `.env` and run the project.
 
 For Login
 ```
